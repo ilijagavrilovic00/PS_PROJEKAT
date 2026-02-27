@@ -4,8 +4,15 @@
  */
 package niti;
 
+import controller.Controller;
+import domen.Iznajmljivanje;
+import domen.Klijent;
+import domen.Mesto;
+import domen.StavkaIznajmljivanja;
+import domen.Zaposleni;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import komunikacija.Odgovor;
@@ -31,20 +38,70 @@ public class ObradaKlijentskihZahteva extends Thread{
     
     @Override
     public void run() {
+       
         while(!kraj){
+           try {
            Zahtev zahtev =(Zahtev) primalac.primi();
            Odgovor odgovor = new Odgovor();
            
+           if(zahtev==null){
+               System.out.println("Klijent je zatvorio vezu!");
+               kraj = true;
+               continue;
+           }
+           
             switch (zahtev.getOperacija()) {
-               // case val:
-                    
-                 //   break;
+               case LOGIN:
+                    Zaposleni z = (Zaposleni) zahtev.getParametar();
+                    z = Controller.getInstance().login(z);
+                    odgovor.setOdgovor(z);
+                    break;
+                case UCITAJ_KLIJENTE:
+                    List<Klijent> klijenti = Controller.getInstance().ucitajKlijente();
+                    odgovor.setOdgovor(klijenti);
+                    break;
+                case OBRISI_KLIJENTA:
+                    try{
+                    Klijent k = (Klijent) zahtev.getParametar();
+                    Controller.getInstance().obrisiKlijenta(k);
+                    odgovor.setOdgovor(null);
+                    }catch(Exception e){
+                        odgovor.setOdgovor(e);
+                    }
+                    break; 
+                case DODAJ_KLIJENTA:
+                    Klijent k = (Klijent) zahtev.getParametar();
+                    Controller.getInstance().dodajKlijenta(k);
+                    odgovor.setOdgovor(null);
+                    break;
+                case UCITAJ_MESTA:
+                    List<Mesto> mesta = Controller.getInstance().ucitajMesta();
+                    odgovor.setOdgovor(mesta);
+                    break;
+                case AZURIRAJ_KLIJENTA:
+                    Klijent k2 = (Klijent) zahtev.getParametar();
+                    Controller.getInstance().azurirajKlijenta(k2);
+                    odgovor.setOdgovor(null);
+                    break;
+                case UCITAJ_IZNAJMLJIVANJA:
+                    List<Iznajmljivanje> i = Controller.getInstance().ucitajIznajmljivanja();
+                    odgovor.setOdgovor(null);
+                    break;
+                case UCITAJ_STAVKE:
+                    List<StavkaIznajmljivanja> stavke = Controller.getInstance().ucitajStavke((long)zahtev.getParametar());
+                    odgovor.setOdgovor(null);
+                    break;
                 default:
                     System.out.println("GRESKA, OPERACIJA NE POSTOJI!");
             }
             posiljalac.posalji(odgovor);
+            }catch (Exception ex) {
+                Logger.getLogger(ObradaKlijentskihZahteva.class.getName()).log(Level.SEVERE, null, ex);
+                kraj = true;
+            }
         }
         
+       prekini(); 
     }
     
     public void prekini(){

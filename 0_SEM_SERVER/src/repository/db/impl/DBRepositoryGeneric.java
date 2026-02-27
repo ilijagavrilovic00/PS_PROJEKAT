@@ -1,4 +1,4 @@
-/*
+ /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -21,7 +21,7 @@ public class DBRepositoryGeneric implements DBRepository<ApstraktniDomenskiObjek
     @Override
     public List<ApstraktniDomenskiObjekat> getAll(ApstraktniDomenskiObjekat param, String uslov) throws Exception {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
-        String upit = "SELECT FROM "+ param.vratiNazivTabele();
+        String upit = "SELECT * FROM "+ param.vratiNazivTabele()+param.vratiJoinUslov();
         if(uslov!=null){
             upit+=uslov;
         }
@@ -45,7 +45,7 @@ public class DBRepositoryGeneric implements DBRepository<ApstraktniDomenskiObjek
 
     @Override
     public void edit(ApstraktniDomenskiObjekat param) throws Exception {
-        String upit = "UPDATE "+param.vratiNazivTabele()+" SET "+param.vratiVrednostiZaIzmenu();
+        String upit = "UPDATE "+param.vratiNazivTabele()+" SET "+param.vratiVrednostiZaIzmenu()+" WHERE "+param.vratiPrimarniKljuc();
         Statement st = DBConnectionFactory.getInstance().getConnection().createStatement();
         st.executeUpdate(upit);
         st.close();
