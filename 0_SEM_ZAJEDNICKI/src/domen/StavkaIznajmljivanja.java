@@ -5,6 +5,7 @@
 package domen;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -137,7 +138,23 @@ public class StavkaIznajmljivanja  implements ApstraktniDomenskiObjekat{
 
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
+        while(rs.next()){
+            StavkaIznajmljivanja stavka = new StavkaIznajmljivanja();
+            stavka.setRb(rs.getInt("rb"));
+            stavka.setBrojDana(rs.getInt("brojDana"));
+            stavka.setCenaPoDanu(rs.getDouble("cenaPoDanu"));
+            
+            DrustvenaIgra di = new DrustvenaIgra();
+            di.setCena(rs.getDouble("drustvena_igra.cena"));
+            di.setNaziv(rs.getString("naziv"));
+            di.setOpis(rs.getString("opis"));
+            di.setIdDrustvenaIgra(rs.getLong("idDrustvenaIgra"));
+            
+            stavka.setDrustvenaIgra(di);
+            lista.add(stavka);
+        }
+        return lista;
     }
 
     @Override
@@ -169,6 +186,11 @@ public class StavkaIznajmljivanja  implements ApstraktniDomenskiObjekat{
     @Override
     public String vratiVrednostiZaIzmenu() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public String vratiJoinUslov() {
+        return "";
     }
     
     

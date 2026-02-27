@@ -26,4 +26,6 @@ public interface ApstraktniDomenskiObjekat extends Serializable {
     public ApstraktniDomenskiObjekat vratiObjekatIzRS(ResultSet rs) throws Exception;
     
     public String vratiVrednostiZaIzmenu();
+    
+    public String vratiJoinUslov();
 }

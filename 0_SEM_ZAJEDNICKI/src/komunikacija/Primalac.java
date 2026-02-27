@@ -6,8 +6,6 @@ package komunikacija;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
 import java.net.Socket;
 
 /**
@@ -16,17 +14,21 @@ import java.net.Socket;
  */
 public class Primalac {
     private Socket socket;
+    private ObjectInputStream in;
 
     public Primalac(Socket socket) {
         this.socket = socket;
+        try {
+            this.in = new ObjectInputStream(socket.getInputStream());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
     
     public Object primi(){
         try {
-            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
             return in.readObject();
         } catch (Exception ex) {
-            ex.printStackTrace();
         }
         return null;
     }

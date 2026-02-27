@@ -112,6 +112,11 @@ public class Smena implements ApstraktniDomenskiObjekat{
     public String vratiVrednostiZaIzmenu() {
         return "tipSmene='"+tipSmene+"'";
     }
+
+    @Override
+    public String vratiJoinUslov() {
+        return "";
+    }
     
     
 }

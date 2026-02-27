@@ -99,24 +99,20 @@ public class Zaposleni implements ApstraktniDomenskiObjekat{
             return false;
         }
         final Zaposleni other = (Zaposleni) obj;
-        if (this.idZaposleni != other.idZaposleni) {
-            return false;
-        }
-        if (!Objects.equals(this.ime, other.ime)) {
-            return false;
-        }
-        if (!Objects.equals(this.prezime, other.prezime)) {
-            return false;
-        }
-        if (!Objects.equals(this.brojTelefona, other.brojTelefona)) {
-            return false;
-        }
         if (!Objects.equals(this.korisnickoIme, other.korisnickoIme)) {
             return false;
         }
         return Objects.equals(this.sifra, other.sifra);
     }
 
+    @Override
+    public String toString() {
+        return ime + " " + prezime;
+    }
+    
+    
+
+   
     @Override
     public String vratiNazivTabele() {
         return "zaposleni";
@@ -168,6 +164,11 @@ public class Zaposleni implements ApstraktniDomenskiObjekat{
        "', brojTelefona='"+brojTelefona+
        "', korisnickoIme='"+korisnickoIme+
        "', sifra='"+sifra+"'";
+    }
+
+    @Override
+    public String vratiJoinUslov() {
+        return "";
     }
     
     

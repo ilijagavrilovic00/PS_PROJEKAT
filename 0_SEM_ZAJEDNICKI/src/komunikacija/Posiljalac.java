@@ -16,18 +16,22 @@ import java.util.logging.Logger;
  */
 public class Posiljalac {
     private Socket socket;
+    private ObjectOutputStream out;
 
     public Posiljalac(Socket socket) {
         this.socket = socket;
+        try {
+            this.out = new ObjectOutputStream(socket.getOutputStream());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
     
     public void posalji(Object obj){
         try {
-            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             out.writeObject(obj);
             out.flush();
         } catch (Exception ex) {
-            ex.printStackTrace();
         }
     }
 }

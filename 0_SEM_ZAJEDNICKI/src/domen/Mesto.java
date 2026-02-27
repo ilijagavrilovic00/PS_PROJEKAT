@@ -43,31 +43,20 @@ public class Mesto implements ApstraktniDomenskiObjekat {
 
     @Override
     public String toString() {
-        return "Mesto{" + "naziv=" + naziv + '}';
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        return hash;
+        return naziv;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Mesto other = (Mesto) obj;
-        if (this.idMesto != other.idMesto) {
-            return false;
-        }
-        return Objects.equals(this.naziv, other.naziv);
+        if (this == obj) return true;
+        if (!(obj instanceof Mesto)) return false;
+        Mesto m = (Mesto) obj;
+        return this.idMesto == m.idMesto;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idMesto);
     }
 
     @Override
@@ -114,6 +103,11 @@ public class Mesto implements ApstraktniDomenskiObjekat {
     @Override
     public String vratiVrednostiZaIzmenu() {
         return "naziv='" + naziv + "'";
+    }
+
+    @Override
+    public String vratiJoinUslov() {
+        return "";
     }
 
     

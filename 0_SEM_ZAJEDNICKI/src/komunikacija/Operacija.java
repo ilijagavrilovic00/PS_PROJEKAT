@@ -12,6 +12,5 @@ import java.io.Serializable;
  */
 public enum Operacija implements Serializable{
     LOGIN,
-    A,
-    B;
+    UCITAJ_KLIJENTE, OBRISI_KLIJENTA, DODAJ_KLIJENTA, UCITAJ_MESTA, AZURIRAJ_KLIJENTA, UCITAJ_IZNAJMLJIVANJA, UCITAJ_STAVKE;
 }

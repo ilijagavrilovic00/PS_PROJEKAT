@@ -137,6 +137,12 @@ public class DrustvenaIgra implements ApstraktniDomenskiObjekat {
            "opis='" + opis + "'";
     }
 
+    @Override
+    public String vratiJoinUslov() {
+        return "";
+    }
+
+    
     
     
 }

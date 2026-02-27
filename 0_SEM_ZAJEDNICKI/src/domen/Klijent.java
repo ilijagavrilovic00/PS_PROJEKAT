@@ -5,6 +5,7 @@
 package domen;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +14,7 @@ import java.util.Objects;
  * @author ilija
  */
 public class Klijent implements ApstraktniDomenskiObjekat {
-    private int idKlijent;
+    private long idKlijent;
     private String ime;
     private String prezime;
     private String brojTelefona;
@@ -22,7 +23,7 @@ public class Klijent implements ApstraktniDomenskiObjekat {
     public Klijent() {
     }
 
-    public Klijent(int idKlijent, String ime, String prezime, String brojTelefona, Mesto mesto) {
+    public Klijent(long idKlijent, String ime, String prezime, String brojTelefona, Mesto mesto) {
         this.idKlijent = idKlijent;
         this.ime = ime;
         this.prezime = prezime;
@@ -30,11 +31,11 @@ public class Klijent implements ApstraktniDomenskiObjekat {
         this.mesto = mesto;
     }
 
-    public int getIdKlijent() {
+    public long getIdKlijent() {
         return idKlijent;
     }
 
-    public void setIdKlijent(int idKlijent) {
+    public void setIdKlijent(long idKlijent) {
         this.idKlijent = idKlijent;
     }
 
@@ -107,12 +108,28 @@ public class Klijent implements ApstraktniDomenskiObjekat {
     public String vratiNazivTabele() {
         return "klijent";
     }
+    
 
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
+    while (rs.next()) {
+        Mesto m = new Mesto();
+        m.setIdMesto(rs.getLong("idMesto")); // Kolona iz tabele Mesto ili FK iz Klijenta
+        m.setNaziv(rs.getString("naziv"));
+        
+        Klijent k = new Klijent();
+        k.setIdKlijent(rs.getLong("idKlijent"));
+        k.setIme(rs.getString("ime"));
+        k.setPrezime(rs.getString("prezime"));
+        k.setBrojTelefona(rs.getString("brojTelefona"));
+        k.setMesto(m);
+        
+        lista.add(k);
     }
-
+        return lista;
+    }
+    
     @Override
     public String vratiKoloneZaUbacivanje() {
         return "ime, prezime, brojTelefona, idMesto";
@@ -141,6 +158,11 @@ public class Klijent implements ApstraktniDomenskiObjekat {
            "brojTelefona='" + brojTelefona + "', " +
            "idMesto=" + mesto.getIdMesto();
 }
+
+    @Override
+    public String vratiJoinUslov() {
+        return " k JOIN mesto m ON k.idMesto = m.idMesto";
+    }
 
     
     
