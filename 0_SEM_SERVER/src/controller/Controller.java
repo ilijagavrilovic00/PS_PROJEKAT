@@ -4,12 +4,14 @@
  */
 package controller;
 
+import domen.DrustvenaIgra;
 import domen.Racun;
 import domen.Klijent;
 import domen.Mesto;
 import domen.StavkaRacuna;
 import domen.Zaposleni;
 import java.util.List;
+import operacije.igre.UcitajIgreSO;
 import operacije.racun.ObrisiRacunSO;
 import operacije.racun.UcitajRacuneSO;
 import operacije.klijenti.AzurirajKlijentaSO;
@@ -19,6 +21,7 @@ import operacije.klijenti.UcitajKlijenteSO;
 import operacije.login.LoginOperacija;
 import operacije.mesta.UcitajMestaSO;
 import operacije.stavke.UcitajStavkeSO;
+import operacije.zaposleni.UcitajZaposleneSO;
 
 /**
  *
@@ -84,5 +87,17 @@ public class Controller {
     public void obrisiRacun(Racun i) throws Exception {
         ObrisiRacunSO operacija = new ObrisiRacunSO();
         operacija.izvrsi(i, null);
+    }
+
+    public List<Zaposleni> ucitajZaposlene() throws Exception {
+        UcitajZaposleneSO operacija = new UcitajZaposleneSO();
+        operacija.izvrsi(new Zaposleni(), null);
+        return operacija.getZaposleni();
+    }
+
+    public List<DrustvenaIgra> ucitajIgre() throws Exception {
+        UcitajIgreSO operacija = new UcitajIgreSO();
+        operacija.izvrsi(new DrustvenaIgra(), null);
+        return operacija.getIgre();
     }
 }

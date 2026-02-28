@@ -5,6 +5,7 @@
 package niti;
 
 import controller.Controller;
+import domen.DrustvenaIgra;
 import domen.Racun;
 import domen.Klijent;
 import domen.Mesto;
@@ -99,6 +100,14 @@ public class ObradaKlijentskihZahteva extends Thread{
                     }catch(Exception e){
                         odgovor.setOdgovor(e);
                     }
+                    break;
+                case UCITAJ_ZAPOSLENE:
+                    List<Zaposleni> zaposleni = Controller.getInstance().ucitajZaposlene();
+                    odgovor.setOdgovor(zaposleni);
+                    break;
+                case UCITAJ_IGRE:
+                    List<DrustvenaIgra> igre = Controller.getInstance().ucitajIgre();
+                    odgovor.setOdgovor(igre);
                     break;
                 default:
                     System.out.println("GRESKA, OPERACIJA NE POSTOJI!");
