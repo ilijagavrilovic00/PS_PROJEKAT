@@ -16,7 +16,7 @@ import javax.swing.table.AbstractTableModel;
 public class ModelTabeleStavkeIznajmljivanja extends AbstractTableModel {
     List<StavkaIznajmljivanja> lista;
     List<StavkaIznajmljivanja> originalnaLista;
-    String[] kolone ={"rb", "broj dana", "cena po danu", "drustvena igra"};
+    String[] kolone ={"rb", "kolicina", "cena", "drustvena igra"};
 
     public ModelTabeleStavkeIznajmljivanja(List<StavkaIznajmljivanja> lista) {
         this.lista = lista;
@@ -43,9 +43,9 @@ public class ModelTabeleStavkeIznajmljivanja extends AbstractTableModel {
         StavkaIznajmljivanja si = lista.get(rowIndex);
         switch (columnIndex) {
             case 0: return si.getRb();
-            case 1: return si.getBrojDana();
-            case 2: return si.getCenaPoDanu();
-            case 3: return si.getDrustvenaIgra().getNaziv();
+            case 1: return si.getKolicina();
+            case 2: return si.getCena();
+            case 4: return si.getDrustvenaIgra().getNaziv();
             default: return "NA";
         }
     }

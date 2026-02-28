@@ -57,6 +57,10 @@ public class PrikazIznajmljivanjaController {
                     ModelTabeleIznajmljivanja mti = (ModelTabeleIznajmljivanja) pi.getTblIznajmljivanja().getModel();
                     Iznajmljivanje i = mti.getLista().get(red);
                     List<StavkaIznajmljivanja> stavke = Komunikacija.getInstance().ucitajStavke(i.getIdIznajmljivanje());
+                    //novo
+                    i.setStavke(stavke);
+                    mti.fireTableRowsUpdated(red, red);
+                    //
                     ModelTabeleStavkeIznajmljivanja mtsi = new ModelTabeleStavkeIznajmljivanja(stavke);
                     pi.getTblStavke().setModel(mtsi);
                 }

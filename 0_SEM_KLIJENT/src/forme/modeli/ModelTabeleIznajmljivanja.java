@@ -5,11 +5,8 @@
 package forme.modeli;
 
 import domen.Iznajmljivanje;
-import domen.Klijent;
-import domen.Mesto;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -19,7 +16,7 @@ import javax.swing.table.AbstractTableModel;
 public class ModelTabeleIznajmljivanja extends AbstractTableModel {
     List<Iznajmljivanje> lista;
     List<Iznajmljivanje> originalnaLista;
-    String[] kolone ={"id", "zaposleni", "klijent"};
+    String[] kolone ={"id", "datum", "klijent", "ukupan iznos"};
 
     public ModelTabeleIznajmljivanja(List<Iznajmljivanje> lista) {
         this.lista = lista;
@@ -46,8 +43,9 @@ public class ModelTabeleIznajmljivanja extends AbstractTableModel {
         Iznajmljivanje i = lista.get(rowIndex);
         switch (columnIndex) {
             case 0: return i.getIdIznajmljivanje();
-            case 1: return i.getZaposleni();
+            case 1: return i.getDatum();
             case 2: return i.getKlijent();
+            case 3: return i.getUkupanIznos();
             default: return "NA";
         }
     }
