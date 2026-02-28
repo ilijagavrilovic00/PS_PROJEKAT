@@ -144,5 +144,18 @@ public class Komunikacija {
         return stavke;
         
     }
+
+    public void obrisiIznajmljivanje(Iznajmljivanje i) throws Exception {
+       Zahtev zahtev = new Zahtev(Operacija.OBRISI_IZNAJMLJIVANJE, i);
+        posiljalac.posalji(zahtev);
+        Odgovor odg = (Odgovor) primalac.primi();
+        if(odg.getOdgovor()==null){
+            System.out.println("USPEH");
+        }else{
+            System.out.println("GRESKA NISI");
+            ((Exception)odg.getOdgovor()).printStackTrace();
+            throw new Exception("GRESKA");
+        }
+    }
    
 }

@@ -5,6 +5,8 @@
 package forme;
 
 import domen.Mesto;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JTable;
 
 /**
@@ -141,6 +143,14 @@ public class PrikazIznajmljivanjaForma extends javax.swing.JFrame {
     public void setTblStavke(JTable tblStavke) {
         this.tblStavke = tblStavke;
     }
+
+    public JButton getBtnObrisi() {
+        return btnObrisi;
+    }
+
+    public void setBtnObrisi(JButton btnObrisi) {
+        this.btnObrisi = btnObrisi;
+    }
    
     
     
@@ -156,4 +166,12 @@ public class PrikazIznajmljivanjaForma extends javax.swing.JFrame {
     private javax.swing.JTable tblIznajmljivanja;
     private javax.swing.JTable tblStavke;
     // End of variables declaration//GEN-END:variables
+
+    public void obrisiAddActionListener(ActionListener actionListener) {
+        btnObrisi.addActionListener(actionListener);
+    }
+    public void azuriranjeAddActionListener(ActionListener actionListener) {
+        btnAzuriraj.addActionListener(actionListener);
+    }
+
 }
