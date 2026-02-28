@@ -10,6 +10,7 @@ import domen.Mesto;
 import domen.StavkaIznajmljivanja;
 import domen.Zaposleni;
 import java.util.List;
+import operacije.iznajmljivanja.ObrisiIznajmljivanjeSO;
 import operacije.iznajmljivanja.UcitajIznajmljivanjaSO;
 import operacije.klijenti.AzurirajKlijentaSO;
 import operacije.klijenti.KreirajKlijentaSO;
@@ -78,5 +79,10 @@ public class Controller {
         UcitajStavkeSO operacija = new UcitajStavkeSO();
         operacija.izvrsi(id,null);
         return operacija.getStavke();
+    }
+
+    public void obrisiIznajmljivanje(Iznajmljivanje i) throws Exception {
+        ObrisiIznajmljivanjeSO operacija = new ObrisiIznajmljivanjeSO();
+        operacija.izvrsi(i, null);
     }
 }

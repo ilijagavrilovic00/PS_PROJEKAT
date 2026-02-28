@@ -91,6 +91,15 @@ public class ObradaKlijentskihZahteva extends Thread{
                     List<StavkaIznajmljivanja> stavke = Controller.getInstance().ucitajStavke((long)zahtev.getParametar());
                     odgovor.setOdgovor(null);
                     break;
+                case OBRISI_IZNAJMLJIVANJE:
+                    try{
+                    Iznajmljivanje i1 = (Iznajmljivanje) zahtev.getParametar();
+                    Controller.getInstance().obrisiIznajmljivanje(i1);
+                    odgovor.setOdgovor(null);
+                    }catch(Exception e){
+                        odgovor.setOdgovor(e);
+                    }
+                    break;
                 default:
                     System.out.println("GRESKA, OPERACIJA NE POSTOJI!");
             }
