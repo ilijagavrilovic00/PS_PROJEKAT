@@ -6,6 +6,7 @@ package domen;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,21 +15,26 @@ import java.util.Objects;
  * @author ilija
  */
 public class Iznajmljivanje implements ApstraktniDomenskiObjekat{
+    private static final int GRANICA_ZA_POPUST = 5;
+    private static final double PROCENAT_POPUSTA = 0.10;
+    
     private long idIznajmljivanje;
     private double ukupanIznos;
     private Zaposleni zaposleni;
+    private Date datum;
     private Klijent klijent;
     private List<StavkaIznajmljivanja> stavke;
 
     public Iznajmljivanje() {
     }
 
-    public Iznajmljivanje(long idIznajmljivanje, double ukupanIznos, Zaposleni zaposleni, Klijent klijent, List<StavkaIznajmljivanja> stavke) {
+    public Iznajmljivanje(long idIznajmljivanje, double ukupanIznos, Date datum, Zaposleni zaposleni, Klijent klijent, List<StavkaIznajmljivanja> stavke) {
         this.idIznajmljivanje = idIznajmljivanje;
         this.ukupanIznos = ukupanIznos;
         this.zaposleni = zaposleni;
         this.klijent = klijent;
         this.stavke = stavke;
+        this.datum = datum;
     }
     
     public Iznajmljivanje(long idIznajmljivanje, double ukupanIznos, Zaposleni zaposleni, Klijent klijent) {
@@ -38,6 +44,15 @@ public class Iznajmljivanje implements ApstraktniDomenskiObjekat{
         this.klijent = klijent;
     }
 
+    public Date getDatum() {
+        return datum;
+    }
+
+    public void setDatum(Date datum) {
+        this.datum = datum;
+    }
+
+    
     public long getIdIznajmljivanje() {
         return idIznajmljivanje;
     }
@@ -76,6 +91,7 @@ public class Iznajmljivanje implements ApstraktniDomenskiObjekat{
 
     public void setStavke(List<StavkaIznajmljivanja> stavke) {
         this.stavke = stavke;
+        this.ukupanIznos = izracunajUkupanIznosSaPopustom();
     }
 
     
@@ -109,10 +125,6 @@ public class Iznajmljivanje implements ApstraktniDomenskiObjekat{
         return Objects.equals(this.klijent, other.klijent);
     }
 
-    @Override
-    public String toString() {
-        return "Iznajmljivanje{" + "idIznajmljivanje=" + idIznajmljivanje + ", ukupanIznos=" + ukupanIznos + ", zaposleni=" + zaposleni + ", klijent=" + klijent + ", stavke=" + stavke + '}';
-    }
  
     @Override
     public String vratiNazivTabele() {
@@ -126,7 +138,8 @@ public class Iznajmljivanje implements ApstraktniDomenskiObjekat{
             Iznajmljivanje iznajmljivanje = new Iznajmljivanje();
             iznajmljivanje.setIdIznajmljivanje(rs.getLong("idIznajmljivanje"));
             iznajmljivanje.setUkupanIznos(rs.getDouble("ukupanIznos"));
-            
+            iznajmljivanje.setDatum(rs.getDate("datum"));
+            // ovde potencijalno greska zbog prebacivanja datuma iz sql tip u java tip
             Zaposleni zaposleni = new Zaposleni();
             zaposleni.setIdZaposleni(rs.getLong("idZaposleni"));
             zaposleni.setIme(rs.getString("zaposleni.ime"));
@@ -147,12 +160,12 @@ public class Iznajmljivanje implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiKoloneZaUbacivanje() {
-        return "ukupanIznos, idZaposleni, idKlijent";
+        return "datum, ukupanIznos, idZaposleni, idKlijent";
     }
 
     @Override
     public String vratiVrednostiZaUbacivanje() {
-        return ukupanIznos + "," +
+        return "'" + new java.sql.Date(datum.getTime()) + "'," + ukupanIznos + "," +
            zaposleni.getIdZaposleni() + "," +
            klijent.getIdKlijent();
     }
@@ -170,7 +183,8 @@ public class Iznajmljivanje implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiVrednostiZaIzmenu() {    
-        return "ukupanIznos=" + ukupanIznos + ", " +
+        return "datum='" + new java.sql.Date(datum.getTime())+ "'," +
+           "ukupanIznos=" + ukupanIznos + ", " +
            "idZaposleni=" + zaposleni.getIdZaposleni() + ", " +
            "idKlijent=" + klijent.getIdKlijent();
     }
@@ -178,6 +192,29 @@ public class Iznajmljivanje implements ApstraktniDomenskiObjekat{
     @Override
     public String vratiJoinUslov() {
         return "";
+    }
+
+    public int izracunajUkupnuKolicinu(){
+        if(stavke==null){
+            return 0;
+        }
+        return stavke.stream().mapToInt(StavkaIznajmljivanja::getKolicina).sum();
+    }
+    
+    private double izracunajUkupanIznosSaPopustom() {
+        if(stavke==null || stavke.isEmpty()){
+            return ukupanIznos;
+        }
+        
+        double osnovniIznos = stavke.stream()
+                .mapToDouble(StavkaIznajmljivanja::izracunajIznos)
+                .sum();
+        
+        if(izracunajUkupnuKolicinu() >= GRANICA_ZA_POPUST){
+            return osnovniIznos * (1-PROCENAT_POPUSTA);
+        }
+        
+        return osnovniIznos;
     }
 
     

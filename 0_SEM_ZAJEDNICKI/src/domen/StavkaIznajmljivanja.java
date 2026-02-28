@@ -6,7 +6,6 @@ package domen;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,13 +14,11 @@ import java.util.Objects;
  * @author ilija
  */
 public class StavkaIznajmljivanja  implements ApstraktniDomenskiObjekat{
+    private static final int PODRAZUMEVANA_KOLICINA = 1;
     private Iznajmljivanje iznajmljivanje;
     private int rb;
-    private Date datumIznajmljivanja;
-    private Date datumVracanja;
-    private int brojDana;
-    private double cenaPoDanu;
-    private double iznos;
+    private double cena;
+    private int kolicina = PODRAZUMEVANA_KOLICINA;
     private DrustvenaIgra drustvenaIgra;
 
     public Iznajmljivanje getIznajmljivanje() {
@@ -41,46 +38,23 @@ public class StavkaIznajmljivanja  implements ApstraktniDomenskiObjekat{
         this.rb = rb;
     }
 
-    public Date getDatumIznajmljivanja() {
-        return datumIznajmljivanja;
+    public double getCena() {
+        return cena;
     }
 
-    public void setDatumIznajmljivanja(Date datumIznajmljivanja) {
-        this.datumIznajmljivanja = datumIznajmljivanja;
+    public void setCena(double cena) {
+        this.cena = cena;
     }
 
-    public Date getDatumVracanja() {
-        return datumVracanja;
+    public int getKolicina() {
+        return kolicina;
     }
 
-    public void setDatumVracanja(Date datumVracanja) {
-        this.datumVracanja = datumVracanja;
+    public void setKolicina(int kolicina) {
+        if(kolicina<=0) this.kolicina = PODRAZUMEVANA_KOLICINA;
+        else this.kolicina = kolicina;
     }
-
-    public int getBrojDana() {
-        return brojDana;
-    }
-
-    public void setBrojDana(int brojDana) {
-        this.brojDana = brojDana;
-    }
-
-    public double getCenaPoDanu() {
-        return cenaPoDanu;
-    }
-
-    public void setCenaPoDanu(double cenaPoDanu) {
-        this.cenaPoDanu = cenaPoDanu;
-    }
-
-    public double getIznos() {
-        return iznos;
-    }
-
-    public void setIznos(double iznos) {
-        this.iznos = iznos;
-    }
-
+    
     public DrustvenaIgra getDrustvenaIgra() {
         return drustvenaIgra;
     }
@@ -88,10 +62,15 @@ public class StavkaIznajmljivanja  implements ApstraktniDomenskiObjekat{
     public void setDrustvenaIgra(DrustvenaIgra drustvenaIgra) {
         this.drustvenaIgra = drustvenaIgra;
     }
+    
+    public double izracunajIznos() {
+        return kolicina * cena;
+    }
 
     @Override
     public int hashCode() {
-        int hash = 5;
+        int hash = 7;
+        hash = 89*hash+this.rb;
         return hash;
     }
 
@@ -110,22 +89,14 @@ public class StavkaIznajmljivanja  implements ApstraktniDomenskiObjekat{
         if (this.rb != other.rb) {
             return false;
         }
-        if (this.brojDana != other.brojDana) {
+        if (this.kolicina != other.kolicina) {
             return false;
         }
-        if (Double.doubleToLongBits(this.cenaPoDanu) != Double.doubleToLongBits(other.cenaPoDanu)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.iznos) != Double.doubleToLongBits(other.iznos)) {
-            return false;
-        }
+        
         if (!Objects.equals(this.iznajmljivanje, other.iznajmljivanje)) {
             return false;
         }
-        if (!Objects.equals(this.datumIznajmljivanja, other.datumIznajmljivanja)) {
-            return false;
-        }
-        if (!Objects.equals(this.datumVracanja, other.datumVracanja)) {
+        if (Double.doubleToLongBits(this.cena) != Double.doubleToLongBits(other.cena)) {
             return false;
         }
         return Objects.equals(this.drustvenaIgra, other.drustvenaIgra);
@@ -142,8 +113,8 @@ public class StavkaIznajmljivanja  implements ApstraktniDomenskiObjekat{
         while(rs.next()){
             StavkaIznajmljivanja stavka = new StavkaIznajmljivanja();
             stavka.setRb(rs.getInt("rb"));
-            stavka.setBrojDana(rs.getInt("brojDana"));
-            stavka.setCenaPoDanu(rs.getDouble("cenaPoDanu"));
+            stavka.setKolicina(rs.getInt("kolicina"));
+            stavka.setCena(rs.getDouble("cena"));
             
             DrustvenaIgra di = new DrustvenaIgra();
             di.setCena(rs.getDouble("drustvena_igra.cena"));
@@ -159,17 +130,14 @@ public class StavkaIznajmljivanja  implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiKoloneZaUbacivanje() {
-        return "rb, datumIznajmljivanja, datumVracanja, brojDana, cenaPoDanu, iznos, idDrustvenaIgra";
+        return "rb, kolicina, cena, idDrustvenaIgra";
     }
 
     @Override
     public String vratiVrednostiZaUbacivanje() {
         return rb + "," +
-            "'" + new java.sql.Date(datumIznajmljivanja.getTime()) + "'," +
-            "'" + new java.sql.Date(datumVracanja.getTime()) + "'," +
-            brojDana + "," +
-            cenaPoDanu + "," +
-            iznos + "," +
+            kolicina + "," +
+            cena + "," +
             drustvenaIgra.getIdDrustvenaIgra();
     }
 
@@ -192,6 +160,4 @@ public class StavkaIznajmljivanja  implements ApstraktniDomenskiObjekat{
     public String vratiJoinUslov() {
         return "";
     }
-    
-    
 }

@@ -164,7 +164,4 @@ public class Klijent implements ApstraktniDomenskiObjekat {
         return " k JOIN mesto m ON k.idMesto = m.idMesto";
     }
 
-    
-    
-    
 }

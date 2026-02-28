@@ -116,7 +116,5 @@ public class Smena implements ApstraktniDomenskiObjekat{
     @Override
     public String vratiJoinUslov() {
         return "";
-    }
-    
-    
+    } 
 }

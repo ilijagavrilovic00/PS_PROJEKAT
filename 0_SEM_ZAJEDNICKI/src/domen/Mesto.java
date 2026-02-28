@@ -109,7 +109,5 @@ public class Mesto implements ApstraktniDomenskiObjekat {
     public String vratiJoinUslov() {
         return "";
     }
-
-    
-    
+  
 }
