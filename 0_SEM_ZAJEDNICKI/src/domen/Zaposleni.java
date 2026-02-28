@@ -109,9 +109,6 @@ public class Zaposleni implements ApstraktniDomenskiObjekat{
     public String toString() {
         return ime + " " + prezime;
     }
-    
-    
-
    
     @Override
     public String vratiNazivTabele() {

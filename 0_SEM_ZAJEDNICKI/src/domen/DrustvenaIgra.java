@@ -63,7 +63,7 @@ public class DrustvenaIgra implements ApstraktniDomenskiObjekat {
 
     @Override
     public String toString() {
-        return "DrustvenaIgra{" + "naziv=" + naziv + ", cena=" + cena + '}';
+        return naziv+" : "+cena;
     }
 
     @Override
