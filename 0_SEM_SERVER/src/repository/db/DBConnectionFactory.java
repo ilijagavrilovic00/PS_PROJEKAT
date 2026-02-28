@@ -41,10 +41,6 @@ public class DBConnectionFactory {
 
     public Connection getConnection() {
         return connection;
-    }
-    
-    
-    
-    
+    } 
     
 }
