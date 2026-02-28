@@ -4,6 +4,7 @@
  */
 package communication;
 
+import domen.DrustvenaIgra;
 import domen.Racun;
 import domen.Klijent;
 import domen.Mesto;
@@ -156,6 +157,28 @@ public class Komunikacija {
             ((Exception)odg.getOdgovor()).printStackTrace();
             throw new Exception("GRESKA");
         }
+    }
+
+    public List<Zaposleni> ucitajZaposlene() {
+        Zahtev zahtev = new Zahtev(Operacija.UCITAJ_ZAPOSLENE, null);
+        List<Zaposleni> zaposleni = new ArrayList<>();
+        
+        posiljalac.posalji(zahtev);
+        Odgovor odg = (Odgovor) primalac.primi();
+        
+        zaposleni = (List<Zaposleni>) odg.getOdgovor();
+        return zaposleni;
+    }
+
+    public List<DrustvenaIgra> ucitajDrustveneIgre() {
+        Zahtev zahtev = new Zahtev(Operacija.UCITAJ_IGRE, null);
+        List<DrustvenaIgra> igre = new ArrayList<>();
+        
+        posiljalac.posalji(zahtev);
+        Odgovor odg = (Odgovor) primalac.primi();
+        
+        igre = (List<DrustvenaIgra>) odg.getOdgovor();
+        return igre;
     }
    
 }
