@@ -13,12 +13,12 @@ import javax.swing.JTable;
  *
  * @author ilija
  */
-public class PrikazIznajmljivanjaForma extends javax.swing.JFrame {
+public class PrikazRacunaForma extends javax.swing.JFrame {
 
     /**
      * Creates new form PrikazIznajmljivanjaForma
      */
-    public PrikazIznajmljivanjaForma() {
+    public PrikazRacunaForma() {
         initComponents();
     }
 
@@ -34,7 +34,7 @@ public class PrikazIznajmljivanjaForma extends javax.swing.JFrame {
         btnObrisi = new javax.swing.JButton();
         btnAzuriraj = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblIznajmljivanja = new javax.swing.JTable();
+        tblRacuni = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblStavke = new javax.swing.JTable();
         btnObrisiStavku = new javax.swing.JButton();
@@ -46,7 +46,7 @@ public class PrikazIznajmljivanjaForma extends javax.swing.JFrame {
 
         btnAzuriraj.setText("Azuriraj");
 
-        tblIznajmljivanja.setModel(new javax.swing.table.DefaultTableModel(
+        tblRacuni.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -57,7 +57,7 @@ public class PrikazIznajmljivanjaForma extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblIznajmljivanja);
+        jScrollPane1.setViewportView(tblRacuni);
 
         tblStavke.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -125,15 +125,15 @@ public class PrikazIznajmljivanjaForma extends javax.swing.JFrame {
      * @param args the command line arguments
      */
 
-    public JTable getTblIznajmljivanja() {
-        return tblIznajmljivanja;
+    public JTable getTblRacuni() {
+        return tblRacuni;
     }
 
     /**
      * @param args the command line arguments
      */
-    public void setTblIznajmljivanja(JTable tblIznajmljivanja) {
-        this.tblIznajmljivanja = tblIznajmljivanja;
+    public void setTblRacuni(JTable tblRacuni) {
+        this.tblRacuni = tblRacuni;
     }
 
     public JTable getTblStavke() {
@@ -163,7 +163,7 @@ public class PrikazIznajmljivanjaForma extends javax.swing.JFrame {
     private javax.swing.JButton btnObrisiStavku;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tblIznajmljivanja;
+    private javax.swing.JTable tblRacuni;
     private javax.swing.JTable tblStavke;
     // End of variables declaration//GEN-END:variables
 

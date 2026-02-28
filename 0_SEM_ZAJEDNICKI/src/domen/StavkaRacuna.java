@@ -13,21 +13,21 @@ import java.util.Objects;
  *
  * @author ilija
  */
-public class StavkaIznajmljivanja  implements ApstraktniDomenskiObjekat{
+public class StavkaRacuna  implements ApstraktniDomenskiObjekat{
     private static final int PODRAZUMEVANA_KOLICINA = 1;
-    private Iznajmljivanje iznajmljivanje;
+    private Racun racun;
     private int rb;
     private double cena;
     private int kolicina = PODRAZUMEVANA_KOLICINA;
     private DrustvenaIgra drustvenaIgra;
 
-    public Iznajmljivanje getIznajmljivanje() {
-        return iznajmljivanje;
+    public Racun getRacun() {
+        return racun;
         
     }
 
-    public void setIznajmljivanje(Iznajmljivanje iznajmljivanje) {
-        this.iznajmljivanje = iznajmljivanje;
+    public void setRacun(Racun Racun) {
+        this.racun = racun;
     }
 
     public int getRb() {
@@ -85,7 +85,7 @@ public class StavkaIznajmljivanja  implements ApstraktniDomenskiObjekat{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final StavkaIznajmljivanja other = (StavkaIznajmljivanja) obj;
+        final StavkaRacuna other = (StavkaRacuna) obj;
         if (this.rb != other.rb) {
             return false;
         }
@@ -93,7 +93,7 @@ public class StavkaIznajmljivanja  implements ApstraktniDomenskiObjekat{
             return false;
         }
         
-        if (!Objects.equals(this.iznajmljivanje, other.iznajmljivanje)) {
+        if (!Objects.equals(this.racun, other.racun)) {
             return false;
         }
         if (Double.doubleToLongBits(this.cena) != Double.doubleToLongBits(other.cena)) {
@@ -104,14 +104,14 @@ public class StavkaIznajmljivanja  implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiNazivTabele() {
-        return "stavka_iznajmljivanja";
+        return "stavka_racuna";
     }
 
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
         while(rs.next()){
-            StavkaIznajmljivanja stavka = new StavkaIznajmljivanja();
+            StavkaRacuna stavka = new StavkaRacuna();
             stavka.setRb(rs.getInt("rb"));
             stavka.setKolicina(rs.getInt("kolicina"));
             stavka.setCena(rs.getDouble("cena"));
@@ -143,7 +143,7 @@ public class StavkaIznajmljivanja  implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiPrimarniKljuc() {
-        return "stavka_iznajmljivanja.idIznajmljivanje="+iznajmljivanje.getIdIznajmljivanje()+" and stavka_iznajmljivanja.rb="+rb;
+        return "stavka_racuna.idRacun="+racun.getIdRacun()+" and stavka_racuna.rb="+rb;
     }
 
     @Override

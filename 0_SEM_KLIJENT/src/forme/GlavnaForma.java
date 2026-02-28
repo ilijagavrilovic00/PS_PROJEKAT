@@ -86,12 +86,12 @@ public class GlavnaForma extends javax.swing.JFrame {
         jMenuItem3.setText("dodaj");
         jMenu2.add(jMenuItem3);
 
-        jMenuItem4.setText("iznajmljivanja");
+        jMenuItem4.setText("racuni");
         jMenu2.add(jMenuItem4);
 
         jMenuBar1.add(jMenu2);
 
-        jMenu3.setText("Iznajmljivanje");
+        jMenu3.setText("Racun");
 
         jMenuItem5.setText("dodaj");
         jMenu3.add(jMenuItem5);

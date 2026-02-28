@@ -4,14 +4,14 @@
  */
 package controller;
 
-import domen.Iznajmljivanje;
+import domen.Racun;
 import domen.Klijent;
 import domen.Mesto;
-import domen.StavkaIznajmljivanja;
+import domen.StavkaRacuna;
 import domen.Zaposleni;
 import java.util.List;
-import operacije.iznajmljivanja.ObrisiIznajmljivanjeSO;
-import operacije.iznajmljivanja.UcitajIznajmljivanjaSO;
+import operacije.racun.ObrisiRacunSO;
+import operacije.racun.UcitajRacuneSO;
 import operacije.klijenti.AzurirajKlijentaSO;
 import operacije.klijenti.KreirajKlijentaSO;
 import operacije.klijenti.ObrisiKlijentaSO;
@@ -69,20 +69,20 @@ public class Controller {
         azuriraj.izvrsi(k, null);
     }
 
-    public List<Iznajmljivanje> ucitajIznajmljivanja() throws Exception {
-        UcitajIznajmljivanjaSO ucitaj = new UcitajIznajmljivanjaSO();
+    public List<Racun> ucitajRacune() throws Exception {
+        UcitajRacuneSO ucitaj = new UcitajRacuneSO();
         ucitaj.izvrsi(null, null);
-        return ucitaj.getIznajmljivanja();
+        return ucitaj.getRacuni();
     }
 
-    public List<StavkaIznajmljivanja> ucitajStavke(long id) throws Exception {
+    public List<StavkaRacuna> ucitajStavke(long id) throws Exception {
         UcitajStavkeSO operacija = new UcitajStavkeSO();
         operacija.izvrsi(id,null);
         return operacija.getStavke();
     }
 
-    public void obrisiIznajmljivanje(Iznajmljivanje i) throws Exception {
-        ObrisiIznajmljivanjeSO operacija = new ObrisiIznajmljivanjeSO();
+    public void obrisiRacun(Racun i) throws Exception {
+        ObrisiRacunSO operacija = new ObrisiRacunSO();
         operacija.izvrsi(i, null);
     }
 }

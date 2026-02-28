@@ -5,10 +5,10 @@
 package niti;
 
 import controller.Controller;
-import domen.Iznajmljivanje;
+import domen.Racun;
 import domen.Klijent;
 import domen.Mesto;
-import domen.StavkaIznajmljivanja;
+import domen.StavkaRacuna;
 import domen.Zaposleni;
 import java.io.IOException;
 import java.net.Socket;
@@ -83,18 +83,18 @@ public class ObradaKlijentskihZahteva extends Thread{
                     Controller.getInstance().azurirajKlijenta(k2);
                     odgovor.setOdgovor(null);
                     break;
-                case UCITAJ_IZNAJMLJIVANJA:
-                    List<Iznajmljivanje> i = Controller.getInstance().ucitajIznajmljivanja();
+                case UCITAJ_RACUNE:
+                    List<Racun> r = Controller.getInstance().ucitajRacune();
                     odgovor.setOdgovor(null);
                     break;
                 case UCITAJ_STAVKE:
-                    List<StavkaIznajmljivanja> stavke = Controller.getInstance().ucitajStavke((long)zahtev.getParametar());
+                    List<StavkaRacuna> stavke = Controller.getInstance().ucitajStavke((long)zahtev.getParametar());
                     odgovor.setOdgovor(null);
                     break;
-                case OBRISI_IZNAJMLJIVANJE:
+                case OBRISI_RACUN:
                     try{
-                    Iznajmljivanje i1 = (Iznajmljivanje) zahtev.getParametar();
-                    Controller.getInstance().obrisiIznajmljivanje(i1);
+                    Racun i1 = (Racun) zahtev.getParametar();
+                    Controller.getInstance().obrisiRacun(i1);
                     odgovor.setOdgovor(null);
                     }catch(Exception e){
                         odgovor.setOdgovor(e);

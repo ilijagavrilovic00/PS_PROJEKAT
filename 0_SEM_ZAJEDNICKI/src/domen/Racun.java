@@ -14,22 +14,20 @@ import java.util.Objects;
  *
  * @author ilija
  */
-public class Iznajmljivanje implements ApstraktniDomenskiObjekat{
-    private static final int GRANICA_ZA_POPUST = 5;
-    private static final double PROCENAT_POPUSTA = 0.10;
+public class Racun implements ApstraktniDomenskiObjekat{
     
-    private long idIznajmljivanje;
+    private long idRacun;
     private double ukupanIznos;
     private Zaposleni zaposleni;
     private Date datum;
     private Klijent klijent;
-    private List<StavkaIznajmljivanja> stavke;
+    private List<StavkaRacuna> stavke;
 
-    public Iznajmljivanje() {
+    public Racun() {
     }
 
-    public Iznajmljivanje(long idIznajmljivanje, double ukupanIznos, Date datum, Zaposleni zaposleni, Klijent klijent, List<StavkaIznajmljivanja> stavke) {
-        this.idIznajmljivanje = idIznajmljivanje;
+    public Racun(long idRacun, double ukupanIznos, Date datum, Zaposleni zaposleni, Klijent klijent, List<StavkaRacuna> stavke) {
+        this.idRacun = idRacun;
         this.ukupanIznos = ukupanIznos;
         this.zaposleni = zaposleni;
         this.klijent = klijent;
@@ -37,8 +35,8 @@ public class Iznajmljivanje implements ApstraktniDomenskiObjekat{
         this.datum = datum;
     }
     
-    public Iznajmljivanje(long idIznajmljivanje, double ukupanIznos, Zaposleni zaposleni, Klijent klijent) {
-        this.idIznajmljivanje = idIznajmljivanje;
+    public Racun(long idRacun, double ukupanIznos, Zaposleni zaposleni, Klijent klijent) {
+        this.idRacun = idRacun;
         this.ukupanIznos = ukupanIznos;
         this.zaposleni = zaposleni;
         this.klijent = klijent;
@@ -53,12 +51,12 @@ public class Iznajmljivanje implements ApstraktniDomenskiObjekat{
     }
 
     
-    public long getIdIznajmljivanje() {
-        return idIznajmljivanje;
+    public long getIdRacun() {
+        return idRacun;
     }
 
-    public void setIdIznajmljivanje(long idIznajmljivanje) {
-        this.idIznajmljivanje = idIznajmljivanje;
+    public void setIdRacun(long idRacun) {
+        this.idRacun = idRacun;
     }
 
     public double getUkupanIznos() {
@@ -85,13 +83,13 @@ public class Iznajmljivanje implements ApstraktniDomenskiObjekat{
         this.klijent = klijent;
     }
 
-    public List<StavkaIznajmljivanja> getStavke() {
+    public List<StavkaRacuna> getStavke() {
         return stavke;
     }
 
-    public void setStavke(List<StavkaIznajmljivanja> stavke) {
+    public void setStavke(List<StavkaRacuna> stavke) {
         this.stavke = stavke;
-        this.ukupanIznos = izracunajUkupanIznosSaPopustom();
+        this.ukupanIznos = izracunajUkupanIznos();
     }
 
     
@@ -112,8 +110,8 @@ public class Iznajmljivanje implements ApstraktniDomenskiObjekat{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Iznajmljivanje other = (Iznajmljivanje) obj;
-        if (this.idIznajmljivanje != other.idIznajmljivanje) {
+        final Racun other = (Racun) obj;
+        if (this.idRacun != other.idRacun) {
             return false;
         }
         if (Double.doubleToLongBits(this.ukupanIznos) != Double.doubleToLongBits(other.ukupanIznos)) {
@@ -128,15 +126,15 @@ public class Iznajmljivanje implements ApstraktniDomenskiObjekat{
  
     @Override
     public String vratiNazivTabele() {
-        return "iznajmljivanje";
+        return "racun";
     }
 
     @Override
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
         while(rs.next()){
-            Iznajmljivanje iznajmljivanje = new Iznajmljivanje();
-            iznajmljivanje.setIdIznajmljivanje(rs.getLong("idIznajmljivanje"));
+            Racun iznajmljivanje = new Racun();
+            iznajmljivanje.setIdRacun(rs.getLong("idRacun"));
             iznajmljivanje.setUkupanIznos(rs.getDouble("ukupanIznos"));
             iznajmljivanje.setDatum(rs.getDate("datum"));
             // ovde potencijalno greska zbog prebacivanja datuma iz sql tip u java tip
@@ -173,7 +171,7 @@ public class Iznajmljivanje implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiPrimarniKljuc() {
-        return "iznajmljivanje.idIznajmljivanje="+idIznajmljivanje;
+        return "racun.idRacun="+idRacun;
     }
 
     @Override
@@ -198,22 +196,18 @@ public class Iznajmljivanje implements ApstraktniDomenskiObjekat{
         if(stavke==null){
             return 0;
         }
-        return stavke.stream().mapToInt(StavkaIznajmljivanja::getKolicina).sum();
+        return stavke.stream().mapToInt(StavkaRacuna::getKolicina).sum();
     }
     
-    private double izracunajUkupanIznosSaPopustom() {
+    private double izracunajUkupanIznos() {
         if(stavke==null || stavke.isEmpty()){
             return ukupanIznos;
         }
         
         double osnovniIznos = stavke.stream()
-                .mapToDouble(StavkaIznajmljivanja::izracunajIznos)
+                .mapToDouble(StavkaRacuna::izracunajIznos)
                 .sum();
-        
-        if(izracunajUkupnuKolicinu() >= GRANICA_ZA_POPUST){
-            return osnovniIznos * (1-PROCENAT_POPUSTA);
-        }
-        
+       
         return osnovniIznos;
     }
 

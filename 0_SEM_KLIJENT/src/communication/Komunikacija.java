@@ -4,10 +4,10 @@
  */
 package communication;
 
-import domen.Iznajmljivanje;
+import domen.Racun;
 import domen.Klijent;
 import domen.Mesto;
-import domen.StavkaIznajmljivanja;
+import domen.StavkaRacuna;
 import domen.Zaposleni;
 import java.io.IOException;
 import java.net.Socket;
@@ -124,29 +124,29 @@ public class Komunikacija {
         }
     }
 
-    public List<Iznajmljivanje> ucitajIznajmljivanja() {
-        Zahtev zahtev = new Zahtev(Operacija.UCITAJ_IZNAJMLJIVANJA, null);
-        List<Iznajmljivanje> iznajmljivanja = new ArrayList<>();
+    public List<Racun> ucitajRacune() {
+        Zahtev zahtev = new Zahtev(Operacija.UCITAJ_RACUNE, null);
+        List<Racun> racuni = new ArrayList<>();
         
         posiljalac.posalji(zahtev);
         Odgovor odg = (Odgovor) primalac.primi();
         
-        iznajmljivanja= (List<Iznajmljivanje>) odg.getOdgovor();
-        return iznajmljivanja;
+        racuni= (List<Racun>) odg.getOdgovor();
+        return racuni;
     }
 
-    public List<StavkaIznajmljivanja> ucitajStavke(long idIznajmljivanje) {
-        Zahtev zahtev = new Zahtev(Operacija.UCITAJ_STAVKE, idIznajmljivanje);
-        List<StavkaIznajmljivanja> stavke = new ArrayList<>();
+    public List<StavkaRacuna> ucitajStavke(long idRacun) {
+        Zahtev zahtev = new Zahtev(Operacija.UCITAJ_STAVKE, idRacun);
+        List<StavkaRacuna> stavke = new ArrayList<>();
         posiljalac.posalji(zahtev);
         Odgovor odg = (Odgovor) primalac.primi();
-        stavke = (List<StavkaIznajmljivanja>) odg.getOdgovor();
+        stavke = (List<StavkaRacuna>) odg.getOdgovor();
         return stavke;
         
     }
 
-    public void obrisiIznajmljivanje(Iznajmljivanje i) throws Exception {
-       Zahtev zahtev = new Zahtev(Operacija.OBRISI_IZNAJMLJIVANJE, i);
+    public void obrisiRacun(Racun r) throws Exception {
+       Zahtev zahtev = new Zahtev(Operacija.OBRISI_RACUN, r);
         posiljalac.posalji(zahtev);
         Odgovor odg = (Odgovor) primalac.primi();
         if(odg.getOdgovor()==null){

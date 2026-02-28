@@ -4,7 +4,7 @@
  */
 package forme.modeli;
 
-import domen.StavkaIznajmljivanja;
+import domen.StavkaRacuna;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -13,12 +13,12 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author ilija
  */
-public class ModelTabeleStavkeIznajmljivanja extends AbstractTableModel {
-    List<StavkaIznajmljivanja> lista;
-    List<StavkaIznajmljivanja> originalnaLista;
+public class ModelTabeleStavkeRacuna extends AbstractTableModel {
+    List<StavkaRacuna> lista;
+    List<StavkaRacuna> originalnaLista;
     String[] kolone ={"rb", "kolicina", "cena", "drustvena igra"};
 
-    public ModelTabeleStavkeIznajmljivanja(List<StavkaIznajmljivanja> lista) {
+    public ModelTabeleStavkeRacuna(List<StavkaRacuna> lista) {
         this.lista = lista;
         this.originalnaLista = new ArrayList<>(lista);
     }
@@ -40,21 +40,21 @@ public class ModelTabeleStavkeIznajmljivanja extends AbstractTableModel {
     
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        StavkaIznajmljivanja si = lista.get(rowIndex);
+        StavkaRacuna sr = lista.get(rowIndex);
         switch (columnIndex) {
-            case 0: return si.getRb();
-            case 1: return si.getKolicina();
-            case 2: return si.getCena();
-            case 4: return si.getDrustvenaIgra().getNaziv();
+            case 0: return sr.getRb();
+            case 1: return sr.getKolicina();
+            case 2: return sr.getCena();
+            case 4: return sr.getDrustvenaIgra().getNaziv();
             default: return "NA";
         }
     }
 
-    public List<StavkaIznajmljivanja> getLista() {
+    public List<StavkaRacuna> getLista() {
         return lista;
     }
 
-    public void setLista(List<StavkaIznajmljivanja> lista) {
+    public void setLista(List<StavkaRacuna> lista) {
         this.lista = lista;
     }
 }

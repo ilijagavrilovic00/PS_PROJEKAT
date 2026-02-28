@@ -39,14 +39,14 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="iznajmljivanja"/>
+                <Property name="text" type="java.lang.String" value="racuni"/>
               </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Iznajmljivanje"/>
+            <Property name="text" type="java.lang.String" value="Racun"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">

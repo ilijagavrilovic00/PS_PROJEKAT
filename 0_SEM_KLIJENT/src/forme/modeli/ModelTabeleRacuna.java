@@ -4,7 +4,7 @@
  */
 package forme.modeli;
 
-import domen.Iznajmljivanje;
+import domen.Racun;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -13,12 +13,12 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author ilija
  */
-public class ModelTabeleIznajmljivanja extends AbstractTableModel {
-    List<Iznajmljivanje> lista;
-    List<Iznajmljivanje> originalnaLista;
+public class ModelTabeleRacuna extends AbstractTableModel {
+    List<Racun> lista;
+    List<Racun> originalnaLista;
     String[] kolone ={"id", "datum", "klijent", "ukupan iznos"};
 
-    public ModelTabeleIznajmljivanja(List<Iznajmljivanje> lista) {
+    public ModelTabeleRacuna(List<Racun> lista) {
         this.lista = lista;
         this.originalnaLista = new ArrayList<>(lista);
     }
@@ -40,9 +40,9 @@ public class ModelTabeleIznajmljivanja extends AbstractTableModel {
     
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Iznajmljivanje i = lista.get(rowIndex);
+        Racun i = lista.get(rowIndex);
         switch (columnIndex) {
-            case 0: return i.getIdIznajmljivanje();
+            case 0: return i.getIdRacun();
             case 1: return i.getDatum();
             case 2: return i.getKlijent();
             case 3: return i.getUkupanIznos();
@@ -50,11 +50,11 @@ public class ModelTabeleIznajmljivanja extends AbstractTableModel {
         }
     }
 
-    public List<Iznajmljivanje> getLista() {
+    public List<Racun> getLista() {
         return lista;
     }
 
-    public void setLista(List<Iznajmljivanje> lista) {
+    public void setLista(List<Racun> lista) {
         this.lista = lista;
     }
 

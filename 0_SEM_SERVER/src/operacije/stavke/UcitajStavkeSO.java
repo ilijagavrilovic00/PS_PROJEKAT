@@ -4,7 +4,7 @@
  */
 package operacije.stavke;
 
-import domen.StavkaIznajmljivanja;
+import domen.StavkaRacuna;
 import java.util.List;
 import operacije.ApstraktnaGenerickaOperacija;
 
@@ -13,18 +13,18 @@ import operacije.ApstraktnaGenerickaOperacija;
  * @author ilija
  */
 public class UcitajStavkeSO extends ApstraktnaGenerickaOperacija{
-    List<StavkaIznajmljivanja> stavke;
+    List<StavkaRacuna> stavke;
     @Override
     protected void preduslovi(Object objekat) throws Exception {
     }
 
     @Override
     protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
-        String uslov = " JOIN stavka_iznajmljivanja.idDrustvenaIgra=drustvena_igra.idDrustvenaIgra WHERE idIznajmljivanja="+(long)objekat+"";
-        stavke = broker.getAll(new StavkaIznajmljivanja(), uslov);
+        String uslov = " JOIN stavka_racuna.idDrustvenaIgra=drustvena_igra.idDrustvenaIgra WHERE idRacun="+(long)objekat+"";
+        stavke = broker.getAll(new StavkaRacuna(), uslov);
     }
 
-    public List<StavkaIznajmljivanja> getStavke() {
+    public List<StavkaRacuna> getStavke() {
         return stavke;
     }
     

@@ -9,14 +9,14 @@ import forme.DodajKlijentaForma;
 import forme.FormaMod;
 import forme.GlavnaForma;
 import forme.LoginForma;
-import forme.PrikazIznajmljivanjaForma;
+import forme.PrikazRacunaForma;
 import forme.PrikazKlijenataForma;
 import java.util.HashMap;
 import java.util.Map;
 import kontroleri.DodajKlijentaController;
 import kontroleri.GlavnaFormaController;
 import kontroleri.LoginController;
-import kontroleri.PrikazIznajmljivanjaController;
+import kontroleri.PrikazRacunaController;
 import kontroleri.PrikazKlijenataController;
 
 /**
@@ -31,7 +31,7 @@ public class Koordinator {
     private PrikazKlijenataController prikazKlijenataController;
     private DodajKlijentaController dodajKlijentaController;
     private Map<String, Object> parametri;
-    private PrikazIznajmljivanjaController prikazIznajmljivanjaController;
+    private PrikazRacunaController prikazIznajmljivanjaController;
     
     
     private Koordinator(){
@@ -90,7 +90,7 @@ public class Koordinator {
     }
 
     public void otvoriPrikazIznajmljivanja() {
-        prikazIznajmljivanjaController= new PrikazIznajmljivanjaController(new PrikazIznajmljivanjaForma());
+        prikazIznajmljivanjaController= new PrikazRacunaController(new PrikazRacunaForma());
         prikazIznajmljivanjaController.otvoriFormu();
     }
 }
