@@ -26,7 +26,7 @@ public class StavkaIznajmljivanja  implements ApstraktniDomenskiObjekat{
         
     }
 
-    public void setIdIznajmljivanje(Iznajmljivanje iznajmljivanje) {
+    public void setIznajmljivanje(Iznajmljivanje iznajmljivanje) {
         this.iznajmljivanje = iznajmljivanje;
     }
 
