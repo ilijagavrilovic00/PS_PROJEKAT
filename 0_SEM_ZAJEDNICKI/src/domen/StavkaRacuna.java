@@ -112,6 +112,9 @@ public class StavkaRacuna  implements ApstraktniDomenskiObjekat{
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
         while(rs.next()){
             StavkaRacuna stavka = new StavkaRacuna();
+            Racun r = new Racun();
+            r.setIdRacun(rs.getInt("idRacun"));
+            stavka.setRacun(racun);
             stavka.setRb(rs.getInt("rb"));
             stavka.setKolicina(rs.getInt("kolicina"));
             stavka.setCena(rs.getDouble("cena"));
@@ -130,12 +133,13 @@ public class StavkaRacuna  implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiKoloneZaUbacivanje() {
-        return "rb, kolicina, cena, idDrustvenaIgra";
+        return "idRacun, rb, kolicina, cena, idDrustvenaIgra";
     }
 
     @Override
     public String vratiVrednostiZaUbacivanje() {
-        return rb + "," +
+        return racun.getIdRacun()+","+
+            rb + "," +
             kolicina + "," +
             cena + "," +
             drustvenaIgra.getIdDrustvenaIgra();
