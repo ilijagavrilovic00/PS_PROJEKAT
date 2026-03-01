@@ -53,6 +53,7 @@ public class PrikazRacunaForma extends javax.swing.JFrame {
         cmbDrustvenaIgra = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         btnObrisi.setText("Obrisi");
 
@@ -322,6 +323,10 @@ public class PrikazRacunaForma extends javax.swing.JFrame {
 
     public void izmeniStavkuAddActionListener(ActionListener actionListener) {
         btnAzurirajStavku.addActionListener(actionListener);
+    }
+
+    public void pretragaAddActionListener(ActionListener actionListener) {
+        btnPretrazi.addActionListener(actionListener);
     }
 
 

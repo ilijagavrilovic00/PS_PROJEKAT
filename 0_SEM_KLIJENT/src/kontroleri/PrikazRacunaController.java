@@ -146,7 +146,7 @@ public class PrikazRacunaController {
                 }
             }
         });
-         pi.getBtnPretrazi().addActionListener(new ActionListener() {
+         pi.pretragaAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Racun kriterijum = kreirajKriterijumPretrage();

@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import koordinator.Koordinator;
 
 /**
@@ -46,7 +47,19 @@ public class GlavnaFormaController {
             }
             private void dodaj(ActionEvent e) {
                DrustvenaIgra i = (DrustvenaIgra) gf.getCmbDrustveneIgre().getSelectedItem();
-               int kolicina = Integer.parseInt(gf.getTxtKolicina().getText());
+               String kolicinaTekst = gf.getTxtKolicina().getText().trim();
+               int kolicina = 1;
+
+               if (!kolicinaTekst.isEmpty()) {
+                   try {
+                       kolicina = Integer.parseInt(kolicinaTekst);
+                   } catch (NumberFormatException ex) {
+                       JOptionPane.showMessageDialog(gf, "Kolicina mora biti broj.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                       return;
+                   }
+               } else {
+                   gf.getTxtKolicina().setText("1");
+               }
                double cena = i.getCena();
                 StavkaRacuna s = new StavkaRacuna();
                 s.setDrustvenaIgra(i);
@@ -54,7 +67,10 @@ public class GlavnaFormaController {
                 s.setKolicina(kolicina);
                 ModelTabeleStavkeRacuna mts = (ModelTabeleStavkeRacuna) gf.getTblRacun().getModel();
                 mts.dodajStavku(s); 
+                osveziUkupanIznos();
             } 
+
+               
         });
            gf.obrisiStavkuActionListener(new ActionListener() {
             @Override
@@ -69,7 +85,7 @@ public class GlavnaFormaController {
                 ModelTabeleStavkeRacuna mts = (ModelTabeleStavkeRacuna) gf.getTblRacun().getModel();
                 StavkaRacuna s = mts.getLista().get(red);
                 mts.obrisiStavku(s); 
-            
+                osveziUkupanIznos();
                 }
                 
            } 
@@ -78,12 +94,12 @@ public class GlavnaFormaController {
             @Override
             public void actionPerformed(ActionEvent e) { 
                 try {
-                    dodaj(e);
+                    dodajRacun(e);
                 } catch (Exception ex) {
                     Logger.getLogger(GlavnaFormaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            private void dodaj(ActionEvent e) throws Exception {
+            private void dodajRacun(ActionEvent e) throws Exception {
                 try{
                Racun r = new Racun();
              
@@ -113,12 +129,12 @@ public class GlavnaFormaController {
             @Override
             public void actionPerformed(ActionEvent e) { 
                 try {
-                   azuriraj(e);
+                   azurirajRacun(e);
                 } catch (Exception ex) {
                     Logger.getLogger(GlavnaFormaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            private void azuriraj(ActionEvent e) throws Exception {
+            private void azurirajRacun(ActionEvent e) throws Exception {
                 try{
                Racun r = new Racun();
                int id = Integer.parseInt(gf.getTxtID().getText());
@@ -160,8 +176,10 @@ public class GlavnaFormaController {
         ModelTabeleStavkeRacuna mts = new ModelTabeleStavkeRacuna(praznaLista);
         gf.getTblRacun().setModel(mts);
         
-        
+        postaviPocetniUkupanIznos();
+        postaviAutomatskiId();
         popuniComboBoxeve();
+        postaviUlogovanogZaposlenog();
     }
 
     private void popuniComboBoxeve() {
@@ -187,6 +205,7 @@ public class GlavnaFormaController {
 
     public void otvoriFormu(FormaMod formaMod) {
        popuniComboBoxeve();
+       postaviUlogovanogZaposlenog();
        Zaposleni ulogovani = Koordinator.getInstance().getUlogovani();
         String imePrezime = ulogovani.getIme()+" "+ulogovani.getPrezime();
         gf.setVisible(true);
@@ -205,13 +224,13 @@ public class GlavnaFormaController {
             mts.setLista(r.getStavke());
             gf.getTxtID().setText(r.getIdRacun()+"");
             gf.getTxtID().setEnabled(false);
-            gf.getCmbZaposleni().setSelectedItem(r.getZaposleni());
             gf.getCmbKlijent().setSelectedItem(r.getKlijent());
             
             SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
             String datumString = formater.format(r.getDatum());
             gf.getTxtDatum().setText(datumString);
             
+            osveziUkupanIznos();
         }
     }
      private void ocistiPoljaNakonDodavanja() {
@@ -228,6 +247,42 @@ public class GlavnaFormaController {
 
         ModelTabeleStavkeRacuna prazanModel = new ModelTabeleStavkeRacuna(new ArrayList<>());
         gf.getTblRacun().setModel(prazanModel);
+        postaviPocetniUkupanIznos();
+        postaviAutomatskiId();
+    }
+
+    private void postaviAutomatskiId() {
+        gf.getTxtID().setEnabled(false);
+        gf.getTxtID().setText("A.I.");
+    }
+
+    private void postaviUlogovanogZaposlenog() {
+    Zaposleni ulogovani = Koordinator.getInstance().getUlogovani();
+    gf.getCmbZaposleni().setSelectedItem(ulogovani);
+    gf.getCmbZaposleni().setEnabled(false);
+}
+     private void osveziUkupanIznos() {
+        ModelTabeleStavkeRacuna mts = (ModelTabeleStavkeRacuna) gf.getTblRacun().getModel();
+        double ukupanIznos = 0;
+        for (StavkaRacuna stavka : mts.getLista()) {
+            ukupanIznos += stavka.izracunajIznos();
+        }
+        postaviUkupanIznos(ukupanIznos);
+    }
+
+    private void postaviPocetniUkupanIznos() {
+        postaviUkupanIznos(0);
+        JTextField txtUkupno = gf.getTxtUkupno();
+        if (txtUkupno != null) {
+            txtUkupno.setEnabled(false);
+        }
+    }
+
+    private void postaviUkupanIznos(double iznos) {
+        JTextField txtUkupno = gf.getTxtUkupno();
+        if (txtUkupno != null) {
+            txtUkupno.setText(String.format("%.2f", iznos));
+        }
     }
     
 }
