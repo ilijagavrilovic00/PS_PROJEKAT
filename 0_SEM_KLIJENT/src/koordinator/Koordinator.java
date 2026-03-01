@@ -35,7 +35,7 @@ public class Koordinator {
     private PrikazKlijenataController prikazKlijenataController;
     private DodajKlijentaController dodajKlijentaController;
     private Map<String, Object> parametri;
-    private PrikazRacunaController prikazIznajmljivanjaController;
+    private PrikazRacunaController prikazRacunaController;
     private DodajStavkuController dodajStavkuController;
     private DodajDrustvenuIgruController dodajDrustvenuIgruController;
     
@@ -94,9 +94,9 @@ public class Koordinator {
         prikazKlijenataController.osveziFormu();
     }
 
-    public void otvoriPrikazIznajmljivanja() {
-        prikazIznajmljivanjaController= new PrikazRacunaController(new PrikazRacunaForma());
-        prikazIznajmljivanjaController.otvoriFormu();
+    public void otvoriPrikazRacuna() {
+        prikazRacunaController= new PrikazRacunaController(new PrikazRacunaForma());
+        prikazRacunaController.otvoriFormu();
     }
 
     public void otvoriIzmeniStavku() {
@@ -111,8 +111,8 @@ public class Koordinator {
     }
 
     public void osveziPrikazRacuna() {
-         if (prikazIznajmljivanjaController != null) {
-            prikazIznajmljivanjaController.osveziFormu();
+         if (prikazRacunaController != null) {
+            prikazRacunaController.osveziFormu();
         }
     }
 

@@ -19,7 +19,7 @@ import javax.swing.JTable;
 public class PrikazRacunaForma extends javax.swing.JFrame {
 
     /**
-     * Creates new form PrikazIznajmljivanjaForma
+     * Creates new form PrikazRacunaForma
      */
     public PrikazRacunaForma() {
         initComponents();
