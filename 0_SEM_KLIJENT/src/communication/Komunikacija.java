@@ -255,6 +255,7 @@ public class Komunikacija {
         return racuni;
     }
 
+
     public List<StavkaRacuna> ucitajStavke(long idRacun) {
         Zahtev zahtev = new Zahtev(Operacija.UCITAJ_STAVKE, idRacun);
         List<StavkaRacuna> stavke = new ArrayList<>();
