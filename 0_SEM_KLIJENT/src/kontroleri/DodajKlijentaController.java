@@ -61,10 +61,10 @@ public class DodajKlijentaController {
                 
                try{
                    Komunikacija.getInstance().dodajKlijenta(k); 
-                   JOptionPane.showMessageDialog(dkf, "USPEH", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+                   JOptionPane.showMessageDialog(dkf, "Sistem je zapamtio klijenta.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
                    dkf.dispose();
                }catch(Exception ex){
-                      JOptionPane.showMessageDialog(dkf, "GRESKA", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                   JOptionPane.showMessageDialog(dkf, "Sistem ne moze da zapamti klijenta.", "GRESKA", JOptionPane.ERROR_MESSAGE);
                }
             }
 
@@ -90,10 +90,10 @@ public class DodajKlijentaController {
                 
                try{
                    Komunikacija.getInstance().azurirajKlijenta(k); 
-                   JOptionPane.showMessageDialog(dkf, "USPEH", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(dkf, "Sistem je zapamtio klijenta.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
                    dkf.dispose();
                }catch(Exception ex){
-                      JOptionPane.showMessageDialog(dkf, "GRESKA", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(dkf, "Sistem ne moze da zapamti klijenta.", "GRESKA", JOptionPane.ERROR_MESSAGE);
                }
             }
              });

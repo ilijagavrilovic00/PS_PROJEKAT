@@ -43,8 +43,13 @@ public class PrikazRacunaController {
         List<Racun> racuni = new ArrayList<>();
         try {
             racuni = Komunikacija.getInstance().ucitajRacune();
+             if(racuni.isEmpty()){
+                JOptionPane.showMessageDialog(pi, "Sistem ne moze da nadje racune po zadatim kriterijumima.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(pi, "Sistem je nasao racune po zadatim kriterijumima.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+            }
         } catch (RuntimeException ex) {
-            JOptionPane.showMessageDialog(pi, "Sistem ne moze da ucita racune.", "Greska", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(pi, "Sistem ne moze da nadje racune po zadatim kriterijumima.", "Greska", JOptionPane.ERROR_MESSAGE);
         }
         ModelTabeleRacuna mti= new ModelTabeleRacuna(racuni);
         pi.getTblRacuni().setModel(mti);
@@ -56,7 +61,6 @@ public class PrikazRacunaController {
     }
 
     private void addActionListener() {
-        //obirisiAddActionListener
         pi.obrisiAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -81,7 +85,7 @@ public class PrikazRacunaController {
         pi.obrisiStavkuAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int red = pi.getTblRacuni().getSelectedRow();
+                int red = pi.getTblStavke().getSelectedRow();
                 if(red==-1){
                     JOptionPane.showMessageDialog(pi, "Sistem ne moze da obrise stavku.", "Greska", JOptionPane.ERROR_MESSAGE);
                 }else{
@@ -102,14 +106,15 @@ public class PrikazRacunaController {
         pi.izmeniStavkuAddActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int red = pi.getTblRacuni().getSelectedRow();
+                int red = pi.getTblStavke().getSelectedRow();
                 if(red==-1){
                     JOptionPane.showMessageDialog(pi, "Sistem ne moze da izmeni stavku.", "Greska", JOptionPane.ERROR_MESSAGE);
                 }else{
                    ModelTabeleStavkeRacuna mtsr = (ModelTabeleStavkeRacuna) pi.getTblStavke().getModel();
                    StavkaRacuna sr = mtsr.getLista().get(red);
-                   Koordinator.getInstance().otvoriIzmeniStavku();
                    Koordinator.getInstance().dodajParam("stavka_za_izmenu", sr);
+                   Koordinator.getInstance().otvoriIzmeniStavku();
+
                 }
             }
         });
@@ -118,21 +123,15 @@ public class PrikazRacunaController {
             public void actionPerformed(ActionEvent e) {
                 int red = pi.getTblRacuni().getSelectedRow();
                 if(red==-1){
-                    JOptionPane.showMessageDialog(pi, "Sistem ne moze da obrise racun.", "Greska", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(pi, "Sistem ne moze da nadje racun.", "Greska", JOptionPane.ERROR_MESSAGE);
                 }else{
                     ModelTabeleRacuna mti = (ModelTabeleRacuna) pi.getTblRacuni().getModel();
                     Racun r = mti.getLista().get(red);
                     List<StavkaRacuna> stavke = Komunikacija.getInstance().ucitajStavke(r.getIdRacun());
                     r.setStavke(stavke);
+                    JOptionPane.showMessageDialog(pi, "Sistem je nasao racun.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
                     Koordinator.getInstance().dodajParam("razun_za_izmenu",r);
                     Koordinator.getInstance().otvoriGlavnuFormu(FormaMod.IZMENI);
-                    try{
-                        Komunikacija.getInstance().obrisiRacun(r);
-                        JOptionPane.showMessageDialog(pi, "Sistem je obrisao racun", "USPEH", JOptionPane.INFORMATION_MESSAGE);
-                        pripremiFormu();
-                    }catch(Exception ex){
-                        JOptionPane.showMessageDialog(pi, "Sistem ne moze da obrise racun", "GRESKA", JOptionPane.ERROR_MESSAGE);
-                    }
                 }
             }
         });

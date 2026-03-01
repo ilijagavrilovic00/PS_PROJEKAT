@@ -45,10 +45,10 @@ public class LoginController {
                 Zaposleni ulogovan = Komunikacija.getInstance().login(username, password);
                 
                 if(ulogovan==null){
-                    JOptionPane.showMessageDialog(lf, "Prijava na sistem neuspesna", "GRESKA", JOptionPane.ERROR_MESSAGE);  
+                    JOptionPane.showMessageDialog(lf, "Korisnicko ime i sifra nisu ispravni.", "GRESKA", JOptionPane.ERROR_MESSAGE); 
                 }else{
                     Koordinator.getInstance().setUlogovani(ulogovan);
-                    JOptionPane.showMessageDialog(lf, "Prijava na sistem uspesna", "Uspeh", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(lf, "Korisnicko ime i sifra su ispravni.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
                     Koordinator.getInstance().otvoriGlavnuFormu();
                     lf.dispose();
                 }

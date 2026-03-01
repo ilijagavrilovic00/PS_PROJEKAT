@@ -100,9 +100,9 @@ public class GlavnaFormaController {
                r.setStavke(stavke);
                
                Komunikacija.getInstance().dodajRacun(r);
-               JOptionPane.showMessageDialog(null, "Sistem je kreirao racun", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+               JOptionPane.showMessageDialog(null, "Sistem je zapamtio racun.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
                 }catch(Exception ex){
-                    JOptionPane.showMessageDialog(null, "Sistem ne moze da kreira racun", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Sistem ne moze da zapamti racun.", "GRESKA", JOptionPane.ERROR_MESSAGE);
                 }
                 
             } 
@@ -134,9 +134,9 @@ public class GlavnaFormaController {
                r.setStavke(stavke);
                
                Komunikacija.getInstance().izmeniRacun(r);
-               JOptionPane.showMessageDialog(null, "Sistem je kreirao racun", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+               JOptionPane.showMessageDialog(null, "Sistem je zapamtio racun", "USPEH", JOptionPane.INFORMATION_MESSAGE);
                 }catch(Exception ex){
-                    JOptionPane.showMessageDialog(null, "Sistem ne moze da kreira racun", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Sistem ne moze da zapamti racun", "GRESKA", JOptionPane.ERROR_MESSAGE);
                 }
                 
             } 

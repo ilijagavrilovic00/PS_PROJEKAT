@@ -66,10 +66,11 @@ public class PrikazKlijenataController {
             public void actionPerformed(ActionEvent e) {
                 int red = pk.getTblKlijenti().getSelectedRow();
                 if(red==-1){
-                    JOptionPane.showMessageDialog(pk, "Sistem ne moze da obrise klijenta.", "Greska", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(pk, "Sistem ne moze da ndaje klijenta.", "Greska", JOptionPane.ERROR_MESSAGE);
                 }else{
                     ModelTabeleKlijenti mtk = (ModelTabeleKlijenti) pk.getTblKlijenti().getModel();
                     Klijent k = mtk.getLista().get(red);
+                    JOptionPane.showMessageDialog(pk, "Sistem je nasao klijenta.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
                     Koordinator.getInstance().dodajParam("klijent", k);
                     Koordinator.getInstance().otvoriIzmeniKlijenta();
                 }
@@ -84,6 +85,11 @@ public class PrikazKlijenataController {
                
                ModelTabeleKlijenti mtk = (ModelTabeleKlijenti) pk.getTblKlijenti().getModel();
                mtk.pretrazi(ime, prezime, mesto);
+               if(mtk.getLista().isEmpty()){
+                   JOptionPane.showMessageDialog(pk, "Sistem ne moze da nadje klijente po zadatim kriterijumima.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+               }else{
+                   JOptionPane.showMessageDialog(pk, "Sistem je nasao klijente po zadatim kriterijumima.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+               }
             }
         });
     }

@@ -95,10 +95,14 @@ public class Komunikacija {
         Zahtev zahtev = new Zahtev(Operacija.DODAJ_KLIJENTA, k);
         posiljalac.posalji(zahtev);
         Odgovor odg = (Odgovor) primalac.primi();
-        if(odg.getOdgovor()==null){
-            System.out.println("USPEH");
-        }else{
-            System.out.println("GRESKA");
+        if (odg == null) {
+            throw new RuntimeException("Nije stigao odgovor servera za dodavanje klijenta.");
+        }
+        if (odg.getOdgovor() instanceof Exception) {
+            throw new RuntimeException((Exception) odg.getOdgovor());
+        }
+        if (odg.getOdgovor() != null) {
+            throw new RuntimeException("Sistem ne moze da zapamti klijenta.");
         }
     }
 
@@ -117,42 +121,23 @@ public class Komunikacija {
         Zahtev zahtev = new Zahtev(Operacija.AZURIRAJ_KLIJENTA, k);
         posiljalac.posalji(zahtev);
         Odgovor odg = (Odgovor) primalac.primi();
-        if(odg.getOdgovor()==null){
-            System.out.println("USPEH");
-            Koordinator.getInstance().osveziFormu();
-        }else{
-            System.out.println("GRESKA");
-        }
-    }
-
-    public List<Racun> ucitajRacune() {
-        Zahtev zahtev = new Zahtev(Operacija.UCITAJ_RACUNE, null);
-        List<Racun> racuni = new ArrayList<>();
         
-        posiljalac.posalji(zahtev);
-        Odgovor odg = (Odgovor) primalac.primi();
-        if(odg==null){
-            throw new RuntimeException("Nije stigao odgovor servera za ucitavanje racuna.");       
+        if (odg == null) {
+            throw new RuntimeException("Nije stigao odgovor servera za azuriranje klijenta.");
         }
-        if(odg.getOdgovor() instanceof Exception){
+        if (odg.getOdgovor() instanceof Exception) {
             throw new RuntimeException((Exception) odg.getOdgovor());
         }
-         if(odg.getOdgovor()==null){
-            return racuni;
+        if (odg.getOdgovor() != null) {
+            throw new RuntimeException("Sistem ne moze da zapamti klijenta.");
         }
-        racuni= (List<Racun>) odg.getOdgovor();
-        return racuni;
+        Koordinator.getInstance().osveziFormu();
+    
     }
 
-    public List<StavkaRacuna> ucitajStavke(long idRacun) {
-        Zahtev zahtev = new Zahtev(Operacija.UCITAJ_STAVKE, idRacun);
-        List<StavkaRacuna> stavke = new ArrayList<>();
-        posiljalac.posalji(zahtev);
-        Odgovor odg = (Odgovor) primalac.primi();
-        stavke = (List<StavkaRacuna>) odg.getOdgovor();
-        return stavke;
-        
-    }
+    
+
+    
 
     public void obrisiRacun(Racun r) throws Exception {
        Zahtev zahtev = new Zahtev(Operacija.OBRISI_RACUN, r);
@@ -193,11 +178,17 @@ public class Komunikacija {
         Zahtev zahtev = new Zahtev(Operacija.DODAJ_RACUN, r);
         posiljalac.posalji(zahtev);
         Odgovor odg = (Odgovor) primalac.primi();
-        if(odg.getOdgovor()==null){
-            System.out.println("USPEH");
-        }else{
-            System.out.println("GRESKA");
-        }}
+        
+        if (odg == null) {
+            throw new RuntimeException("Nije stigao odgovor servera za dodavanje racuna.");
+        }
+        if (odg.getOdgovor() instanceof Exception) {
+            throw new RuntimeException((Exception) odg.getOdgovor());
+        }
+        if (odg.getOdgovor() != null) {
+            throw new RuntimeException("Sistem ne moze da zapamti racun.");
+        }
+    }
 
     public void obrisiStavku(StavkaRacuna s) throws Exception {
         Zahtev zahtev = new Zahtev(Operacija.OBRISI_STAVKU, s);
@@ -216,23 +207,72 @@ public class Komunikacija {
         Zahtev zahtev = new Zahtev(Operacija.AZURIRAJ_STAVKU, sr);
         posiljalac.posalji(zahtev);
         Odgovor odg = (Odgovor) primalac.primi();
-        if(odg.getOdgovor()==null){
-            System.out.println("USPEH");
-            Koordinator.getInstance().osveziFormu();
-        }else{
-            System.out.println("GRESKA");
+        
+        if (odg == null) {
+            throw new RuntimeException("Nije stigao odgovor servera za azuriranje stavke.");
         }
+        if (odg.getOdgovor() instanceof Exception) {
+            throw new RuntimeException((Exception) odg.getOdgovor());
+        }
+        if (odg.getOdgovor() != null) {
+            throw new RuntimeException("Sistem ne moze da azurira stavku racuna.");
+        }
+        Koordinator.getInstance().osveziFormu();
     }
 
     public void izmeniRacun(Racun r) {
         Zahtev zahtev = new Zahtev(Operacija.AZURIRAJ_RACUN, r);
         posiljalac.posalji(zahtev);
         Odgovor odg = (Odgovor) primalac.primi();
-        if(odg.getOdgovor()==null){
-            System.out.println("USPEH");
-        }else{
-            System.out.println("GRESKA");
+        
+        if (odg == null) {
+            throw new RuntimeException("Nije stigao odgovor servera za azuriranje racuna.");
         }
+        if (odg.getOdgovor() instanceof Exception) {
+            throw new RuntimeException((Exception) odg.getOdgovor());
+        }
+        if (odg.getOdgovor() != null) {
+            throw new RuntimeException("Sistem ne moze da zapamti racun.");
+        }
+    }
+
+    public List<Racun> ucitajRacune() {
+        Zahtev zahtev = new Zahtev(Operacija.UCITAJ_RACUNE, null);
+        List<Racun> racuni = new ArrayList<>();
+        
+        posiljalac.posalji(zahtev);
+        Odgovor odg = (Odgovor) primalac.primi();
+        if(odg==null){
+            throw new RuntimeException("Nije stigao odgovor servera za ucitavanje racuna.");       
+        }
+        if(odg.getOdgovor() instanceof Exception){
+            throw new RuntimeException((Exception) odg.getOdgovor());
+        }
+         if(odg.getOdgovor()==null){
+            return racuni;
+        }
+        racuni= (List<Racun>) odg.getOdgovor();
+        return racuni;
+    }
+
+    public List<StavkaRacuna> ucitajStavke(long idRacun) {
+        Zahtev zahtev = new Zahtev(Operacija.UCITAJ_STAVKE, idRacun);
+        List<StavkaRacuna> stavke = new ArrayList<>();
+
+        posiljalac.posalji(zahtev);
+        Odgovor odg = (Odgovor) primalac.primi();
+        if (odg == null) {
+            throw new RuntimeException("Nije stigao odgovor servera za ucitavanje stavki.");
+        }
+        if (odg.getOdgovor() instanceof Exception) {
+            throw new RuntimeException((Exception) odg.getOdgovor());
+        }
+        if (odg.getOdgovor() == null) {
+            return stavke;
+        }
+
+        stavke = (List<StavkaRacuna>) odg.getOdgovor();
+        return stavke;
     }
    
 }
