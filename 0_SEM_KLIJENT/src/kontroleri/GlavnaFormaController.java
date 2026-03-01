@@ -192,6 +192,7 @@ public class GlavnaFormaController {
         
         if(formaMod==FormaMod.IZMENI){
             gf.getBtnKreirajRacun().setVisible(false);
+            gf.getBtnIzmeniRacun().setVisible(true);
             Racun r = (Racun) Koordinator.getInstance().vratiParam("razun_za_izmenu");
             mts.setLista(r.getStavke());
             gf.getTxtID().setText(r.getIdRacun()+"");

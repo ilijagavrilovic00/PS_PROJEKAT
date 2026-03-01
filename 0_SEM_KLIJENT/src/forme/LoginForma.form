@@ -76,12 +76,12 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtUsername">
       <Properties>
-        <Property name="text" type="java.lang.String" value="slavca"/>
+        <Property name="text" type="java.lang.String" value="slavica"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="txtPass">
       <Properties>
-        <Property name="text" type="java.lang.String" value="slavca"/>
+        <Property name="text" type="java.lang.String" value="slavica"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnLogin">

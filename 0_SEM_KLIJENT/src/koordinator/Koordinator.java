@@ -63,7 +63,7 @@ public class Koordinator {
     }
     public void otvoriDodajKlijenta(){
         dodajKlijentaController = new DodajKlijentaController(new DodajKlijentaForma());
-        dodajKlijentaController.otvoriFormu(FormaMod.IZMENI);
+        dodajKlijentaController.otvoriFormu(FormaMod.DODAJ);
     }
 
     

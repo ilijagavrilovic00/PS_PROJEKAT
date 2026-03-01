@@ -40,7 +40,7 @@ public class PrikazRacunaForma extends javax.swing.JFrame {
         btnObrisiStavku = new javax.swing.JButton();
         btnAzurirajStavku = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnObrisi.setText("Obrisi");
 

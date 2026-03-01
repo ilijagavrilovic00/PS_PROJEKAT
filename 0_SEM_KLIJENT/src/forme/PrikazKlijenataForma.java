@@ -45,7 +45,7 @@ public class PrikazKlijenataForma extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnPretrazi = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tblKlijenti.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

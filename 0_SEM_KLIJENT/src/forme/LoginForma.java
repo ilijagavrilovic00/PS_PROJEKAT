@@ -43,9 +43,9 @@ public class LoginForma extends javax.swing.JFrame {
 
         jLabel2.setText("password:");
 
-        txtUsername.setText("slavca");
+        txtUsername.setText("slavica");
 
-        txtPass.setText("slavca");
+        txtPass.setText("slavica");
 
         btnLogin.setText("Uloguj se");
 

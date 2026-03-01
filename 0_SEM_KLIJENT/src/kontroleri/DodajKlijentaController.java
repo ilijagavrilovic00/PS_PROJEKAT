@@ -124,6 +124,9 @@ public class DodajKlijentaController {
                 dkf.getBtnAzuriraj().setEnabled(true);
                 
                 Klijent k = (Klijent) Koordinator.getInstance().vratiParam("klijent");
+                if (k == null) {
+                    throw new IllegalStateException("Nije prosledjen klijent za izmenu.");
+                }
                 dkf.getTxtIme().setText(k.getIme());
                 dkf.getTxtPrezime().setText(k.getPrezime());        
                 dkf.getTxtBrojTelefona().setText(k.getBrojTelefona());
