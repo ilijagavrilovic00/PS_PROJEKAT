@@ -206,4 +206,5 @@ public class PrikazRacunaForma extends javax.swing.JFrame {
         btnAzurirajStavku.addActionListener(actionListener);
     }
 
+
 }

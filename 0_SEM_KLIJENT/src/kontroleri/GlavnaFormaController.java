@@ -10,7 +10,9 @@ import domen.Klijent;
 import domen.Racun;
 import domen.StavkaRacuna;
 import domen.Zaposleni;
+import forme.FormaMod;
 import forme.GlavnaForma;
+import forme.modeli.ModelTabeleRacuna;
 import forme.modeli.ModelTabeleStavkeRacuna;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -105,9 +107,44 @@ public class GlavnaFormaController {
                 
             } 
         });
+        gf.azuriranjeAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { 
+                try {
+                   azuriraj(e);
+                } catch (Exception ex) {
+                    Logger.getLogger(GlavnaFormaController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            private void azuriraj(ActionEvent e) throws Exception {
+                try{
+               Racun r = new Racun();
+               int id = Integer.parseInt(gf.getTxtID().getText());
+               r.setIdRacun(id);
+               String datumString = gf.getTxtDatum().getText();
+               SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+               Date datum = sdf.parse(datumString);
+               
+               r.setDatum(datum);
+               r.setZaposleni(Koordinator.getInstance().getUlogovani());
+               r.setKlijent((Klijent) gf.getCmbKlijent().getSelectedItem());
+               
+               ModelTabeleStavkeRacuna mts = (ModelTabeleStavkeRacuna) gf.getTblRacun().getModel();
+               List<StavkaRacuna> stavke = mts.getLista();
+               r.setStavke(stavke);
+               
+               Komunikacija.getInstance().izmeniRacun(r);
+               JOptionPane.showMessageDialog(null, "Sistem je kreirao racun", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+                }catch(Exception ex){
+                    JOptionPane.showMessageDialog(null, "Sistem ne moze da kreira racun", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                }
+                
+            } 
+        });
     }
 
     public void otvoriFormu() {
+        gf.getBtnIzmeniRacun().setVisible(false);
         Zaposleni ulogovani = Koordinator.getInstance().getUlogovani();
         String imePrezime = ulogovani.getIme()+" "+ulogovani.getPrezime();
         gf.setVisible(true);
@@ -139,6 +176,33 @@ public class GlavnaFormaController {
          gf.getCmbDrustveneIgre().removeAllItems();
         for(DrustvenaIgra i: sveDrustveneIgre){
             gf.getCmbDrustveneIgre().addItem(i);
+        }
+    }
+
+    public void otvoriFormu(FormaMod formaMod) {
+       popuniComboBoxeve();
+       Zaposleni ulogovani = Koordinator.getInstance().getUlogovani();
+        String imePrezime = ulogovani.getIme()+" "+ulogovani.getPrezime();
+        gf.setVisible(true);
+        gf.getLblUlogovani().setText(imePrezime);
+        
+        List<StavkaRacuna> praznaLista = new ArrayList<>();
+        ModelTabeleStavkeRacuna mts = new ModelTabeleStavkeRacuna(praznaLista);
+        gf.getTblRacun().setModel(mts);
+        
+        if(formaMod==FormaMod.IZMENI){
+            gf.getBtnKreirajRacun().setVisible(false);
+            Racun r = (Racun) Koordinator.getInstance().vratiParam("razun_za_izmenu");
+            mts.setLista(r.getStavke());
+            gf.getTxtID().setText(r.getIdRacun()+"");
+            gf.getTxtID().setEnabled(false);
+            gf.getCmbZaposleni().setSelectedItem(r.getZaposleni());
+            gf.getCmbKlijent().setSelectedItem(r.getKlijent());
+            
+            SimpleDateFormat formater = new SimpleDateFormat("dd.MM.yyyy");
+            String datumString = formater.format(r.getDatum());
+            gf.getTxtDatum().setText(datumString);
+            
         }
     }
     

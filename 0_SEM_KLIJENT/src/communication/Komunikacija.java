@@ -215,5 +215,16 @@ public class Komunikacija {
             System.out.println("GRESKA");
         }
     }
+
+    public void izmeniRacun(Racun r) {
+        Zahtev zahtev = new Zahtev(Operacija.AZURIRAJ_RACUN, r);
+        posiljalac.posalji(zahtev);
+        Odgovor odg = (Odgovor) primalac.primi();
+        if(odg.getOdgovor()==null){
+            System.out.println("USPEH");
+        }else{
+            System.out.println("GRESKA");
+        }
+    }
    
 }

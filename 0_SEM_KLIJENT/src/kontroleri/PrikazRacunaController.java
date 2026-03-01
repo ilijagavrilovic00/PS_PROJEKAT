@@ -7,6 +7,7 @@ package kontroleri;
 import communication.Komunikacija;
 import domen.Racun;
 import domen.StavkaRacuna;
+import forme.FormaMod;
 import forme.PrikazRacunaForma;
 import forme.modeli.ModelTabeleRacuna;
 import forme.modeli.ModelTabeleStavkeRacuna;
@@ -103,6 +104,29 @@ public class PrikazRacunaController {
                    StavkaRacuna sr = mtsr.getLista().get(red);
                    Koordinator.getInstance().otvoriIzmeniStavku();
                    Koordinator.getInstance().dodajParam("stavka_za_izmenu", sr);
+                }
+            }
+        });
+         pi.azuriranjeAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int red = pi.getTblRacuni().getSelectedRow();
+                if(red==-1){
+                    JOptionPane.showMessageDialog(pi, "Sistem ne moze da obrise racun.", "Greska", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    ModelTabeleRacuna mti = (ModelTabeleRacuna) pi.getTblRacuni().getModel();
+                    Racun r = mti.getLista().get(red);
+                    List<StavkaRacuna> stavke = Komunikacija.getInstance().ucitajStavke(r.getIdRacun());
+                    r.setStavke(stavke);
+                    Koordinator.getInstance().dodajParam("razun_za_izmenu",r);
+                    Koordinator.getInstance().otvoriGlavnuFormu(FormaMod.IZMENI);
+                    try{
+                        Komunikacija.getInstance().obrisiRacun(r);
+                        JOptionPane.showMessageDialog(pi, "Sistem je obrisao racun", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+                        pripremiFormu();
+                    }catch(Exception ex){
+                        JOptionPane.showMessageDialog(pi, "Sistem ne moze da obrise racun", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
         });

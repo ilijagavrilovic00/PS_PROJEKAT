@@ -8,6 +8,7 @@ import domen.DrustvenaIgra;
 import domen.Klijent;
 import domen.Zaposleni;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -354,6 +355,38 @@ public class GlavnaForma extends javax.swing.JFrame {
     public void setTxtKolicina(JTextField txtKolicina) {
         this.txtKolicina = txtKolicina;
     }
+
+    public JButton getBtnDodajStavku() {
+        return btnDodajStavku;
+    }
+
+    public void setBtnDodajStavku(JButton btnDodajStavku) {
+        this.btnDodajStavku = btnDodajStavku;
+    }
+
+    public JButton getBtnIzmeniRacun() {
+        return btnIzmeniRacun;
+    }
+
+    public void setBtnIzmeniRacun(JButton btnIzmeniRacun) {
+        this.btnIzmeniRacun = btnIzmeniRacun;
+    }
+
+    public JButton getBtnKreirajRacun() {
+        return btnKreirajRacun;
+    }
+
+    public void setBtnKreirajRacun(JButton btnKreirajRacun) {
+        this.btnKreirajRacun = btnKreirajRacun;
+    }
+
+    public JButton getBtnObrisiStavku() {
+        return btnObrisiStavku;
+    }
+
+    public void setBtnObrisiStavku(JButton btnObrisiStavku) {
+        this.btnObrisiStavku = btnObrisiStavku;
+    }
     
     
 
@@ -401,5 +434,8 @@ public class GlavnaForma extends javax.swing.JFrame {
 
     public void dodajRacunActionListener(ActionListener actionListener) {
         btnKreirajRacun.addActionListener(actionListener);
+    }
+     public void azuriranjeAddActionListener(ActionListener actionListener) {
+        btnIzmeniRacun.addActionListener(actionListener);
     }
 }
