@@ -45,7 +45,7 @@ public class ModelTabeleStavkeRacuna extends AbstractTableModel {
             case 1: return sr.getKolicina();
             case 2: return sr.getCena();
             case 3: return sr.izracunajIznos();
-            case 4: return sr.getDrustvenaIgra();
+            case 4: return sr.getDrustvenaIgra().getNaziv();
             default: return "NA";
         }
     }

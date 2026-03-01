@@ -5,6 +5,7 @@
 package koordinator;
 
 import domen.Zaposleni;
+import forme.DodajDrustvenuIgruForma;
 import forme.DodajKlijentaForma;
 import forme.DodajStavkuForma;
 import forme.FormaMod;
@@ -14,6 +15,7 @@ import forme.PrikazRacunaForma;
 import forme.PrikazKlijenataForma;
 import java.util.HashMap;
 import java.util.Map;
+import kontroleri.DodajDrustvenuIgruController;
 import kontroleri.DodajKlijentaController;
 import kontroleri.DodajStavkuController;
 import kontroleri.GlavnaFormaController;
@@ -35,6 +37,7 @@ public class Koordinator {
     private Map<String, Object> parametri;
     private PrikazRacunaController prikazIznajmljivanjaController;
     private DodajStavkuController dodajStavkuController;
+    private DodajDrustvenuIgruController dodajDrustvenuIgruController;
     
     private Koordinator(){
         parametri = new HashMap<>();
@@ -111,5 +114,10 @@ public class Koordinator {
          if (prikazIznajmljivanjaController != null) {
             prikazIznajmljivanjaController.osveziFormu();
         }
+    }
+
+    public void otvoriDodajDrustvenuIgru() {
+        dodajDrustvenuIgruController = new DodajDrustvenuIgruController(new DodajDrustvenuIgruForma());
+        dodajDrustvenuIgruController.otvoriFormu();
     }
 }

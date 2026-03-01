@@ -101,11 +101,13 @@ public class GlavnaFormaController {
                
                Komunikacija.getInstance().dodajRacun(r);
                JOptionPane.showMessageDialog(null, "Sistem je zapamtio racun.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+                ocistiPoljaNakonDodavanja();
                 }catch(Exception ex){
                     JOptionPane.showMessageDialog(null, "Sistem ne moze da zapamti racun.", "GRESKA", JOptionPane.ERROR_MESSAGE);
                 }
                 
             } 
+
         });
         gf.azuriranjeAddActionListener(new ActionListener() {
             @Override
@@ -135,6 +137,8 @@ public class GlavnaFormaController {
                
                Komunikacija.getInstance().izmeniRacun(r);
                JOptionPane.showMessageDialog(null, "Sistem je zapamtio racun", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+               Koordinator.getInstance().osveziPrikazRacuna();
+               gf.dispose();
                 }catch(Exception ex){
                     JOptionPane.showMessageDialog(null, "Sistem ne moze da zapamti racun", "GRESKA", JOptionPane.ERROR_MESSAGE);
                 }
@@ -145,6 +149,8 @@ public class GlavnaFormaController {
 
     public void otvoriFormu() {
         gf.getBtnIzmeniRacun().setVisible(false);
+        gf.prikaziMenuBar();
+        gf.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         Zaposleni ulogovani = Koordinator.getInstance().getUlogovani();
         String imePrezime = ulogovani.getIme()+" "+ulogovani.getPrezime();
         gf.setVisible(true);
@@ -193,6 +199,8 @@ public class GlavnaFormaController {
         if(formaMod==FormaMod.IZMENI){
             gf.getBtnKreirajRacun().setVisible(false);
             gf.getBtnIzmeniRacun().setVisible(true);
+            gf.sakrijMenuBar();
+            gf.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
             Racun r = (Racun) Koordinator.getInstance().vratiParam("razun_za_izmenu");
             mts.setLista(r.getStavke());
             gf.getTxtID().setText(r.getIdRacun()+"");
@@ -206,6 +214,20 @@ public class GlavnaFormaController {
             
         }
     }
-    
+     private void ocistiPoljaNakonDodavanja() {
+        gf.getTxtID().setText("");
+        gf.getTxtDatum().setText("");
+        gf.getTxtKolicina().setText("");
+
+        if (gf.getCmbKlijent().getItemCount() > 0) {
+            gf.getCmbKlijent().setSelectedIndex(0);
+        }
+        if (gf.getCmbDrustveneIgre().getItemCount() > 0) {
+            gf.getCmbDrustveneIgre().setSelectedIndex(0);
+        }
+
+        ModelTabeleStavkeRacuna prazanModel = new ModelTabeleStavkeRacuna(new ArrayList<>());
+        gf.getTblRacun().setModel(prazanModel);
+    }
     
 }

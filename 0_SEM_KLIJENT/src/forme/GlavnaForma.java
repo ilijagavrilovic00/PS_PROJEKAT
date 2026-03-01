@@ -27,6 +27,19 @@ public class GlavnaForma extends javax.swing.JFrame {
     public GlavnaForma() {
         initComponents();
     }
+    
+    public void sakrijMenuBar() {
+        setJMenuBar(null);
+        revalidate();
+        repaint();
+    }
+
+    public void prikaziMenuBar() {
+        setJMenuBar(jMenuBar1);
+        revalidate();
+        repaint();
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -63,9 +76,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -175,17 +186,16 @@ public class GlavnaForma extends javax.swing.JFrame {
         jMenu2.setText("Drustvene igre");
 
         jMenuItem3.setText("dodaj");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
-
-        jMenuItem4.setText("racuni");
-        jMenu2.add(jMenuItem4);
 
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Racun");
-
-        jMenuItem5.setText("dodaj");
-        jMenu3.add(jMenuItem5);
 
         jMenuItem6.setText("pregled");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
@@ -289,6 +299,10 @@ public class GlavnaForma extends javax.swing.JFrame {
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         Koordinator.getInstance().otvoriPrikazIznajmljivanja();
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        Koordinator.getInstance().otvoriDodajDrustvenuIgru();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -408,8 +422,6 @@ public class GlavnaForma extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

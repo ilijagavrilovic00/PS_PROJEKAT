@@ -74,8 +74,7 @@ public class DodajStavkuController {
                    Koordinator.getInstance().osveziPrikazRacuna();
                    dsf.dispose();
                }catch(Exception ex){
-                      JOptionPane.showMessageDialog(dsf, "GRESKA", "GRESKA", JOptionPane.ERROR_MESSAGE);
-               }
+                   JOptionPane.showMessageDialog(dsf, ex.getMessage(), "GRESKA", JOptionPane.ERROR_MESSAGE);               }
             }
              });
     
@@ -104,6 +103,8 @@ public class DodajStavkuController {
                 dsf.getBtnIzmeni().setVisible(true);
                 dsf.getBtnKreiraj().setVisible(false);
                 dsf.getBtnIzmeni().setEnabled(true);
+                dsf.getTxtRacunId().setEnabled(false);
+                dsf.getTxtRB().setEnabled(false);
                 
                 StavkaRacuna sr = (StavkaRacuna) Koordinator.getInstance().vratiParam("stavka_za_izmenu");
                 dsf.getTxtRacunId().setText(sr.getRacun().getIdRacun()+"");

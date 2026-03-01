@@ -131,7 +131,6 @@ public class Komunikacija {
         if (odg.getOdgovor() != null) {
             throw new RuntimeException("Sistem ne moze da zapamti klijenta.");
         }
-        Koordinator.getInstance().osveziFormu();
     
     }
 
@@ -217,7 +216,6 @@ public class Komunikacija {
         if (odg.getOdgovor() != null) {
             throw new RuntimeException("Sistem ne moze da azurira stavku racuna.");
         }
-        Koordinator.getInstance().osveziFormu();
     }
 
     public void izmeniRacun(Racun r) {
