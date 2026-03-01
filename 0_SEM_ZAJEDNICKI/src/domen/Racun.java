@@ -182,7 +182,6 @@ public class Racun implements ApstraktniDomenskiObjekat{
     @Override
     public String vratiVrednostiZaIzmenu() {    
         return "datum='" + new java.sql.Date(datum.getTime())+ "'," +
-           "ukupanIznos=" + ukupanIznos + ", " +
            "idZaposleni=" + zaposleni.getIdZaposleni() + ", " +
            "idKlijent=" + klijent.getIdKlijent();
     }
