@@ -151,6 +151,30 @@ public class PrikazRacunaForma extends javax.swing.JFrame {
     public void setBtnObrisi(JButton btnObrisi) {
         this.btnObrisi = btnObrisi;
     }
+
+    public JButton getBtnAzuriraj() {
+        return btnAzuriraj;
+    }
+
+    public void setBtnAzuriraj(JButton btnAzuriraj) {
+        this.btnAzuriraj = btnAzuriraj;
+    }
+
+    public JButton getBtnAzurirajStavku() {
+        return btnAzurirajStavku;
+    }
+
+    public void setBtnAzurirajStavku(JButton btnAzurirajStavku) {
+        this.btnAzurirajStavku = btnAzurirajStavku;
+    }
+
+    public JButton getBtnObrisiStavku() {
+        return btnObrisiStavku;
+    }
+
+    public void setBtnObrisiStavku(JButton btnObrisiStavku) {
+        this.btnObrisiStavku = btnObrisiStavku;
+    }
    
     
     
@@ -172,6 +196,14 @@ public class PrikazRacunaForma extends javax.swing.JFrame {
     }
     public void azuriranjeAddActionListener(ActionListener actionListener) {
         btnAzuriraj.addActionListener(actionListener);
+    }
+
+    public void obrisiStavkuAddActionListener(ActionListener actionListener) {
+        btnObrisiStavku.addActionListener(actionListener);
+    }
+
+    public void izmeniStavkuAddActionListener(ActionListener actionListener) {
+        btnAzurirajStavku.addActionListener(actionListener);
     }
 
 }

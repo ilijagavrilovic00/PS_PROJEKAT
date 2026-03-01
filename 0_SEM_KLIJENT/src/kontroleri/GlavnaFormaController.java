@@ -7,14 +7,20 @@ package kontroleri;
 import communication.Komunikacija;
 import domen.DrustvenaIgra;
 import domen.Klijent;
+import domen.Racun;
 import domen.StavkaRacuna;
 import domen.Zaposleni;
 import forme.GlavnaForma;
 import forme.modeli.ModelTabeleStavkeRacuna;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import koordinator.Koordinator;
 
@@ -65,6 +71,39 @@ public class GlavnaFormaController {
                 }
                 
            } 
+        });
+        gf.dodajRacunActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) { 
+                try {
+                    dodaj(e);
+                } catch (Exception ex) {
+                    Logger.getLogger(GlavnaFormaController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            private void dodaj(ActionEvent e) throws Exception {
+                try{
+               Racun r = new Racun();
+             
+               String datumString = gf.getTxtDatum().getText();
+               SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+               Date datum = sdf.parse(datumString);
+               
+               r.setDatum(datum);
+               r.setZaposleni(Koordinator.getInstance().getUlogovani());
+               r.setKlijent((Klijent) gf.getCmbKlijent().getSelectedItem());
+               
+               ModelTabeleStavkeRacuna mts = (ModelTabeleStavkeRacuna) gf.getTblRacun().getModel();
+               List<StavkaRacuna> stavke = mts.getLista();
+               r.setStavke(stavke);
+               
+               Komunikacija.getInstance().dodajRacun(r);
+               JOptionPane.showMessageDialog(null, "Sistem je kreirao racun", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+                }catch(Exception ex){
+                    JOptionPane.showMessageDialog(null, "Sistem ne moze da kreira racun", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                }
+                
+            } 
         });
     }
 

@@ -17,6 +17,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import koordinator.Koordinator;
 
 /**
  *
@@ -54,7 +55,7 @@ public class PrikazRacunaController {
             public void actionPerformed(ActionEvent e) {
                 int red = pi.getTblRacuni().getSelectedRow();
                 if(red==-1){
-                    JOptionPane.showMessageDialog(pi, "Sistem ne moze da obrise iznajmljivanje.", "Greska", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(pi, "Sistem ne moze da obrise racun.", "Greska", JOptionPane.ERROR_MESSAGE);
                 }else{
                     ModelTabeleRacuna mti = (ModelTabeleRacuna) pi.getTblRacuni().getModel();
                     Racun r = mti.getLista().get(red);
@@ -67,6 +68,41 @@ public class PrikazRacunaController {
                     }catch(Exception ex){
                         JOptionPane.showMessageDialog(pi, "Sistem ne moze da obrise racun", "GRESKA", JOptionPane.ERROR_MESSAGE);
                     }
+                }
+            }
+        });
+        pi.obrisiStavkuAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int red = pi.getTblRacuni().getSelectedRow();
+                if(red==-1){
+                    JOptionPane.showMessageDialog(pi, "Sistem ne moze da obrise stavku.", "Greska", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    ModelTabeleStavkeRacuna mtsr = (ModelTabeleStavkeRacuna) pi.getTblStavke().getModel();
+                    StavkaRacuna s = mtsr.getLista().get(red);
+                   
+                    try{
+                        Komunikacija.getInstance().obrisiStavku(s);
+                        JOptionPane.showMessageDialog(pi, "Sistem je obrisao stavku racuna", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+                        mtsr.obrisiStavku(s);
+                        // pripremiFormu();
+                    }catch(Exception ex){
+                        JOptionPane.showMessageDialog(pi, "Sistem ne moze da obrise stavku racuna", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        });
+        pi.izmeniStavkuAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int red = pi.getTblRacuni().getSelectedRow();
+                if(red==-1){
+                    JOptionPane.showMessageDialog(pi, "Sistem ne moze da izmeni stavku.", "Greska", JOptionPane.ERROR_MESSAGE);
+                }else{
+                   ModelTabeleStavkeRacuna mtsr = (ModelTabeleStavkeRacuna) pi.getTblStavke().getModel();
+                   StavkaRacuna sr = mtsr.getLista().get(red);
+                   Koordinator.getInstance().otvoriIzmeniStavku();
+                   Koordinator.getInstance().dodajParam("stavka_za_izmenu", sr);
                 }
             }
         });

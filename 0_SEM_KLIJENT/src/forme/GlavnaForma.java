@@ -398,4 +398,8 @@ public class GlavnaForma extends javax.swing.JFrame {
     public void obrisiStavkuActionListener(ActionListener actionListener) {
         btnObrisiStavku.addActionListener(actionListener);
     }
+
+    public void dodajRacunActionListener(ActionListener actionListener) {
+        btnKreirajRacun.addActionListener(actionListener);
+    }
 }

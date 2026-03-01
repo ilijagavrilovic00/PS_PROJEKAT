@@ -6,6 +6,7 @@ package koordinator;
 
 import domen.Zaposleni;
 import forme.DodajKlijentaForma;
+import forme.DodajStavkuForma;
 import forme.FormaMod;
 import forme.GlavnaForma;
 import forme.LoginForma;
@@ -14,6 +15,7 @@ import forme.PrikazKlijenataForma;
 import java.util.HashMap;
 import java.util.Map;
 import kontroleri.DodajKlijentaController;
+import kontroleri.DodajStavkuController;
 import kontroleri.GlavnaFormaController;
 import kontroleri.LoginController;
 import kontroleri.PrikazRacunaController;
@@ -32,7 +34,7 @@ public class Koordinator {
     private DodajKlijentaController dodajKlijentaController;
     private Map<String, Object> parametri;
     private PrikazRacunaController prikazIznajmljivanjaController;
-    
+    private DodajStavkuController dodajStavkuController;
     
     private Koordinator(){
         parametri = new HashMap<>();
@@ -92,5 +94,10 @@ public class Koordinator {
     public void otvoriPrikazIznajmljivanja() {
         prikazIznajmljivanjaController= new PrikazRacunaController(new PrikazRacunaForma());
         prikazIznajmljivanjaController.otvoriFormu();
+    }
+
+    public void otvoriIzmeniStavku() {
+        dodajStavkuController = new DodajStavkuController(new DodajStavkuForma());
+        dodajStavkuController.otvoriFormu(FormaMod.IZMENI);
     }
 }

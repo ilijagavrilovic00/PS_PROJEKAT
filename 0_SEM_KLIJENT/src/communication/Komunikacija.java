@@ -180,5 +180,40 @@ public class Komunikacija {
         igre = (List<DrustvenaIgra>) odg.getOdgovor();
         return igre;
     }
+
+    public void dodajRacun(Racun r) {
+        Zahtev zahtev = new Zahtev(Operacija.DODAJ_RACUN, r);
+        posiljalac.posalji(zahtev);
+        Odgovor odg = (Odgovor) primalac.primi();
+        if(odg.getOdgovor()==null){
+            System.out.println("USPEH");
+        }else{
+            System.out.println("GRESKA");
+        }}
+
+    public void obrisiStavku(StavkaRacuna s) throws Exception {
+        Zahtev zahtev = new Zahtev(Operacija.OBRISI_STAVKU, s);
+        posiljalac.posalji(zahtev);
+        Odgovor odg = (Odgovor) primalac.primi();
+        if(odg.getOdgovor()==null){
+            System.out.println("USPEH");
+        }else{
+            System.out.println("GRESKA NISI");
+            ((Exception)odg.getOdgovor()).printStackTrace();
+            throw new Exception("GRESKA");
+        }
+    }
+
+    public void azurirajStavku(StavkaRacuna sr) {
+        Zahtev zahtev = new Zahtev(Operacija.AZURIRAJ_STAVKU, sr);
+        posiljalac.posalji(zahtev);
+        Odgovor odg = (Odgovor) primalac.primi();
+        if(odg.getOdgovor()==null){
+            System.out.println("USPEH");
+            Koordinator.getInstance().osveziFormu();
+        }else{
+            System.out.println("GRESKA");
+        }
+    }
    
 }
