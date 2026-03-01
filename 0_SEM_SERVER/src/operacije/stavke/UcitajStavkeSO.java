@@ -20,8 +20,9 @@ public class UcitajStavkeSO extends ApstraktnaGenerickaOperacija{
 
     @Override
     protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
-        String uslov = " JOIN stavka_racuna.idDrustvenaIgra=drustvena_igra.idDrustvenaIgra WHERE idRacun="+(long)objekat+"";
-        stavke = broker.getAll(new StavkaRacuna(), uslov);
+       String uslov = " JOIN drustvena_igra ON stavka_racuna.idDrustvenaIgra=drustvena_igra.idDrustvenaIgra"
+                + " WHERE stavka_racuna.idRacun=" + (long) objekat;
+       stavke = broker.getAll(new StavkaRacuna(), uslov);
     }
 
     public List<StavkaRacuna> getStavke() {

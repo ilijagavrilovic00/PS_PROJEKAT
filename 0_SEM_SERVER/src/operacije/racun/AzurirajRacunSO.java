@@ -27,7 +27,8 @@ public class AzurirajRacunSO extends ApstraktnaGenerickaOperacija {
         Racun r = (Racun)objekat;
         
         broker.edit(r);
-        String uslov = " JOIN stavka_racuna.idDrustvenaIgra=drustvena_igra.idDrustvenaIgra WHERE idRacun="+(long)r.getIdRacun()+" ";
+        String uslov = " JOIN drustvena_igra ON stavka_racuna.idDrustvenaIgra=drustvena_igra.idDrustvenaIgra"
+                + " WHERE stavka_racuna.idRacun=" + (long) r.getIdRacun();
         List<StavkaRacuna> stareStavke = broker.getAll(new StavkaRacuna(), uslov);
         
         for(StavkaRacuna s: stareStavke){
