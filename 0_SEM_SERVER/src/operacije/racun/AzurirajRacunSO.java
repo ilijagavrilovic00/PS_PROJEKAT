@@ -36,7 +36,11 @@ public class AzurirajRacunSO extends ApstraktnaGenerickaOperacija {
         }
         
         List<StavkaRacuna> noveStavke = r.getStavke();
+        if(noveStavke==null){
+            return;
+        }
         for(StavkaRacuna sr: noveStavke){
+            sr.setRacun(r);
             broker.add(sr);
         }
     }
