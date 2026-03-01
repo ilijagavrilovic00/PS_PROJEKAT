@@ -202,6 +202,21 @@ public class Komunikacija {
         }
     }
 
+    public void dodajDrustvenuIgru(DrustvenaIgra igra) {
+        Zahtev zahtev = new Zahtev(Operacija.DODAJ_IGRU, igra);
+        posiljalac.posalji(zahtev);
+        Odgovor odg = (Odgovor) primalac.primi();
+
+        if (odg == null) {
+            throw new RuntimeException("Nije stigao odgovor servera za dodavanje drustvene igre.");
+        }
+        if (odg.getOdgovor() instanceof Exception) {
+            throw new RuntimeException((Exception) odg.getOdgovor());
+        }
+        if (odg.getOdgovor() != null) {
+            throw new RuntimeException("Sistem ne moze da zapamti drustvenu igru.");
+        }
+    }
     public void azurirajStavku(StavkaRacuna sr) {
         Zahtev zahtev = new Zahtev(Operacija.AZURIRAJ_STAVKU, sr);
         posiljalac.posalji(zahtev);

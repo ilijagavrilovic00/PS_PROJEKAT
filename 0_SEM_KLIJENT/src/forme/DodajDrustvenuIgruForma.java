@@ -4,6 +4,10 @@
  */
 package forme;
 
+import java.awt.event.ActionListener;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
 /**
  *
  * @author ilija
@@ -37,7 +41,7 @@ public class DodajDrustvenuIgruForma extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaOpis = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("id:");
 
@@ -119,7 +123,25 @@ public class DodajDrustvenuIgruForma extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdActionPerformed
 
+    public JTextArea getTxtAreaOpis() {
+        return txtAreaOpis;
+    }
 
+    public JTextField getTxtCena() {
+        return txtCena;
+    }
+
+    public JTextField getTxtId() {
+        return txtId;
+    }
+
+    public JTextField getTxtNaziv() {
+        return txtNaziv;
+    }
+
+    public void dodavanjeAddActionListener(ActionListener actionListener) {
+        btnDodaj.addActionListener(actionListener);
+    }
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
