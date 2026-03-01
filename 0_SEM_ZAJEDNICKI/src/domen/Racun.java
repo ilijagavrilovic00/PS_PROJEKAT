@@ -145,7 +145,7 @@ public class Racun implements ApstraktniDomenskiObjekat{
             iznajmljivanje.setZaposleni(zaposleni);
             
             Klijent klijent = new Klijent();
-            klijent.setIdKlijent(rs.getLong("klijent.idKlijent"));
+            klijent.setIdKlijent(rs.getLong("idKlijent"));
             klijent.setIme(rs.getString("klijent.ime"));
             klijent.setPrezime(rs.getString("klijent.prezime"));
             iznajmljivanje.setKlijent(klijent);
