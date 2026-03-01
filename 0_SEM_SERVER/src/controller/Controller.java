@@ -124,4 +124,10 @@ public class Controller {
       AzurirajRacunSO operacija = new AzurirajRacunSO();
       operacija.izvrsi(r3, null);
     }
+    
+      public List<Racun> pretraziRacune(Racun kriterijum) throws Exception {
+        UcitajRacuneSO ucitaj = new UcitajRacuneSO();
+        ucitaj.izvrsi(kriterijum, null);
+        return ucitaj.getRacuni();
+    }
 }
