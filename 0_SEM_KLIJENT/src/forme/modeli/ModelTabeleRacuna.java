@@ -19,8 +19,8 @@ public class ModelTabeleRacuna extends AbstractTableModel {
     String[] kolone ={"id", "datum", "klijent", "ukupan iznos"};
 
     public ModelTabeleRacuna(List<Racun> lista) {
-        this.lista = lista;
-        this.originalnaLista = new ArrayList<>(lista);
+        this.lista = (lista !=null) ? lista : new ArrayList<>();
+        this.originalnaLista = new ArrayList<>(this.lista);
     }
     
     @Override
@@ -55,7 +55,8 @@ public class ModelTabeleRacuna extends AbstractTableModel {
     }
 
     public void setLista(List<Racun> lista) {
-        this.lista = lista;
+       this.lista = (lista != null) ? lista : new ArrayList<>();
+        this.originalnaLista = new ArrayList<>(this.lista);
     }
 
     
