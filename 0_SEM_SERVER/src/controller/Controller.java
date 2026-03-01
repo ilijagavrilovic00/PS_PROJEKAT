@@ -11,6 +11,7 @@ import domen.Mesto;
 import domen.StavkaRacuna;
 import domen.Zaposleni;
 import java.util.List;
+import operacije.igre.DodajDrustvenuIgruSO;
 import operacije.igre.UcitajIgreSO;
 import operacije.racun.ObrisiRacunSO;
 import operacije.racun.UcitajRacuneSO;
@@ -130,5 +131,10 @@ public class Controller {
         PretraziRacuneSO pretrazi = new PretraziRacuneSO();
         pretrazi.izvrsi(kriterijum, null);
         return pretrazi.getRacuni();
+    }
+      
+      public void dodajDrustvenuIgru(DrustvenaIgra igra) throws Exception {
+        DodajDrustvenuIgruSO operacija = new DodajDrustvenuIgruSO();
+        operacija.izvrsi(igra, null);
     }
 }

@@ -133,7 +133,12 @@ public class ObradaKlijentskihZahteva extends Thread{
                         Controller.getInstance().azurirajRacun(r3);
                         odgovor.setOdgovor(null);
                         break;
-                     case PRETRAZI_RACUNE:
+                    case DODAJ_IGRU:
+                        DrustvenaIgra igra = (DrustvenaIgra) zahtev.getParametar();
+                        Controller.getInstance().dodajDrustvenuIgru(igra);
+                        odgovor.setOdgovor(null);
+                        break;
+                    case PRETRAZI_RACUNE:
                         Racun kriterijum = (Racun) zahtev.getParametar();
                         List<Racun> racuniPoKriterijumu = Controller.getInstance().pretraziRacune(kriterijum);
                         odgovor.setOdgovor(racuniPoKriterijumu);
