@@ -20,6 +20,7 @@ import operacije.klijenti.ObrisiKlijentaSO;
 import operacije.klijenti.UcitajKlijenteSO;
 import operacije.login.LoginOperacija;
 import operacije.mesta.UcitajMestaSO;
+import operacije.racun.AzurirajRacunSO;
 import operacije.racun.DodajRacunSO;
 import operacije.stavke.AzurirajStavkuSO;
 import operacije.stavke.ObrisiStavkuSO;
@@ -117,5 +118,10 @@ public class Controller {
     public void azurirajStavku(StavkaRacuna sr2) throws Exception{
         AzurirajStavkuSO operacija = new AzurirajStavkuSO();
         operacija.izvrsi(sr2, null);
+    }
+
+    public void azurirajRacun(Racun r3) throws Exception {
+      AzurirajRacunSO operacija = new AzurirajRacunSO();
+      operacija.izvrsi(r3, null);
     }
 }

@@ -128,6 +128,11 @@ public class ObradaKlijentskihZahteva extends Thread{
                     Controller.getInstance().azurirajStavku(sr2);
                     odgovor.setOdgovor(null);
                     break;
+                case AZURIRAJ_RACUN:
+                    Racun r3 = (Racun) zahtev.getParametar();
+                    Controller.getInstance().azurirajRacun(r3);
+                    odgovor.setOdgovor(null);
+                    break;
                 default:
                     System.out.println("GRESKA, OPERACIJA NE POSTOJI!");
             }
