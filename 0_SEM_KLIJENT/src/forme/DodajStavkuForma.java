@@ -133,11 +133,11 @@ public class DodajStavkuForma extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     public void dodavanjeAddActionListener(ActionListener actionListener) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        btnKreiraj.addActionListener(actionListener);
     }
 
     public void azuriranjeAddActionListener(ActionListener actionListener) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        btnIzmeni.addActionListener(actionListener);
     }
 
     public JButton getBtnIzmeni() {

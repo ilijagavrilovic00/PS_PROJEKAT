@@ -51,12 +51,12 @@ public class PrikazRacunaController {
         try {
             racuni = Komunikacija.getInstance().ucitajRacune();
              if(racuni.isEmpty()){
-                JOptionPane.showMessageDialog(pi, "Sistem ne moze da nadje racune po zadatim kriterijumima.", "GRESKA", JOptionPane.ERROR_MESSAGE);
-            }else{
-                JOptionPane.showMessageDialog(pi, "Sistem je nasao racune po zadatim kriterijumima.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
-            }
+                JOptionPane.showMessageDialog(pi, "Sistem ne moze da ucita racune.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+             }else{
+                JOptionPane.showMessageDialog(pi, "Sistem je ucitao racune.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+             }
         } catch (RuntimeException ex) {
-            JOptionPane.showMessageDialog(pi, "Sistem ne moze da nadje racune po zadatim kriterijumima.", "Greska", JOptionPane.ERROR_MESSAGE);
+           JOptionPane.showMessageDialog(pi, "Sistem ne moze da ucita racune.", "Greska", JOptionPane.ERROR_MESSAGE);
         }
         ModelTabeleRacuna mti= new ModelTabeleRacuna(racuni);
         pi.getTblRacuni().setModel(mti);
@@ -171,10 +171,15 @@ public class PrikazRacunaController {
                 Klijent klijent = (Klijent) pi.getCmbKlijent().getSelectedItem();
                 DrustvenaIgra igra = (DrustvenaIgra) pi.getCmbDrustvenaIgra().getSelectedItem();
 
-                kriterijum.setZaposleni(zaposleni);
-                kriterijum.setKlijent(klijent);
+                 if (zaposleni != null && zaposleni.getIdZaposleni() > 0) {
+                    kriterijum.setZaposleni(zaposleni);
+                }
 
-                if (igra != null) {
+                if (klijent != null && klijent.getIdKlijent() > 0) {
+                    kriterijum.setKlijent(klijent);
+                }
+
+                if (igra != null && igra.getIdDrustvenaIgra() > 0) {
                     StavkaRacuna stavka = new StavkaRacuna();
                     stavka.setDrustvenaIgra(igra);
                     List<StavkaRacuna> stavke = new ArrayList<>();
