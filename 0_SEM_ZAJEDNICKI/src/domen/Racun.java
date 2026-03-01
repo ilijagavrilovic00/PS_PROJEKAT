@@ -133,25 +133,25 @@ public class Racun implements ApstraktniDomenskiObjekat{
     public List<ApstraktniDomenskiObjekat> vratiListu(ResultSet rs) throws Exception {
         List<ApstraktniDomenskiObjekat> lista = new ArrayList<>();
         while(rs.next()){
-            Racun iznajmljivanje = new Racun();
-            iznajmljivanje.setIdRacun(rs.getLong("idRacun"));
-            iznajmljivanje.setUkupanIznos(rs.getDouble("ukupanIznos"));
-            iznajmljivanje.setDatum(rs.getDate("datum"));
-            // ovde potencijalno greska zbog prebacivanja datuma iz sql tip u java tip
+            Racun racun = new Racun();
+            racun.setIdRacun(rs.getLong("idRacun"));
+            racun.setUkupanIznos(rs.getDouble("ukupanIznos"));
+            racun.setDatum(rs.getDate("datum"));
+            
             Zaposleni zaposleni = new Zaposleni();
             zaposleni.setIdZaposleni(rs.getLong("idZaposleni"));
             zaposleni.setIme(rs.getString("zaposleni.ime"));
             zaposleni.setPrezime(rs.getString("zaposleni.prezime"));
-            iznajmljivanje.setZaposleni(zaposleni);
+            racun.setZaposleni(zaposleni);
             
             Klijent klijent = new Klijent();
             klijent.setIdKlijent(rs.getLong("idKlijent"));
             klijent.setIme(rs.getString("klijent.ime"));
             klijent.setPrezime(rs.getString("klijent.prezime"));
-            iznajmljivanje.setKlijent(klijent);
+            racun.setKlijent(klijent);
            
-            iznajmljivanje.setStavke(new ArrayList<>());
-            lista.add(iznajmljivanje);
+            racun.setStavke(new ArrayList<>());
+            lista.add(racun);
         }
         return lista;
     }
