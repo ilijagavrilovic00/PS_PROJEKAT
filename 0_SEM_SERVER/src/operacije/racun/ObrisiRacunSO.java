@@ -18,7 +18,7 @@ public class ObrisiRacunSO extends ApstraktnaGenerickaOperacija {
     @Override
     protected void preduslovi(Object objekat) throws Exception {
         if(objekat==null || !(objekat instanceof Racun)){
-            throw new Exception("Sistem ne moze da obrise iznajmljivanje");
+            throw new Exception("Sistem ne moze da obrise racun");
         }
     }
 
