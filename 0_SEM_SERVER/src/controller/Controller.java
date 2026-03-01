@@ -20,6 +20,9 @@ import operacije.klijenti.ObrisiKlijentaSO;
 import operacije.klijenti.UcitajKlijenteSO;
 import operacije.login.LoginOperacija;
 import operacije.mesta.UcitajMestaSO;
+import operacije.racun.DodajRacunSO;
+import operacije.stavke.AzurirajStavkuSO;
+import operacije.stavke.ObrisiStavkuSO;
 import operacije.stavke.UcitajStavkeSO;
 import operacije.zaposleni.UcitajZaposleneSO;
 
@@ -99,5 +102,20 @@ public class Controller {
         UcitajIgreSO operacija = new UcitajIgreSO();
         operacija.izvrsi(new DrustvenaIgra(), null);
         return operacija.getIgre();
+    }
+
+    public void dodajRacun(Racun r2) throws Exception {
+        DodajRacunSO operacija = new DodajRacunSO();
+        operacija.izvrsi(r2, null);
+    }
+
+    public void obrisiStavkuRacuna(StavkaRacuna sr) throws Exception {
+        ObrisiStavkuSO operacija = new ObrisiStavkuSO();
+        operacija.izvrsi(sr, null);
+    }
+
+    public void azurirajStavku(StavkaRacuna sr2) throws Exception{
+        AzurirajStavkuSO operacija = new AzurirajStavkuSO();
+        operacija.izvrsi(sr2, null);
     }
 }

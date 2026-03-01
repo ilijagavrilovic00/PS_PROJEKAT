@@ -109,6 +109,25 @@ public class ObradaKlijentskihZahteva extends Thread{
                     List<DrustvenaIgra> igre = Controller.getInstance().ucitajIgre();
                     odgovor.setOdgovor(igre);
                     break;
+                case DODAJ_RACUN:
+                    Racun r2 = (Racun) zahtev.getParametar();
+                    Controller.getInstance().dodajRacun(r2);
+                    odgovor.setOdgovor(null);
+                    break;
+                case OBRISI_STAVKU:
+                    try{
+                    StavkaRacuna sr = (StavkaRacuna) zahtev.getParametar();
+                    Controller.getInstance().obrisiStavkuRacuna(sr);
+                    odgovor.setOdgovor(null);
+                    }catch(Exception e){
+                        odgovor.setOdgovor(e);
+                    }
+                    break;
+                case AZURIRAJ_STAVKU:
+                    StavkaRacuna sr2 = (StavkaRacuna) zahtev.getParametar();
+                    Controller.getInstance().azurirajStavku(sr2);
+                    odgovor.setOdgovor(null);
+                    break;
                 default:
                     System.out.println("GRESKA, OPERACIJA NE POSTOJI!");
             }
