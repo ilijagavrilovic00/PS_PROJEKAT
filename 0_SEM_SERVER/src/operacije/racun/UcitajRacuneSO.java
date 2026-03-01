@@ -22,9 +22,9 @@ public class UcitajRacuneSO extends ApstraktnaGenerickaOperacija{
     @Override
     protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
         racuni= broker.getAll(new Racun(), " JOIN"
-                + " zaposleni ON iznajmljivanje.idZaposleni = zaposleni.idZaposleni "
+                + " zaposleni ON racun.idZaposleni = zaposleni.idZaposleni "
                 + " JOIN "
-                + "klijent ON iznajmljivanje.idKlijent = klijent.idKlijent");
+                + "klijent ON racun.idKlijent = klijent.idKlijent");
     }
 
     public List<Racun> getRacuni() {
