@@ -106,4 +106,10 @@ public class Koordinator {
         glavnaFormaController.otvoriFormu(formaMod);
     
     }
+
+    public void osveziPrikazRacuna() {
+         if (prikazIznajmljivanjaController != null) {
+            prikazIznajmljivanjaController.osveziFormu();
+        }
+    }
 }

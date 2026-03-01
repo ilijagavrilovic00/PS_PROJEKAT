@@ -16,8 +16,7 @@ import javax.swing.table.AbstractTableModel;
 public class ModelTabeleStavkeRacuna extends AbstractTableModel {
     List<StavkaRacuna> lista;
     List<StavkaRacuna> originalnaLista;
-    String[] kolone ={"rb", "kolicina", "cena", "drustvena igra"};
-
+    String[] kolone ={"rb", "kolicina", "cena", "iznos", "drustvena igra"};
     public ModelTabeleStavkeRacuna(List<StavkaRacuna> lista) {
         this.lista = lista;
         this.originalnaLista = new ArrayList<>(lista);
@@ -45,7 +44,8 @@ public class ModelTabeleStavkeRacuna extends AbstractTableModel {
             case 0: return sr.getRb();
             case 1: return sr.getKolicina();
             case 2: return sr.getCena();
-            case 3: return sr.getDrustvenaIgra();
+            case 3: return sr.izracunajIznos();
+            case 4: return sr.getDrustvenaIgra();
             default: return "NA";
         }
     }

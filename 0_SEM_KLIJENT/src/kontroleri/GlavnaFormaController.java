@@ -47,7 +47,7 @@ public class GlavnaFormaController {
             private void dodaj(ActionEvent e) {
                DrustvenaIgra i = (DrustvenaIgra) gf.getCmbDrustveneIgre().getSelectedItem();
                int kolicina = Integer.parseInt(gf.getTxtKolicina().getText());
-               double cena = kolicina * (i.getCena());
+               double cena = i.getCena();
                 StavkaRacuna s = new StavkaRacuna();
                 s.setDrustvenaIgra(i);
                 s.setCena(cena);

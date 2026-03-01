@@ -15,6 +15,7 @@ import forme.DodajStavkuForma;
 import forme.FormaMod;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -70,6 +71,7 @@ public class DodajStavkuController {
                try{
                    Komunikacija.getInstance().azurirajStavku(sr); 
                    JOptionPane.showMessageDialog(dsf, "USPEH", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+                   Koordinator.getInstance().osveziPrikazRacuna();
                    dsf.dispose();
                }catch(Exception ex){
                       JOptionPane.showMessageDialog(dsf, "GRESKA", "GRESKA", JOptionPane.ERROR_MESSAGE);
@@ -83,6 +85,8 @@ public class DodajStavkuController {
 
     private void pripremiFormu(FormaMod mod) {
         List<DrustvenaIgra> sveDrustveneIgre = Komunikacija.getInstance().ucitajDrustveneIgre();
+        dsf.getTxtCena().setEnabled(false);
+        poveziCenuSaIzboromIgre();
         dsf.getCmbDrustveneIgre().removeAllItems();
         for(DrustvenaIgra i: sveDrustveneIgre){
             dsf.getCmbDrustveneIgre().addItem(i);
@@ -106,12 +110,25 @@ public class DodajStavkuController {
                 dsf.getTxtRB().setText(sr.getRb()+"");        
                 dsf.getTxtKolicina().setText(sr.getKolicina()+"");
                 dsf.getCmbDrustveneIgre().setSelectedItem(sr.getDrustvenaIgra());
-                
-                double cena = sr.getKolicina()*sr.getDrustvenaIgra().getCena();
-                dsf.getTxtCena().setText(cena+"");
+                postaviCenuZaIzabranuIgru();
                 break;
             default:
                 throw new AssertionError();
+        }
+    }
+
+   private void poveziCenuSaIzboromIgre() {
+        dsf.getCmbDrustveneIgre().addItemListener(e -> {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                postaviCenuZaIzabranuIgru();
+            }
+        });
+    }
+
+    private void postaviCenuZaIzabranuIgru() {
+        DrustvenaIgra izabranaIgra = (DrustvenaIgra) dsf.getCmbDrustveneIgre().getSelectedItem();
+        if (izabranaIgra != null) {
+            dsf.getTxtCena().setText(String.valueOf(izabranaIgra.getCena()));
         }
     }
 }

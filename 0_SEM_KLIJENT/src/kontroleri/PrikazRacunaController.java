@@ -45,6 +45,10 @@ public class PrikazRacunaController {
         pripremiFormu();
         pi.setVisible(true);
     }
+     
+    public void osveziFormu() {
+        pripremiFormu();
+    }
 
     public void pripremiFormu() {
         List<Racun> racuni = new ArrayList<>();
@@ -103,7 +107,7 @@ public class PrikazRacunaController {
                         Komunikacija.getInstance().obrisiStavku(s);
                         JOptionPane.showMessageDialog(pi, "Sistem je obrisao stavku racuna", "USPEH", JOptionPane.INFORMATION_MESSAGE);
                         mtsr.obrisiStavku(s);
-                        // pripremiFormu();
+                        osveziFormu();
                     }catch(Exception ex){
                         JOptionPane.showMessageDialog(pi, "Sistem ne moze da obrise stavku racuna", "GRESKA", JOptionPane.ERROR_MESSAGE);
                     }
