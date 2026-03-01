@@ -5,8 +5,11 @@
 package kontroleri;
 
 import communication.Komunikacija;
+import domen.DrustvenaIgra;
+import domen.Klijent;
 import domen.Racun;
 import domen.StavkaRacuna;
+import domen.Zaposleni;
 import forme.FormaMod;
 import forme.PrikazRacunaForma;
 import forme.modeli.ModelTabeleRacuna;
@@ -17,6 +20,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import koordinator.Koordinator;
 
@@ -29,6 +33,9 @@ public class PrikazRacunaController {
 
     public PrikazRacunaController(PrikazRacunaForma pi) {
         this.pi = pi;
+        popuniZaposlene();
+        popuniKlijente();
+        popuniDrustveneIgre();
         addActionListener();
         addMouseListener();
     }
@@ -135,6 +142,49 @@ public class PrikazRacunaController {
                 }
             }
         });
+         pi.getBtnPretrazi().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Racun kriterijum = kreirajKriterijumPretrage();
+                List<Racun> racuni;
+                try {
+                    racuni = Komunikacija.getInstance().pretraziRacune(kriterijum);
+                    if(racuni.isEmpty()){
+                        JOptionPane.showMessageDialog(pi, "Sistem ne moze da nadje racune po zadatim kriterijumima.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    }else{
+                        JOptionPane.showMessageDialog(pi, "Sistem je nasao racune po zadatim kriterijumima.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(pi, "Sistem ne moze da nadje racune po zadatim kriterijumima.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                ModelTabeleRacuna mti= new ModelTabeleRacuna(racuni);
+                pi.getTblRacuni().setModel(mti);
+                pi.getTblStavke().setModel(new ModelTabeleStavkeRacuna(new ArrayList<>()));
+            }
+
+            private Racun kreirajKriterijumPretrage() {
+                Racun kriterijum = new Racun();
+
+                Zaposleni zaposleni = (Zaposleni) pi.getCmbZaposleni().getSelectedItem();
+                Klijent klijent = (Klijent) pi.getCmbKlijent().getSelectedItem();
+                DrustvenaIgra igra = (DrustvenaIgra) pi.getCmbDrustvenaIgra().getSelectedItem();
+
+                kriterijum.setZaposleni(zaposleni);
+                kriterijum.setKlijent(klijent);
+
+                if (igra != null) {
+                    StavkaRacuna stavka = new StavkaRacuna();
+                    stavka.setDrustvenaIgra(igra);
+                    List<StavkaRacuna> stavke = new ArrayList<>();
+                    stavke.add(stavka);
+                    kriterijum.setStavke(stavke);
+                }
+
+                return kriterijum;
+            }
+        });
     }
 
     private void addMouseListener() {
@@ -155,5 +205,32 @@ public class PrikazRacunaController {
                 }
             }
         });
+    }
+
+     private void popuniZaposlene() {
+        JComboBox<Zaposleni> cmb = pi.getCmbZaposleni();
+        cmb.removeAllItems();
+        cmb.addItem(null);
+        for (Zaposleni z : Komunikacija.getInstance().ucitajZaposlene()) {
+            cmb.addItem(z);
+        }
+    }
+
+    private void popuniKlijente() {
+        JComboBox<Klijent> cmb = pi.getCmbKlijent();
+        cmb.removeAllItems();
+        cmb.addItem(null);
+        for (Klijent k : Komunikacija.getInstance().ucitajKlijente()) {
+            cmb.addItem(k);
+        }
+    }
+
+    private void popuniDrustveneIgre() {
+        JComboBox<DrustvenaIgra> cmb = pi.getCmbDrustvenaIgra();
+        cmb.removeAllItems();
+        cmb.addItem(null);
+        for (DrustvenaIgra di : Komunikacija.getInstance().ucitajDrustveneIgre()) {
+            cmb.addItem(di);
+        }
     }
 }

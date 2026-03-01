@@ -275,4 +275,23 @@ public class Komunikacija {
         return stavke;
     }
    
+    public List<Racun> pretraziRacune(Racun kriterijum) {
+        Zahtev zahtev = new Zahtev(Operacija.PRETRAZI_RACUNE, kriterijum);
+        List<Racun> racuni = new ArrayList<>();
+
+        posiljalac.posalji(zahtev);
+        Odgovor odg = (Odgovor) primalac.primi();
+        if (odg == null) {
+            throw new RuntimeException("Nije stigao odgovor servera za pretragu racuna.");
+        }
+        if (odg.getOdgovor() instanceof Exception) {
+            throw new RuntimeException((Exception) odg.getOdgovor());
+        }
+        if (odg.getOdgovor() == null) {
+            return racuni;
+        }
+
+        racuni = (List<Racun>) odg.getOdgovor();
+        return racuni;
+    }
 }
