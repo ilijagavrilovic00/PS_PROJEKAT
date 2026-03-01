@@ -137,6 +137,9 @@ public class Komunikacija {
         if(odg.getOdgovor() instanceof Exception){
             throw new RuntimeException((Exception) odg.getOdgovor());
         }
+         if(odg.getOdgovor()==null){
+            return racuni;
+        }
         racuni= (List<Racun>) odg.getOdgovor();
         return racuni;
     }

@@ -40,13 +40,19 @@ public class PrikazRacunaController {
     }
 
     public void pripremiFormu() {
-        List<Racun> iznajmljivanja = Komunikacija.getInstance().ucitajRacune();
-        ModelTabeleRacuna mti= new ModelTabeleRacuna(iznajmljivanja);
+        List<Racun> racuni = new ArrayList<>();
+        try {
+            racuni = Komunikacija.getInstance().ucitajRacune();
+        } catch (RuntimeException ex) {
+            JOptionPane.showMessageDialog(pi, "Sistem ne moze da ucita racune.", "Greska", JOptionPane.ERROR_MESSAGE);
+        }
+        ModelTabeleRacuna mti= new ModelTabeleRacuna(racuni);
         pi.getTblRacuni().setModel(mti);
         
         List<StavkaRacuna> stavke = new ArrayList<>();
         ModelTabeleStavkeRacuna mtsi = new ModelTabeleStavkeRacuna(stavke);
         pi.getTblStavke().setModel(mtsi);
+   
     }
 
     private void addActionListener() {
