@@ -26,7 +26,7 @@ public class StavkaRacuna  implements ApstraktniDomenskiObjekat{
         
     }
 
-    public void setRacun(Racun Racun) {
+    public void setRacun(Racun racun) {
         this.racun = racun;
     }
 
@@ -114,7 +114,7 @@ public class StavkaRacuna  implements ApstraktniDomenskiObjekat{
             StavkaRacuna stavka = new StavkaRacuna();
             Racun r = new Racun();
             r.setIdRacun(rs.getInt("idRacun"));
-            stavka.setRacun(racun);
+            stavka.setRacun(r);
             stavka.setRb(rs.getInt("rb"));
             stavka.setKolicina(rs.getInt("kolicina"));
             stavka.setCena(rs.getDouble("cena"));
@@ -133,15 +133,16 @@ public class StavkaRacuna  implements ApstraktniDomenskiObjekat{
 
     @Override
     public String vratiKoloneZaUbacivanje() {
-        return "idRacun, rb, kolicina, cena, idDrustvenaIgra";
+         return "idRacun, rb, kolicina, cena, iznos, idDrustvenaIgra";
     }
 
     @Override
     public String vratiVrednostiZaUbacivanje() {
-        return racun.getIdRacun()+","+
+         return racun.getIdRacun()+","+
             rb + "," +
             kolicina + "," +
             cena + "," +
+            izracunajIznos() + "," +
             drustvenaIgra.getIdDrustvenaIgra();
     }
 
