@@ -22,6 +22,7 @@ import operacije.login.LoginOperacija;
 import operacije.mesta.UcitajMestaSO;
 import operacije.racun.AzurirajRacunSO;
 import operacije.racun.DodajRacunSO;
+import operacije.racun.PretraziRacuneSO;
 import operacije.stavke.AzurirajStavkuSO;
 import operacije.stavke.ObrisiStavkuSO;
 import operacije.stavke.UcitajStavkeSO;
@@ -126,8 +127,8 @@ public class Controller {
     }
     
       public List<Racun> pretraziRacune(Racun kriterijum) throws Exception {
-        UcitajRacuneSO ucitaj = new UcitajRacuneSO();
-        ucitaj.izvrsi(kriterijum, null);
-        return ucitaj.getRacuni();
+        PretraziRacuneSO pretrazi = new PretraziRacuneSO();
+        pretrazi.izvrsi(kriterijum, null);
+        return pretrazi.getRacuni();
     }
 }
