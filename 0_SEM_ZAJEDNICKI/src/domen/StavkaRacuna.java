@@ -21,6 +21,18 @@ public class StavkaRacuna  implements ApstraktniDomenskiObjekat{
     private int kolicina = PODRAZUMEVANA_KOLICINA;
     private DrustvenaIgra drustvenaIgra;
 
+    public StavkaRacuna(Racun racun, int rb, double cena, DrustvenaIgra drustvenaIgra) {
+        this.racun = racun;
+        this.rb = rb;
+        this.cena = cena;
+        this.drustvenaIgra = drustvenaIgra;
+    }
+
+    public StavkaRacuna() {
+    }
+    
+    
+
     public Racun getRacun() {
         return racun;
         
