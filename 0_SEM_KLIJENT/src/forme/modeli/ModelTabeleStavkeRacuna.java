@@ -17,6 +17,7 @@ public class ModelTabeleStavkeRacuna extends AbstractTableModel {
     List<StavkaRacuna> lista;
     List<StavkaRacuna> originalnaLista;
     String[] kolone ={"Rb", "Naziv", "Cena", "Kolicina", "Iznos"};
+    private boolean editable;
     public ModelTabeleStavkeRacuna(List<StavkaRacuna> lista) {
         this.lista = lista;
         this.originalnaLista = new ArrayList<>(lista);
@@ -35,6 +36,35 @@ public class ModelTabeleStavkeRacuna extends AbstractTableModel {
     @Override
     public String getColumnName(int column) {
         return kolone[column];
+    }
+    
+    @Override
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return editable && columnIndex == 3;
+    }
+    
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        if (!isCellEditable(rowIndex, columnIndex)) {
+            return;
+        }
+
+        StavkaRacuna sr = lista.get(rowIndex);
+        if (columnIndex == 3) {
+            try {
+                int novaKolicina = Integer.parseInt(String.valueOf(aValue));
+                sr.setKolicina(novaKolicina);
+            } catch (NumberFormatException ex) {
+                return;
+            }
+        }
+
+        fireTableRowsUpdated(rowIndex, rowIndex);
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+        fireTableDataChanged();
     }
     
     @Override

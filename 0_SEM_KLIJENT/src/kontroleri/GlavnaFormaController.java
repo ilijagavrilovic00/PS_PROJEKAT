@@ -23,8 +23,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import koordinator.Koordinator;
 
 /**
@@ -161,9 +164,12 @@ public class GlavnaFormaController {
                 
             } 
         });
+        
+        poveziDugmeIzmeniStavkuAkoPostoji();
     }
 
     public void otvoriFormu() {
+        gf.getBtnKreirajRacun().setVisible(true);
         gf.getBtnIzmeniRacun().setVisible(false);
         gf.prikaziMenuBar();
         gf.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -173,8 +179,7 @@ public class GlavnaFormaController {
         gf.getLblUlogovani().setText(imePrezime);
         
         List<StavkaRacuna> praznaLista = new ArrayList<>();
-        ModelTabeleStavkeRacuna mts = new ModelTabeleStavkeRacuna(praznaLista);
-        gf.getTblRacun().setModel(mts);
+        postaviModelStavki(praznaLista, false);
         
         postaviPocetniUkupanIznos();
         postaviAutomatskiId();
@@ -212,8 +217,7 @@ public class GlavnaFormaController {
         gf.getLblUlogovani().setText(imePrezime);
         
         List<StavkaRacuna> praznaLista = new ArrayList<>();
-        ModelTabeleStavkeRacuna mts = new ModelTabeleStavkeRacuna(praznaLista);
-        gf.getTblRacun().setModel(mts);
+        postaviModelStavki(praznaLista, false);
         
         if(formaMod==FormaMod.IZMENI){
             gf.getBtnKreirajRacun().setVisible(false);
@@ -221,7 +225,7 @@ public class GlavnaFormaController {
             gf.sakrijMenuBar();
             gf.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
             Racun r = (Racun) Koordinator.getInstance().vratiParam("razun_za_izmenu");
-            mts.setLista(r.getStavke());
+            postaviModelStavki(r.getStavke(), true);
             gf.getTxtID().setText(r.getIdRacun()+"");
             gf.getTxtID().setEnabled(false);
             gf.getCmbKlijent().setSelectedItem(r.getKlijent());
@@ -245,8 +249,7 @@ public class GlavnaFormaController {
             gf.getCmbDrustveneIgre().setSelectedIndex(0);
         }
 
-        ModelTabeleStavkeRacuna prazanModel = new ModelTabeleStavkeRacuna(new ArrayList<>());
-        gf.getTblRacun().setModel(prazanModel);
+        postaviModelStavki(new ArrayList<>(), false);
         postaviPocetniUkupanIznos();
         postaviAutomatskiId();
     }
@@ -282,6 +285,60 @@ public class GlavnaFormaController {
         JTextField txtUkupno = gf.getTxtUkupno();
         if (txtUkupno != null) {
             txtUkupno.setText(String.format("%.2f", iznos));
+        }
+    }
+
+    private void poveziDugmeIzmeniStavkuAkoPostoji() {
+        JButton btnIzmeniStavku = gf.getBtnIzmeniStavku();
+        if (btnIzmeniStavku == null) {
+            return;
+        }
+
+        for (ActionListener actionListener : btnIzmeniStavku.getActionListeners()) {
+            btnIzmeniStavku.removeActionListener(actionListener);
+        }
+
+        btnIzmeniStavku.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sacuvajIzmenuStavke();
+            }
+
+            private void sacuvajIzmenuStavke() {
+                throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            }
+        });
+    }
+
+    private void postaviModelStavki(List<StavkaRacuna> stavke, boolean editable) {
+        ModelTabeleStavkeRacuna mts = new ModelTabeleStavkeRacuna(stavke);
+        mts.setEditable(editable);
+        mts.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                osveziUkupanIznos();
+            }
+        });
+        gf.getTblRacun().setModel(mts);
+        osveziUkupanIznos();
+    }
+    private void sacuvajIzmenuStavke() {
+        int red = gf.getTblRacun().getSelectedRow();
+        if (red == -1) {
+            JOptionPane.showMessageDialog(gf, "Izaberite stavku koju zelite da izmenite.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        ModelTabeleStavkeRacuna mts = (ModelTabeleStavkeRacuna) gf.getTblRacun().getModel();
+        StavkaRacuna stavka = mts.getLista().get(red);
+
+        try {
+            Komunikacija.getInstance().azurirajStavku(stavka);
+            JOptionPane.showMessageDialog(gf, "Sistem je azurirao stavku racuna.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+            osveziUkupanIznos();
+            Koordinator.getInstance().osveziPrikazRacuna();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(gf, "Sistem ne moze da azurira stavku racuna.", "GRESKA", JOptionPane.ERROR_MESSAGE);
         }
     }
     

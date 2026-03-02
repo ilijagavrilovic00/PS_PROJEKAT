@@ -69,6 +69,7 @@ public class GlavnaForma extends javax.swing.JFrame {
         txtKolicina = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         txtUkupno = new javax.swing.JTextField();
+        btnIzmeniStavku = new javax.swing.JButton();
         btnKreirajRacun = new javax.swing.JButton();
         btnIzmeniRacun = new javax.swing.JButton();
         txtID = new javax.swing.JTextField();
@@ -121,6 +122,8 @@ public class GlavnaForma extends javax.swing.JFrame {
 
         txtUkupno.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
+        btnIzmeniStavku.setText("Izmeni stavku");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -132,10 +135,11 @@ public class GlavnaForma extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnDodajStavku, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                            .addComponent(btnDodajStavku, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnObrisiStavku, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtUkupno, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtUkupno, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnIzmeniStavku, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -162,7 +166,7 @@ public class GlavnaForma extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbDrustveneIgre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtKolicina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -171,6 +175,8 @@ public class GlavnaForma extends javax.swing.JFrame {
                         .addComponent(btnDodajStavku, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnObrisiStavku, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnIzmeniStavku, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -428,12 +434,21 @@ public class GlavnaForma extends javax.swing.JFrame {
     public void setTxtUkupno(JTextField txtUkupno) {
         this.txtUkupno = txtUkupno;
     }
+
+    public JButton getBtnIzmeniStavku() {
+        return btnIzmeniStavku;
+    }
+
+    public void setBtnIzmeniStavku(JButton btnIzmeniStavku) {
+        this.btnIzmeniStavku = btnIzmeniStavku;
+    }
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDodajStavku;
     private javax.swing.JButton btnIzmeniRacun;
+    private javax.swing.JButton btnIzmeniStavku;
     private javax.swing.JButton btnKreirajRacun;
     private javax.swing.JButton btnObrisiStavku;
     private javax.swing.JComboBox<DrustvenaIgra> cmbDrustveneIgre;
