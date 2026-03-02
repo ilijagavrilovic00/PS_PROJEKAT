@@ -494,4 +494,5 @@ public class GlavnaForma extends javax.swing.JFrame {
      public void azuriranjeAddActionListener(ActionListener actionListener) {
         btnIzmeniRacun.addActionListener(actionListener);
     }
+     
 }

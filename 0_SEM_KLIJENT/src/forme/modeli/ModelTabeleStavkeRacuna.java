@@ -67,6 +67,12 @@ public class ModelTabeleStavkeRacuna extends AbstractTableModel {
         fireTableDataChanged();
     }
     
+     public void osveziStavke(List<StavkaRacuna> noveStavke) {
+        this.lista = new ArrayList<>(noveStavke);
+        this.originalnaLista = new ArrayList<>(noveStavke);
+        fireTableDataChanged();
+    }
+    
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         StavkaRacuna sr = lista.get(rowIndex);

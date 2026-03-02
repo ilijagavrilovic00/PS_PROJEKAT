@@ -114,6 +114,7 @@ public class DodajKlijentaController {
         switch(mod){
             case DODAJ:
                 dkf.getTxtID().setEnabled(false);
+                dkf.getTxtID().setText("A.I.");
                 dkf.getBtnAzuriraj().setVisible(false);
                 dkf.getBtnDodaj().setVisible(true);
                 dkf.getBtnDodaj().setEnabled(true);
