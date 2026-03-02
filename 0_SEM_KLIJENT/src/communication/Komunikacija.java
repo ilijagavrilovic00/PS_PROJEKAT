@@ -84,8 +84,9 @@ public class Komunikacija {
             System.out.println("USPEH");
         }else{
             System.out.println("GRESKA NISI");
-            ((Exception)odg.getOdgovor()).printStackTrace();
-            throw new Exception("GRESKA");
+            Exception serverException = (Exception) odg.getOdgovor();
+            serverException.printStackTrace();
+            throw new Exception(serverException.getMessage(), serverException);
         }
 
     }

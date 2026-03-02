@@ -66,7 +66,7 @@ public class PrikazKlijenataController {
             public void actionPerformed(ActionEvent e) {
                 int red = pk.getTblKlijenti().getSelectedRow();
                 if(red==-1){
-                    JOptionPane.showMessageDialog(pk, "Sistem ne moze da ndaje klijenta.", "Greska", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(pk, "Sistem ne moze da nadje klijenta.", "Greska", JOptionPane.ERROR_MESSAGE);
                 }else{
                     ModelTabeleKlijenti mtk = (ModelTabeleKlijenti) pk.getTblKlijenti().getModel();
                     Klijent k = mtk.getLista().get(red);

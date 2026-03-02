@@ -5,7 +5,10 @@
 package operacije.klijenti;
 
 import domen.Klijent;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import operacije.ApstraktnaGenerickaOperacija;
+import repository.db.DBConnectionFactory;
 
 /**
  *
@@ -17,6 +20,18 @@ public class ObrisiKlijentaSO extends ApstraktnaGenerickaOperacija {
     protected void preduslovi(Object objekat) throws Exception {
         if(objekat==null || !(objekat instanceof Klijent)){
             throw new Exception("Sistem nije mogao da obrise klijenta");
+        }
+
+        Klijent klijent = (Klijent) objekat;
+        String upit = "SELECT COUNT(*) FROM racun WHERE idKlijent = ?";
+
+        try (PreparedStatement ps = DBConnectionFactory.getInstance().getConnection().prepareStatement(upit)) {
+            ps.setLong(1, klijent.getIdKlijent());
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next() && rs.getInt(1) > 0) {
+                    throw new Exception("Sistem ne moze da obrise klijenta koji ima racune.");
+                }
+            }
         }
     }
 

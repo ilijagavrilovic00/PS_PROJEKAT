@@ -48,8 +48,12 @@ public class DBRepositoryGeneric implements DBRepository<ApstraktniDomenskiObjek
     public void edit(ApstraktniDomenskiObjekat param) throws Exception {
         String upit = "UPDATE "+param.vratiNazivTabele()+" SET "+param.vratiVrednostiZaIzmenu()+" WHERE "+param.vratiPrimarniKljuc();
         Statement st = DBConnectionFactory.getInstance().getConnection().createStatement();
-        st.executeUpdate(upit);
+        int brojAzuriranihSlogova = st.executeUpdate(upit);
         st.close();
+
+        if (brojAzuriranihSlogova == 0) {
+            throw new Exception("Nijedan slog nije azuriran.");
+        }
     }
 
     @Override

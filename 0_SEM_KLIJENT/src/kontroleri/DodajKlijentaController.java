@@ -43,13 +43,13 @@ public class DodajKlijentaController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    kreirajKupca(e);
+                    kreirajKlijenta(e);
                 } catch (Exception ex) {
                     Logger.getLogger(DodajKlijentaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             
-            private void kreirajKupca(ActionEvent e) {
+            private void kreirajKlijenta(ActionEvent e) {
                String ime = dkf.getTxtIme().getText().trim();
                String prezime = dkf.getTxtPrezime().getText().trim();
                String brojTelefona = dkf.getTxtBrojTelefona().getText().trim();
@@ -74,13 +74,13 @@ public class DodajKlijentaController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    azuriraj(e);
+                    azurirajKlijenta(e);
                 } catch (Exception ex) {
                     Logger.getLogger(DodajKlijentaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             
-            private void azuriraj(ActionEvent e) {
+            private void azurirajKlijenta(ActionEvent e) {
                int id = Integer.parseInt(dkf.getTxtID().getText());
                String ime = dkf.getTxtIme().getText().trim();
                String prezime = dkf.getTxtPrezime().getText().trim();
@@ -95,7 +95,8 @@ public class DodajKlijentaController {
                try{
                    Komunikacija.getInstance().azurirajKlijenta(k); 
                     JOptionPane.showMessageDialog(dkf, "Sistem je zapamtio klijenta.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
-                   dkf.dispose();
+                    Koordinator.getInstance().osveziFormu();
+                    dkf.dispose();
                }catch(Exception ex){
                     JOptionPane.showMessageDialog(dkf, "Sistem ne moze da zapamti klijenta.", "GRESKA", JOptionPane.ERROR_MESSAGE);
                }
@@ -117,6 +118,7 @@ public class DodajKlijentaController {
     private void pripremiFormu(FormaMod mod) {
         switch(mod){
             case DODAJ:
+                dkf.getLblOperacija().setText("Dodaj klijenta");
                 dkf.getTxtID().setEnabled(false);
                 dkf.getTxtID().setText("A.I.");
                 dkf.getBtnAzuriraj().setVisible(false);
@@ -124,6 +126,8 @@ public class DodajKlijentaController {
                 dkf.getBtnDodaj().setEnabled(true);
                 break;
             case IZMENI:
+                dkf.getTxtID().setEnabled(false);
+                dkf.getLblOperacija().setText("Izmeni klijenta");
                 dkf.getBtnAzuriraj().setVisible(true);
                 dkf.getBtnDodaj().setVisible(false);
                 dkf.getBtnAzuriraj().setEnabled(true);
@@ -144,7 +148,7 @@ public class DodajKlijentaController {
     }
     
     private boolean validanBrojTelefonaZaCuvanje(String brojTelefona) {
-        return brojTelefona.length() <= 10 || brojTelefona.startsWith("06");
+        return brojTelefona != null && brojTelefona.matches("06\\d{8}");
     }
 
     private void ocistiPoljaNakonDodavanja() {
