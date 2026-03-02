@@ -15,11 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import komunikacija.Operacija;
-import komunikacija.Zahtev;
 import koordinator.Koordinator;
 
 /**
@@ -46,28 +43,31 @@ public class DodajKlijentaController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    dodaj(e);
+                    kreirajKupca(e);
                 } catch (Exception ex) {
                     Logger.getLogger(DodajKlijentaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             
-            private void dodaj(ActionEvent e) {
+            private void kreirajKupca(ActionEvent e) {
                String ime = dkf.getTxtIme().getText().trim();
                String prezime = dkf.getTxtPrezime().getText().trim();
                String brojTelefona = dkf.getTxtBrojTelefona().getText().trim();
                Mesto mesto = (Mesto)dkf.getCmbMesto().getSelectedItem();
                Klijent k = new Klijent(-1,ime,prezime,brojTelefona, mesto);
                 
+               if (!validanBrojTelefonaZaCuvanje(brojTelefona)) {
+                   JOptionPane.showMessageDialog(dkf, "Sistem ne moze da zapamti klijenta.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                   return;
+               }
                try{
                    Komunikacija.getInstance().dodajKlijenta(k); 
                    JOptionPane.showMessageDialog(dkf, "Sistem je zapamtio klijenta.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
-                   dkf.dispose();
+                   ocistiPoljaNakonDodavanja();
                }catch(Exception ex){
                    JOptionPane.showMessageDialog(dkf, "Sistem ne moze da zapamti klijenta.", "GRESKA", JOptionPane.ERROR_MESSAGE);
                }
             }
-
               
         });
              dkf.azuriranjeAddActionListener(new ActionListener() {
@@ -88,6 +88,10 @@ public class DodajKlijentaController {
                Mesto mesto = (Mesto)dkf.getCmbMesto().getSelectedItem();
                Klijent k = new Klijent(id,ime,prezime,brojTelefona, mesto);
                 
+               if (!validanBrojTelefonaZaCuvanje(brojTelefona)) {
+                   JOptionPane.showMessageDialog(dkf, "Sistem ne moze da zapamti klijenta.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                   return;
+               }
                try{
                    Komunikacija.getInstance().azurirajKlijenta(k); 
                     JOptionPane.showMessageDialog(dkf, "Sistem je zapamtio klijenta.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
@@ -136,6 +140,20 @@ public class DodajKlijentaController {
                 break;
             default:
                 throw new AssertionError();
+        }
+    }
+    
+    private boolean validanBrojTelefonaZaCuvanje(String brojTelefona) {
+        return brojTelefona.length() <= 10 || brojTelefona.startsWith("06");
+    }
+
+    private void ocistiPoljaNakonDodavanja() {
+        dkf.getTxtIme().setText("");
+        dkf.getTxtPrezime().setText("");
+        dkf.getTxtBrojTelefona().setText("");
+
+        if (dkf.getCmbMesto().getItemCount() > 0) {
+            dkf.getCmbMesto().setSelectedIndex(0);
         }
     }
 }

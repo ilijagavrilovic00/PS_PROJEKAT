@@ -108,6 +108,7 @@ public class GlavnaFormaController {
              
                String datumString = gf.getTxtDatum().getText();
                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+               sdf.setLenient(false);
                Date datum = sdf.parse(datumString);
                
                r.setDatum(datum);
@@ -144,6 +145,7 @@ public class GlavnaFormaController {
                r.setIdRacun(id);
                String datumString = gf.getTxtDatum().getText();
                SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+               sdf.setLenient(false);
                Date datum = sdf.parse(datumString);
                
                r.setDatum(datum);
@@ -352,12 +354,12 @@ public class GlavnaFormaController {
         try {
             kolicina = Integer.parseInt(tekstKolicine);
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(gf, "Kolicina mora biti ceo broj.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(gf, "Sistem ne moze da zapamti racun.", "GRESKA", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         if (kolicina <= 0) {
-            JOptionPane.showMessageDialog(gf, "Kolicina mora biti veca od 0.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(gf, "Sistem ne moze da zapamti racun", "GRESKA", JOptionPane.ERROR_MESSAGE);
             return;
         }
         if (postojiIstaIgraUDrugojStavci(mts.getLista(), red, igra)) {
