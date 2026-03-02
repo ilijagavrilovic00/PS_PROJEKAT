@@ -41,7 +41,7 @@ public class DodajDrustvenuIgruController {
                 String opis = dodajDrustvenuIgruForma.getTxtAreaOpis().getText().trim();
 
                 if (naziv.isEmpty() || cenaUnos.isEmpty() || opis.isEmpty()) {
-                    JOptionPane.showMessageDialog(dodajDrustvenuIgruForma, "Sva polja su obavezna.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(dodajDrustvenuIgruForma, "Sistem ne moze da zapamti drustvenu igru.", "GRESKA", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
@@ -49,7 +49,7 @@ public class DodajDrustvenuIgruController {
                 try {
                     cena = Double.parseDouble(cenaUnos);
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(dodajDrustvenuIgruForma, "Cena mora biti broj.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(dodajDrustvenuIgruForma, "Sistem ne moze da zapamti drustvenu igru.", "GRESKA", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
@@ -58,11 +58,13 @@ public class DodajDrustvenuIgruController {
                 try {
                     Komunikacija.getInstance().dodajDrustvenuIgru(igra);
                     JOptionPane.showMessageDialog(dodajDrustvenuIgruForma, "Sistem je zapamtio drustvenu igru.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
-                    dodajDrustvenuIgruForma.dispose();
+                    ocistiPoljaNakonDodavanja();
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(dodajDrustvenuIgruForma, "Sistem ne moze da zapamti drustvenu igru.", "GRESKA", JOptionPane.ERROR_MESSAGE);
                 }
             }
+
+           
         });
     }
 
@@ -72,5 +74,9 @@ public class DodajDrustvenuIgruController {
     }
 
 
-    
+     private void ocistiPoljaNakonDodavanja() {
+        dodajDrustvenuIgruForma.getTxtNaziv().setText("");
+        dodajDrustvenuIgruForma.getTxtCena().setText("");
+        dodajDrustvenuIgruForma.getTxtAreaOpis().setText("");
+     }
 }
