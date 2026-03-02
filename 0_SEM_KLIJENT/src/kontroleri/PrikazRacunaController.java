@@ -42,25 +42,29 @@ public class PrikazRacunaController {
     
     
      public void otvoriFormu() {
-        pripremiFormu();
+        pripremiFormu(true);
         pi.setVisible(true);
     }
      
     public void osveziFormu() {
-        pripremiFormu();
+        pripremiFormu(false);
     }
 
-    public void pripremiFormu() {
+    public void pripremiFormu(boolean prikaziPoruke) {
         List<Racun> racuni = new ArrayList<>();
         try {
             racuni = Komunikacija.getInstance().ucitajRacune();
-             if(racuni.isEmpty()){
-                JOptionPane.showMessageDialog(pi, "Sistem ne moze da ucita racune.", "GRESKA", JOptionPane.ERROR_MESSAGE);
-             }else{
-                JOptionPane.showMessageDialog(pi, "Sistem je ucitao racune.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
-             }
+              if (prikaziPoruke) {
+                 if(racuni.isEmpty()){
+                    JOptionPane.showMessageDialog(pi, "Sistem ne moze da ucita racune.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                 }else{
+                    JOptionPane.showMessageDialog(pi, "Sistem je ucitao racune.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+                 }
+              }
         } catch (RuntimeException ex) {
-           JOptionPane.showMessageDialog(pi, "Sistem ne moze da ucita racune.", "Greska", JOptionPane.ERROR_MESSAGE);
+           if (prikaziPoruke) {
+               JOptionPane.showMessageDialog(pi, "Sistem ne moze da ucita racune.", "Greska", JOptionPane.ERROR_MESSAGE);
+           }
         }
         ModelTabeleRacuna mti= new ModelTabeleRacuna(racuni);
         pi.getTblRacuni().setModel(mti);
@@ -86,46 +90,10 @@ public class PrikazRacunaController {
                     try{
                         Komunikacija.getInstance().obrisiRacun(r);
                         JOptionPane.showMessageDialog(pi, "Sistem je obrisao racun", "USPEH", JOptionPane.INFORMATION_MESSAGE);
-                        pripremiFormu();
+                        pripremiFormu(false);
                     }catch(Exception ex){
                         JOptionPane.showMessageDialog(pi, "Sistem ne moze da obrise racun", "GRESKA", JOptionPane.ERROR_MESSAGE);
                     }
-                }
-            }
-        });
-        pi.obrisiStavkuAddActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int red = pi.getTblStavke().getSelectedRow();
-                if(red==-1){
-                    JOptionPane.showMessageDialog(pi, "Sistem ne moze da obrise stavku.", "Greska", JOptionPane.ERROR_MESSAGE);
-                }else{
-                    ModelTabeleStavkeRacuna mtsr = (ModelTabeleStavkeRacuna) pi.getTblStavke().getModel();
-                    StavkaRacuna s = mtsr.getLista().get(red);
-                   
-                    try{
-                        Komunikacija.getInstance().obrisiStavku(s);
-                        JOptionPane.showMessageDialog(pi, "Sistem je obrisao stavku racuna", "USPEH", JOptionPane.INFORMATION_MESSAGE);
-                        mtsr.obrisiStavku(s);
-                        osveziFormu();
-                    }catch(Exception ex){
-                        JOptionPane.showMessageDialog(pi, "Sistem ne moze da obrise stavku racuna", "GRESKA", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-            }
-        });
-        pi.izmeniStavkuAddActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int red = pi.getTblStavke().getSelectedRow();
-                if(red==-1){
-                    JOptionPane.showMessageDialog(pi, "Sistem ne moze da izmeni stavku.", "Greska", JOptionPane.ERROR_MESSAGE);
-                }else{
-                   ModelTabeleStavkeRacuna mtsr = (ModelTabeleStavkeRacuna) pi.getTblStavke().getModel();
-                   StavkaRacuna sr = mtsr.getLista().get(red);
-                   Koordinator.getInstance().dodajParam("stavka_za_izmenu", sr);
-                   Koordinator.getInstance().otvoriIzmeniStavku();
-
                 }
             }
         });

@@ -19,7 +19,6 @@ import komunikacija.Operacija;
 import komunikacija.Posiljalac;
 import komunikacija.Primalac;
 import komunikacija.Zahtev;
-import koordinator.Koordinator;
 
 /**
  *

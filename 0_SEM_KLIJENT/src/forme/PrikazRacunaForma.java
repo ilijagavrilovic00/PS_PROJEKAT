@@ -40,8 +40,6 @@ public class PrikazRacunaForma extends javax.swing.JFrame {
         tblRacuni = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblStavke = new javax.swing.JTable();
-        btnObrisiStavku = new javax.swing.JButton();
-        btnAzurirajStavku = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnPretrazi = new javax.swing.JButton();
@@ -55,9 +53,11 @@ public class PrikazRacunaForma extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        btnObrisi.setText("Obrisi");
+        btnObrisi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnObrisi.setText("Obrisi racun");
 
-        btnAzuriraj.setText("Azuriraj");
+        btnAzuriraj.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnAzuriraj.setText("Izmeni racun");
 
         tblRacuni.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -84,10 +84,6 @@ public class PrikazRacunaForma extends javax.swing.JFrame {
             }
         ));
         jScrollPane2.setViewportView(tblStavke);
-
-        btnObrisiStavku.setText("Obrisi stavku");
-
-        btnAzurirajStavku.setText("Azuriraj");
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -149,25 +145,20 @@ public class PrikazRacunaForma extends javax.swing.JFrame {
                     .addComponent(cmbDrustvenaIgra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnPretrazi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(btnAzuriraj)
-                .addGap(83, 83, 83)
-                .addComponent(btnObrisi)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAzurirajStavku, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnObrisiStavku)
-                .addGap(73, 73, 73))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(78, 78, 78)
+                        .addComponent(btnAzuriraj, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -189,14 +180,13 @@ public class PrikazRacunaForma extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAzurirajStavku)
-                    .addComponent(btnObrisiStavku)
-                    .addComponent(btnAzuriraj)
-                    .addComponent(btnObrisi))
+                    .addComponent(btnAzuriraj, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnObrisi, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -238,22 +228,6 @@ public class PrikazRacunaForma extends javax.swing.JFrame {
         this.btnAzuriraj = btnAzuriraj;
     }
 
-    public JButton getBtnAzurirajStavku() {
-        return btnAzurirajStavku;
-    }
-
-    public void setBtnAzurirajStavku(JButton btnAzurirajStavku) {
-        this.btnAzurirajStavku = btnAzurirajStavku;
-    }
-
-    public JButton getBtnObrisiStavku() {
-        return btnObrisiStavku;
-    }
-
-    public void setBtnObrisiStavku(JButton btnObrisiStavku) {
-        this.btnObrisiStavku = btnObrisiStavku;
-    }
-
     public JButton getBtnPretrazi() {
         return btnPretrazi;
     }
@@ -292,9 +266,7 @@ public class PrikazRacunaForma extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAzuriraj;
-    private javax.swing.JButton btnAzurirajStavku;
     private javax.swing.JButton btnObrisi;
-    private javax.swing.JButton btnObrisiStavku;
     private javax.swing.JButton btnPretrazi;
     private javax.swing.JComboBox<DrustvenaIgra> cmbDrustvenaIgra;
     private javax.swing.JComboBox<Klijent> cmbKlijent;
@@ -315,14 +287,6 @@ public class PrikazRacunaForma extends javax.swing.JFrame {
     }
     public void azuriranjeAddActionListener(ActionListener actionListener) {
         btnAzuriraj.addActionListener(actionListener);
-    }
-
-    public void obrisiStavkuAddActionListener(ActionListener actionListener) {
-        btnObrisiStavku.addActionListener(actionListener);
-    }
-
-    public void izmeniStavkuAddActionListener(ActionListener actionListener) {
-        btnAzurirajStavku.addActionListener(actionListener);
     }
 
     public void pretragaAddActionListener(ActionListener actionListener) {
