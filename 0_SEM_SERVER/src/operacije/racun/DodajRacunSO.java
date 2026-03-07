@@ -20,19 +20,30 @@ public class DodajRacunSO extends ApstraktnaGenerickaOperacija{
         if(objekat==null || !(objekat instanceof Racun)){
             throw new Exception("Sistem ne moze da doda racun: neispravan unos");
         }
+        Racun r = (Racun) objekat;
+        if (r.getStavke() == null || r.getStavke().isEmpty()) {
+            throw new Exception("Sistem ne moze da doda racun: racun mora imati bar jednu stavku.");
+        }
     }
 
     @Override
     protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
         Racun r = (Racun) objekat;
-        int idRacun = broker.addReturnKey(r);
-        
+       
         List<StavkaRacuna> stavke = r.getStavke();
-        for(StavkaRacuna s: stavke){
-            r.setIdRacun(idRacun);
+        if (stavke == null || stavke.isEmpty()) {
+            throw new Exception("Sistem ne moze da doda racun: racun mora imati bar jednu stavku.");
+        }
+
+        r.setStavke(stavke);
+        int idRacun = broker.addReturnKey(r);
+        r.setIdRacun(idRacun);
+
+        for (StavkaRacuna s : stavke) {
             s.setRacun(r);
             broker.add(s);
         }
+       
     }
     
 }

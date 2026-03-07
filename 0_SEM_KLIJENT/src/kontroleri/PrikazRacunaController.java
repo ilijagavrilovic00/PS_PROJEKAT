@@ -85,8 +85,7 @@ public class PrikazRacunaController {
                 }else{
                     ModelTabeleRacuna mti = (ModelTabeleRacuna) pi.getTblRacuni().getModel();
                     Racun r = mti.getLista().get(red);
-                    List<StavkaRacuna> stavke = Komunikacija.getInstance().ucitajStavke(r.getIdRacun());
-                    r.setStavke(stavke);
+                    
                     try{
                         Komunikacija.getInstance().obrisiRacun(r);
                         JOptionPane.showMessageDialog(pi, "Sistem je obrisao racun", "USPEH", JOptionPane.INFORMATION_MESSAGE);
@@ -106,8 +105,7 @@ public class PrikazRacunaController {
                 }else{
                     ModelTabeleRacuna mti = (ModelTabeleRacuna) pi.getTblRacuni().getModel();
                     Racun r = mti.getLista().get(red);
-                    List<StavkaRacuna> stavke = Komunikacija.getInstance().ucitajStavke(r.getIdRacun());
-                    r.setStavke(stavke);
+                    
                     JOptionPane.showMessageDialog(pi, "Sistem je nasao racun.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
                     Koordinator.getInstance().dodajParam("razun_za_izmenu",r);
                     Koordinator.getInstance().otvoriGlavnuFormu(FormaMod.IZMENI);
@@ -172,9 +170,7 @@ public class PrikazRacunaController {
                 if(red!=-1){
                     ModelTabeleRacuna mtr = (ModelTabeleRacuna) pi.getTblRacuni().getModel();
                     Racun r = mtr.getLista().get(red);
-                    List<StavkaRacuna> stavke = Komunikacija.getInstance().ucitajStavke(r.getIdRacun());
-                    //novo
-                    r.setStavke(stavke);
+                    List<StavkaRacuna> stavke = r.getStavke() != null ? r.getStavke() : new ArrayList<>();
                     mtr.fireTableRowsUpdated(red, red);
                     //
                     ModelTabeleStavkeRacuna mtsi = new ModelTabeleStavkeRacuna(stavke);

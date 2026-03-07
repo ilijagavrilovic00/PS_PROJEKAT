@@ -7,7 +7,6 @@ package koordinator;
 import domen.Zaposleni;
 import forme.DodajDrustvenuIgruForma;
 import forme.DodajKlijentaForma;
-import forme.DodajStavkuForma;
 import forme.FormaMod;
 import forme.GlavnaForma;
 import forme.LoginForma;
@@ -17,7 +16,6 @@ import java.util.HashMap;
 import java.util.Map;
 import kontroleri.DodajDrustvenuIgruController;
 import kontroleri.DodajKlijentaController;
-import kontroleri.DodajStavkuController;
 import kontroleri.GlavnaFormaController;
 import kontroleri.LoginController;
 import kontroleri.PrikazRacunaController;
@@ -36,7 +34,6 @@ public class Koordinator {
     private DodajKlijentaController dodajKlijentaController;
     private Map<String, Object> parametri;
     private PrikazRacunaController prikazRacunaController;
-    private DodajStavkuController dodajStavkuController;
     private DodajDrustvenuIgruController dodajDrustvenuIgruController;
     
     private Koordinator(){
@@ -99,10 +96,6 @@ public class Koordinator {
         prikazRacunaController.otvoriFormu();
     }
 
-    public void otvoriIzmeniStavku() {
-        dodajStavkuController = new DodajStavkuController(new DodajStavkuForma());
-        dodajStavkuController.otvoriFormu(FormaMod.IZMENI);
-    }
 
     public void otvoriGlavnuFormu(FormaMod formaMod) {
         glavnaFormaController = new GlavnaFormaController(new GlavnaForma());
@@ -119,5 +112,11 @@ public class Koordinator {
     public void otvoriDodajDrustvenuIgru() {
         dodajDrustvenuIgruController = new DodajDrustvenuIgruController(new DodajDrustvenuIgruForma());
         dodajDrustvenuIgruController.otvoriFormu();
+    }
+    
+     public void osveziDrustveneIgreNaGlavnojFormi() {
+        if (glavnaFormaController != null) {
+            glavnaFormaController.osveziDrustveneIgreCombo();
+        }
     }
 }

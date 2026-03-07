@@ -8,7 +8,6 @@ import domen.DrustvenaIgra;
 import domen.Racun;
 import domen.Klijent;
 import domen.Mesto;
-import domen.StavkaRacuna;
 import domen.Zaposleni;
 import java.io.IOException;
 import java.net.Socket;
@@ -189,18 +188,7 @@ public class Komunikacija {
         }
     }
 
-    public void obrisiStavku(StavkaRacuna s) throws Exception {
-        Zahtev zahtev = new Zahtev(Operacija.OBRISI_STAVKU, s);
-        posiljalac.posalji(zahtev);
-        Odgovor odg = (Odgovor) primalac.primi();
-        if(odg.getOdgovor()==null){
-            System.out.println("USPEH");
-        }else{
-            System.out.println("GRESKA NISI");
-            ((Exception)odg.getOdgovor()).printStackTrace();
-            throw new Exception("GRESKA");
-        }
-    }
+    
 
     public void dodajDrustvenuIgru(DrustvenaIgra igra) {
         Zahtev zahtev = new Zahtev(Operacija.DODAJ_IGRU, igra);
@@ -217,21 +205,7 @@ public class Komunikacija {
             throw new RuntimeException("Sistem ne moze da zapamti drustvenu igru.");
         }
     }
-    public void azurirajStavku(StavkaRacuna sr) {
-        Zahtev zahtev = new Zahtev(Operacija.AZURIRAJ_STAVKU, sr);
-        posiljalac.posalji(zahtev);
-        Odgovor odg = (Odgovor) primalac.primi();
-        
-        if (odg == null) {
-            throw new RuntimeException("Nije stigao odgovor servera za azuriranje stavke.");
-        }
-        if (odg.getOdgovor() instanceof Exception) {
-            throw new RuntimeException((Exception) odg.getOdgovor());
-        }
-        if (odg.getOdgovor() != null) {
-            throw new RuntimeException("Sistem ne moze da azurira stavku racuna.");
-        }
-    }
+    
 
     public void izmeniRacun(Racun r) {
         Zahtev zahtev = new Zahtev(Operacija.AZURIRAJ_RACUN, r);
@@ -268,25 +242,7 @@ public class Komunikacija {
         return racuni;
     }
 
-    public List<StavkaRacuna> ucitajStavke(long idRacun) {
-        Zahtev zahtev = new Zahtev(Operacija.UCITAJ_STAVKE, idRacun);
-        List<StavkaRacuna> stavke = new ArrayList<>();
-
-        posiljalac.posalji(zahtev);
-        Odgovor odg = (Odgovor) primalac.primi();
-        if (odg == null) {
-            throw new RuntimeException("Nije stigao odgovor servera za ucitavanje stavki.");
-        }
-        if (odg.getOdgovor() instanceof Exception) {
-            throw new RuntimeException((Exception) odg.getOdgovor());
-        }
-        if (odg.getOdgovor() == null) {
-            return stavke;
-        }
-
-        stavke = (List<StavkaRacuna>) odg.getOdgovor();
-        return stavke;
-    }
+   
    
     public List<Racun> pretraziRacune(Racun kriterijum) {
         Zahtev zahtev = new Zahtev(Operacija.PRETRAZI_RACUNE, kriterijum);

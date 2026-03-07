@@ -9,7 +9,6 @@ import domen.DrustvenaIgra;
 import domen.Racun;
 import domen.Klijent;
 import domen.Mesto;
-import domen.StavkaRacuna;
 import domen.Zaposleni;
 import java.io.IOException;
 import java.net.Socket;
@@ -88,10 +87,6 @@ public class ObradaKlijentskihZahteva extends Thread{
                         List<Racun> r = Controller.getInstance().ucitajRacune();
                         odgovor.setOdgovor(r);
                         break;
-                    case UCITAJ_STAVKE:
-                        List<StavkaRacuna> stavke = Controller.getInstance().ucitajStavke((long)zahtev.getParametar());
-                        odgovor.setOdgovor(stavke);
-                        break;
                     case OBRISI_RACUN:
                         try{
                         Racun i1 = (Racun) zahtev.getParametar();
@@ -112,20 +107,6 @@ public class ObradaKlijentskihZahteva extends Thread{
                     case DODAJ_RACUN:
                         Racun r2 = (Racun) zahtev.getParametar();
                         Controller.getInstance().dodajRacun(r2);
-                        odgovor.setOdgovor(null);
-                        break;
-                    case OBRISI_STAVKU:
-                        try{
-                        StavkaRacuna sr = (StavkaRacuna) zahtev.getParametar();
-                        Controller.getInstance().obrisiStavkuRacuna(sr);
-                        odgovor.setOdgovor(null);
-                        }catch(Exception e){
-                            odgovor.setOdgovor(e);
-                        }
-                        break;
-                    case AZURIRAJ_STAVKU:
-                        StavkaRacuna sr2 = (StavkaRacuna) zahtev.getParametar();
-                        Controller.getInstance().azurirajStavku(sr2);
                         odgovor.setOdgovor(null);
                         break;
                     case AZURIRAJ_RACUN:

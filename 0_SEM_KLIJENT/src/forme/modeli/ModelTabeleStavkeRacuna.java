@@ -53,6 +53,9 @@ public class ModelTabeleStavkeRacuna extends AbstractTableModel {
         if (columnIndex == 3) {
             try {
                 int novaKolicina = Integer.parseInt(String.valueOf(aValue));
+                if (novaKolicina <= 0) {
+                    return;
+                }
                 sr.setKolicina(novaKolicina);
             } catch (NumberFormatException ex) {
                 return;
@@ -69,7 +72,8 @@ public class ModelTabeleStavkeRacuna extends AbstractTableModel {
     
      public void osveziStavke(List<StavkaRacuna> noveStavke) {
         this.lista = new ArrayList<>(noveStavke);
-        this.originalnaLista = new ArrayList<>(noveStavke);
+        normalizujRedneBrojeve();
+        this.originalnaLista = new ArrayList<>(this.lista);
         fireTableDataChanged();
     }
     
@@ -92,17 +96,33 @@ public class ModelTabeleStavkeRacuna extends AbstractTableModel {
 
     public void setLista(List<StavkaRacuna> lista) {
         this.lista = lista;
+        normalizujRedneBrojeve();
+        fireTableDataChanged();
     }
 
     public void dodajStavku(StavkaRacuna s) {
-        int trenutniRB = lista.size();
-        s.setRb(trenutniRB+1);
+       for (StavkaRacuna postojeca : lista) {
+            if (postojeca.getDrustvenaIgra() != null && postojeca.getDrustvenaIgra().equals(s.getDrustvenaIgra())) {
+                postojeca.setKolicina(postojeca.getKolicina() + s.getKolicina());
+                fireTableDataChanged();
+                return;
+            }
+        }
+
         lista.add(s);
+        normalizujRedneBrojeve();
         fireTableDataChanged();
     }
 
     public void obrisiStavku(StavkaRacuna s) {
         lista.remove(s);
+        normalizujRedneBrojeve();
         fireTableDataChanged();
+    }
+
+    private void normalizujRedneBrojeve() {
+         for (int i = 0; i < lista.size(); i++) {
+            lista.get(i).setRb(i + 1);
+        }
     }
 }

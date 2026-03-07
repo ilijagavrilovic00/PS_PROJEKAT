@@ -24,9 +24,6 @@ import operacije.mesta.UcitajMestaSO;
 import operacije.racun.AzurirajRacunSO;
 import operacije.racun.DodajRacunSO;
 import operacije.racun.PretraziRacuneSO;
-import operacije.stavke.AzurirajStavkuSO;
-import operacije.stavke.ObrisiStavkuSO;
-import operacije.stavke.UcitajStavkeSO;
 import operacije.zaposleni.UcitajZaposleneSO;
 
 /**
@@ -84,12 +81,6 @@ public class Controller {
         return ucitaj.getRacuni();
     }
 
-    public List<StavkaRacuna> ucitajStavke(long id) throws Exception {
-        UcitajStavkeSO operacija = new UcitajStavkeSO();
-        operacija.izvrsi(id,null);
-        return operacija.getStavke();
-    }
-
     public void obrisiRacun(Racun i) throws Exception {
         ObrisiRacunSO operacija = new ObrisiRacunSO();
         operacija.izvrsi(i, null);
@@ -110,16 +101,6 @@ public class Controller {
     public void dodajRacun(Racun r2) throws Exception {
         DodajRacunSO operacija = new DodajRacunSO();
         operacija.izvrsi(r2, null);
-    }
-
-    public void obrisiStavkuRacuna(StavkaRacuna sr) throws Exception {
-        ObrisiStavkuSO operacija = new ObrisiStavkuSO();
-        operacija.izvrsi(sr, null);
-    }
-
-    public void azurirajStavku(StavkaRacuna sr2) throws Exception{
-        AzurirajStavkuSO operacija = new AzurirajStavkuSO();
-        operacija.izvrsi(sr2, null);
     }
 
     public void azurirajRacun(Racun r3) throws Exception {

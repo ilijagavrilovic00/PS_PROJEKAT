@@ -26,6 +26,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import koordinator.Koordinator;
 
 /**
@@ -50,6 +52,12 @@ public class GlavnaFormaController {
             }
             private void dodaj(ActionEvent e) {
                DrustvenaIgra i = (DrustvenaIgra) gf.getCmbDrustveneIgre().getSelectedItem();
+               
+               if (i == null) {
+                   JOptionPane.showMessageDialog(gf, "Izaberite drustvenu igru.", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                   return;
+               }
+               
                String kolicinaTekst = gf.getTxtKolicina().getText().trim();
                int kolicina = 1;
 
@@ -117,6 +125,7 @@ public class GlavnaFormaController {
                
                ModelTabeleStavkeRacuna mts = (ModelTabeleStavkeRacuna) gf.getTblRacun().getModel();
                List<StavkaRacuna> stavke = mts.getLista();
+               pripremiStavkeZaRacun(stavke);
                r.setStavke(stavke);
                
                Komunikacija.getInstance().dodajRacun(r);
@@ -127,6 +136,7 @@ public class GlavnaFormaController {
                 }
                 
             } 
+
 
         });
         gf.azuriranjeAddActionListener(new ActionListener() {
@@ -154,6 +164,7 @@ public class GlavnaFormaController {
                
                ModelTabeleStavkeRacuna mts = (ModelTabeleStavkeRacuna) gf.getTblRacun().getModel();
                List<StavkaRacuna> stavke = mts.getLista();
+               pripremiStavkeZaRacun(stavke);
                r.setStavke(stavke);
                
                Komunikacija.getInstance().izmeniRacun(r);
@@ -169,6 +180,7 @@ public class GlavnaFormaController {
         
         poveziDugmeIzmeniStavkuAkoPostoji();
         poveziOdabirStavkeIzTabele();
+        poveziIzmenuKolicineUTabeli();
     }
 
     public void otvoriFormu() {
@@ -190,6 +202,28 @@ public class GlavnaFormaController {
         postaviAutomatskiId();
         popuniComboBoxeve();
         postaviUlogovanogZaposlenog();
+    }
+    
+    public void osveziDrustveneIgreCombo() {
+        List<DrustvenaIgra> sveDrustveneIgre = Komunikacija.getInstance().ucitajDrustveneIgre();
+        Object prethodnoIzabrana = gf.getCmbDrustveneIgre().getSelectedItem();
+        gf.getCmbDrustveneIgre().removeAllItems();
+        for (DrustvenaIgra i : sveDrustveneIgre) {
+            gf.getCmbDrustveneIgre().addItem(i);
+        }
+        if (prethodnoIzabrana != null) {
+            gf.getCmbDrustveneIgre().setSelectedItem(prethodnoIzabrana);
+        }
+    }
+     private void poveziIzmenuKolicineUTabeli() {
+        gf.getTblRacun().getModel().addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                if (e.getType() == TableModelEvent.UPDATE) {
+                    osveziUkupanIznos();
+                }
+            }
+        });
     }
 
     private void popuniComboBoxeve() {
@@ -333,9 +367,10 @@ public class GlavnaFormaController {
     }
     private void postaviModelStavki(List<StavkaRacuna> stavke, boolean editable) {
         ModelTabeleStavkeRacuna mts = new ModelTabeleStavkeRacuna(stavke);
-        mts.setEditable(editable);
+        mts.setEditable(true);
         
         gf.getTblRacun().setModel(mts);
+        poveziIzmenuKolicineUTabeli();
         osveziUkupanIznos();
     }
     private void sacuvajIzmenuStavke() {
@@ -370,39 +405,13 @@ public class GlavnaFormaController {
         stavka.setDrustvenaIgra(igra);
         stavka.setCena(igra.getCena());
         stavka.setKolicina(kolicina);
-        try {
-            Komunikacija.getInstance().azurirajStavku(stavka);
-            JOptionPane.showMessageDialog(gf, "Sistem je azurirao stavku racuna.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
-            
-            Long idRacuna = vratiIdRacunaZaIzmenu();
-            if (idRacuna == null) {
-                JOptionPane.showMessageDialog(gf, "Nije pronadjen racun za izmenu stavki.", "GRESKA", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            List<StavkaRacuna> osvezeneStavke = Komunikacija.getInstance().ucitajStavke(idRacuna);
-            mts.osveziStavke(osvezeneStavke);
-            osveziUkupanIznos();
-            Koordinator.getInstance().osveziPrikazRacuna();
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(gf, "Sistem ne moze da azurira stavku racuna.", "GRESKA", JOptionPane.ERROR_MESSAGE);
-        }
+        mts.fireTableRowsUpdated(red, red);
+        osveziUkupanIznos();
+        JOptionPane.showMessageDialog(gf, "Stavka je azurirana. Racun ce biti sacuvan klikom na dugme za izmenu racuna.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+    
     }
 
-    private Long vratiIdRacunaZaIzmenu() {
-        if (racunZaIzmenu != null) {
-            return (long) racunZaIzmenu.getIdRacun();
-        }
-
-        Object param = Koordinator.getInstance().vratiParam("razun_za_izmenu");
-        if (param instanceof Racun) {
-            Racun r = (Racun) param;
-            racunZaIzmenu = r;
-            return (long) r.getIdRacun();
-        }
-
-        return null;
-    }
+    
 
       private boolean postojiIstaIgraUDrugojStavci(List<StavkaRacuna> stavke, int selektovaniRed, DrustvenaIgra izabranaIgra) {
         if (izabranaIgra == null) {
@@ -421,6 +430,13 @@ public class GlavnaFormaController {
         }
 
         return false;
+    }
+
+    private void pripremiStavkeZaRacun(List<StavkaRacuna> stavke) {
+        for (int i = 0; i < stavke.size(); i++) {
+            StavkaRacuna stavka = stavke.get(i);
+            stavka.setRb(i + 1);
+        }
     }
 
    
