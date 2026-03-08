@@ -119,4 +119,10 @@ public class Koordinator {
             glavnaFormaController.osveziDrustveneIgreCombo();
         }
     }
+
+   public void osveziKlijenteNaGlavnojFormi() {
+        if (glavnaFormaController != null) {
+            glavnaFormaController.osveziKlijenteCombo();
+        }
+    }
 }

@@ -10,6 +10,7 @@ import forme.DodajDrustvenuIgruForma;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import koordinator.Koordinator;
 
 /**
  *
@@ -57,6 +58,7 @@ public class DodajDrustvenuIgruController {
 
                 try {
                     Komunikacija.getInstance().dodajDrustvenuIgru(igra);
+                    Koordinator.getInstance().osveziDrustveneIgreNaGlavnojFormi();
                     JOptionPane.showMessageDialog(dodajDrustvenuIgruForma, "Sistem je zapamtio drustvenu igru.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
                     ocistiPoljaNakonDodavanja();
                 } catch (Exception ex) {

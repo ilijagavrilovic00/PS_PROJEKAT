@@ -439,6 +439,16 @@ public class GlavnaFormaController {
         }
     }
 
-   
+    public void osveziKlijenteCombo() {
+        List<Klijent> sviKlijenti = Komunikacija.getInstance().ucitajKlijente();
+        Object prethodnoIzabran = gf.getCmbKlijent().getSelectedItem();
+        gf.getCmbKlijent().removeAllItems();
+        for (Klijent k : sviKlijenti) {
+            gf.getCmbKlijent().addItem(k);
+        }
+        if (prethodnoIzabran != null) {
+            gf.getCmbKlijent().setSelectedItem(prethodnoIzabran);
+        }
+    }
     
 }

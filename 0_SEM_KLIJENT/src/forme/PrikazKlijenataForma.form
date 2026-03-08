@@ -35,15 +35,15 @@
                       <Component id="btnPretrazi" min="-2" pref="98" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" alignment="1" groupAlignment="1" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jLabel2" min="-2" pref="54" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="txtPrezime" max="32767" attributes="0"/>
+                              <Component id="txtPrezime" min="-2" pref="153" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="jLabel3" min="-2" pref="37" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                              <Component id="jLabel3" min="-2" pref="45" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                               <Component id="cmbMesto" min="-2" pref="153" max="-2" attributes="0"/>
                           </Group>
                       </Group>

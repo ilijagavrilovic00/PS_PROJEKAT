@@ -62,6 +62,7 @@ public class DodajKlijentaController {
                }
                try{
                    Komunikacija.getInstance().dodajKlijenta(k); 
+                   Koordinator.getInstance().osveziKlijenteNaGlavnojFormi();
                    JOptionPane.showMessageDialog(dkf, "Sistem je zapamtio klijenta.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
                    ocistiPoljaNakonDodavanja();
                }catch(Exception ex){
