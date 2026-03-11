@@ -18,6 +18,16 @@ public class DodajDrustvenuIgruSO extends ApstraktnaGenerickaOperacija {
         if (objekat == null || !(objekat instanceof DrustvenaIgra)) {
             throw new Exception("Sistem ne moze da doda drustvenu igru: neispravan unos");
         }
+        DrustvenaIgra igra = (DrustvenaIgra) objekat;
+        if (igra.getNaziv() == null || igra.getNaziv().trim().isEmpty()) {
+            throw new Exception("Sistem ne moze da doda drustvenu igru: naziv je obavezan.");
+        }
+        if (igra.getOpis() == null || igra.getOpis().trim().isEmpty()) {
+            throw new Exception("Sistem ne moze da doda drustvenu igru: opis je obavezan.");
+        }
+        if (Double.isNaN(igra.getCena()) || Double.isInfinite(igra.getCena()) || igra.getCena() <= 0) {
+            throw new Exception("Sistem ne moze da doda drustvenu igru: cena mora biti veca od nule.");
+        }
     }
 
     @Override

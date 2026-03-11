@@ -21,9 +21,7 @@ public class DodajRacunSO extends ApstraktnaGenerickaOperacija{
             throw new Exception("Sistem ne moze da doda racun: neispravan unos");
         }
         Racun r = (Racun) objekat;
-        if (r.getStavke() == null || r.getStavke().isEmpty()) {
-            throw new Exception("Sistem ne moze da doda racun: racun mora imati bar jednu stavku.");
-        }
+        validirajRacun(r);
     }
 
     @Override
@@ -44,6 +42,39 @@ public class DodajRacunSO extends ApstraktnaGenerickaOperacija{
             broker.add(s);
         }
        
+    }
+
+    private void validirajRacun(Racun r) throws Exception {
+        if (r.getDatum() == null) {
+            throw new Exception("Sistem ne moze da doda racun: datum je obavezan.");
+        }
+        if (r.getZaposleni() == null || r.getZaposleni().getIdZaposleni() <= 0) {
+            throw new Exception("Sistem ne moze da doda racun: zaposleni je obavezan.");
+        }
+        if (r.getKlijent() == null || r.getKlijent().getIdKlijent() <= 0) {
+            throw new Exception("Sistem ne moze da doda racun: klijent je obavezan.");
+        }
+        if (r.getStavke() == null || r.getStavke().isEmpty()) {
+            throw new Exception("Sistem ne moze da doda racun: racun mora imati bar jednu stavku.");
+        }
+
+        for (StavkaRacuna stavka : r.getStavke()) {
+            if (stavka == null) {
+                throw new Exception("Sistem ne moze da doda racun: neispravna stavka racuna.");
+            }
+            if (stavka.getRb() <= 0) {
+                throw new Exception("Sistem ne moze da doda racun: redni broj stavke mora biti veci od nule.");
+            }
+            if (stavka.getDrustvenaIgra() == null || stavka.getDrustvenaIgra().getIdDrustvenaIgra() <= 0) {
+                throw new Exception("Sistem ne moze da doda racun: drustvena igra na stavci je obavezna.");
+            }
+            if (stavka.getKolicina() <= 0) {
+                throw new Exception("Sistem ne moze da doda racun: kolicina mora biti veca od nule.");
+            }
+            if (stavka.getCena() <= 0) {
+                throw new Exception("Sistem ne moze da doda racun: cena stavke mora biti veca od nule.");
+            }
+        }
     }
     
 }

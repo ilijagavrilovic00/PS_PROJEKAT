@@ -11,6 +11,8 @@ import forme.DodajKlijentaForma;
 import forme.FormaMod;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -31,6 +33,7 @@ public class DodajKlijentaController {
         this.dkf = dkf;
         popuniMesta();
         addActionListener();
+        poveziOsvezavanjeNaZatvaranjeForme();
     }
     
     public void otvoriFormu(FormaMod mod){
@@ -160,5 +163,14 @@ public class DodajKlijentaController {
         if (dkf.getCmbMesto().getItemCount() > 0) {
             dkf.getCmbMesto().setSelectedIndex(0);
         }
+    }
+
+    private void poveziOsvezavanjeNaZatvaranjeForme() {
+           dkf.addWindowListener(new WindowAdapter() {
+               @Override
+               public void windowClosed(WindowEvent e) {
+                   Koordinator.getInstance().osveziKlijenteNaGlavnojFormi();
+               }
+           });
     }
 }

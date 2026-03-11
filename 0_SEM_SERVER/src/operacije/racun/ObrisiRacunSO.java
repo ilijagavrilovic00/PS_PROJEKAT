@@ -20,6 +20,10 @@ public class ObrisiRacunSO extends ApstraktnaGenerickaOperacija {
         if(objekat==null || !(objekat instanceof Racun)){
             throw new Exception("Sistem ne moze da obrise racun");
         }
+        Racun r = (Racun) objekat;
+        if (r.getIdRacun() <= 0) {
+            throw new Exception("Sistem ne moze da obrise racun: neispravan ID racuna.");
+        }
     }
 
     @Override
@@ -27,11 +31,12 @@ public class ObrisiRacunSO extends ApstraktnaGenerickaOperacija {
         Racun r = (Racun) objekat;
         
         List<StavkaRacuna> stavke = r.getStavke();
-        for(StavkaRacuna s: stavke){
-            s.setRacun(r);
-            broker.delete(s);
+        if (stavke != null) {
+            for(StavkaRacuna s: stavke){
+                s.setRacun(r);
+                broker.delete(s);
+            }
         }
-        
         broker.delete(r);
         
     }

@@ -21,7 +21,7 @@ public class AzurirajRacunSO extends ApstraktnaGenerickaOperacija {
     @Override
     protected void preduslovi(Object objekat) throws Exception {
         if(objekat==null || !(objekat instanceof Racun)){
-            throw new Exception("Sistem ne moze da doda racun: neispravan unos");
+            throw new Exception("Sistem ne moze da zapamti racun: neispravan unos");
         }
     
         Racun r = (Racun) objekat;
@@ -31,6 +31,7 @@ public class AzurirajRacunSO extends ApstraktnaGenerickaOperacija {
         if (r.getStavke() == null || r.getStavke().isEmpty()) {
             throw new Exception("Sistem ne moze da zapamti racun: racun mora imati bar jednu stavku.");
         }
+        validirajRacun(r);
     }
 
     @Override
@@ -76,5 +77,42 @@ public class AzurirajRacunSO extends ApstraktnaGenerickaOperacija {
         List<StavkaRacuna> stavke = broker.getAll(new StavkaRacuna(), uslov);
         return stavke != null ? stavke : new ArrayList<>();
     
+    }
+
+     private void validirajRacun(Racun r) throws Exception {
+        if (r.getDatum() == null) {
+            throw new Exception("Sistem ne moze da zapamti racun: datum je obavezan.");
+        }
+        if (r.getZaposleni() == null || r.getZaposleni().getIdZaposleni() <= 0) {
+            throw new Exception("Sistem ne moze da zapamti racun: zaposleni je obavezan.");
+        }
+        if (r.getKlijent() == null || r.getKlijent().getIdKlijent() <= 0) {
+            throw new Exception("Sistem ne moze da zapamti racun: klijent je obavezan.");
+        }
+        if (r.getStavke() == null || r.getStavke().isEmpty()) {
+            throw new Exception("Sistem ne moze da zapamti racun: racun mora imati bar jednu stavku.");
+        }
+
+        Set<Integer> redniBrojevi = new HashSet<>();
+        for (StavkaRacuna stavka : r.getStavke()) {
+            if (stavka == null) {
+                throw new Exception("Sistem ne moze da zapamti racun: neispravna stavka racuna.");
+            }
+            if (stavka.getRb() <= 0) {
+                throw new Exception("Sistem ne moze da zapamti racun: redni broj stavke mora biti veci od nule.");
+            }
+            if (!redniBrojevi.add(stavka.getRb())) {
+                throw new Exception("Sistem ne moze da zapamti racun: stavke imaju dupliran redni broj.");
+            }
+            if (stavka.getDrustvenaIgra() == null || stavka.getDrustvenaIgra().getIdDrustvenaIgra() <= 0) {
+                throw new Exception("Sistem ne moze da zapamti racun: drustvena igra na stavci je obavezna.");
+            }
+            if (stavka.getKolicina() <= 0) {
+                throw new Exception("Sistem ne moze da zapamti racun: kolicina mora biti veca od nule.");
+            }
+            if (stavka.getCena() <= 0) {
+                throw new Exception("Sistem ne moze da zapamti racun: cena stavke mora biti veca od nule.");
+            }
+        }
     }
 }

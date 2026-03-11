@@ -76,7 +76,8 @@ public class Controller {
 
     public List<Racun> vratiListuRacun() throws Exception {
         UcitajRacuneSO ucitaj = new UcitajRacuneSO();
-        ucitaj.izvrsi(null, null);
+        ucitaj.izvrsi(new Racun(), null);
+// ucitaj.izvrsi(null, null);
         return ucitaj.getRacuni();
     }
 

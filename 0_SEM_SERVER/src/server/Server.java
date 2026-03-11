@@ -36,8 +36,6 @@ public class Server extends Thread{
                 Socket s = serverSoket.accept();
                 System.out.println("Klijent je povezan!");
                 
-                //Obrada klijentskih zahteva//
-                
                 ObradaKlijentskihZahteva okz = new ObradaKlijentskihZahteva(s);
                 klijenti.add(okz);
                 okz.start();
@@ -47,10 +45,6 @@ public class Server extends Thread{
         }
          
     }
-    
-    
-    //za vise klijenata cuvati listu niti 
-    //za svakog klijenta zaseban poziv metode prekini
     
     public void zaustaviServer() throws IOException{
         kraj = true;

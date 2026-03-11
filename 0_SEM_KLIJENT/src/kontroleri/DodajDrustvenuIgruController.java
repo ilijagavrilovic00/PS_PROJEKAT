@@ -9,6 +9,8 @@ import domen.DrustvenaIgra;
 import forme.DodajDrustvenuIgruForma;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JOptionPane;
 import koordinator.Koordinator;
 
@@ -23,6 +25,7 @@ public class DodajDrustvenuIgruController {
     public DodajDrustvenuIgruController(DodajDrustvenuIgruForma dodajDrustvenuIgruForma) {
         this.dodajDrustvenuIgruForma = dodajDrustvenuIgruForma;
         addActionListener();
+        poveziOsvezavanjeNaZatvaranjeForme();
     }
 
     public void otvoriFormu() {
@@ -81,4 +84,13 @@ public class DodajDrustvenuIgruController {
         dodajDrustvenuIgruForma.getTxtCena().setText("");
         dodajDrustvenuIgruForma.getTxtAreaOpis().setText("");
      }
+
+    private void poveziOsvezavanjeNaZatvaranjeForme() {
+        dodajDrustvenuIgruForma.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                Koordinator.getInstance().osveziDrustveneIgreNaGlavnojFormi();
+            }
+        });
+    }
 }

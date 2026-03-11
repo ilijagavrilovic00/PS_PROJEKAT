@@ -17,9 +17,34 @@ import operacije.ApstraktnaGenerickaOperacija;
 public class PretraziRacuneSO extends ApstraktnaGenerickaOperacija {
 
     private List<Racun> racuni;
-
+    private Racun kriterijum;
+    
     @Override
     protected void preduslovi(Object objekat) throws Exception {
+    if (objekat != null && !(objekat instanceof Racun)) {
+            throw new Exception("Sistem ne moze da pretrazi racune: neispravan kriterijum.");
+        }
+
+        kriterijum = (Racun) objekat;
+        if (kriterijum == null) {
+            return;
+        }
+
+        if (kriterijum.getZaposleni() != null && kriterijum.getZaposleni().getIdZaposleni() <= 0) {
+            throw new Exception("Sistem ne moze da pretrazi racune: neispravan zaposleni u kriterijumu.");
+        }
+
+        if (kriterijum.getKlijent() != null && kriterijum.getKlijent().getIdKlijent() <= 0) {
+            throw new Exception("Sistem ne moze da pretrazi racune: neispravan klijent u kriterijumu.");
+        }
+
+        if (kriterijum.getStavke() != null && !kriterijum.getStavke().isEmpty()) {
+            StavkaRacuna prvaStavka = kriterijum.getStavke().get(0);
+            if (prvaStavka != null && prvaStavka.getDrustvenaIgra() != null
+                    && prvaStavka.getDrustvenaIgra().getIdDrustvenaIgra() <= 0) {
+                throw new Exception("Sistem ne moze da pretrazi racune: neispravna drustvena igra u kriterijumu.");
+            }
+        }
     }
 
     @Override
@@ -28,35 +53,30 @@ public class PretraziRacuneSO extends ApstraktnaGenerickaOperacija {
         uslov.append(" JOIN zaposleni ON racun.idZaposleni = zaposleni.idZaposleni ");
         uslov.append(" JOIN klijent ON racun.idKlijent = klijent.idKlijent ");
 
-        if (objekat instanceof Racun) {
-            Racun kriterijum = (Racun) objekat;
+        
             boolean whereDodat = false;
 
-            if (kriterijum.getZaposleni() != null) {
+            if (kriterijum != null && kriterijum.getZaposleni() != null) {
                 uslov.append(whereDodat ? " AND " : " WHERE ");
                 uslov.append("racun.idZaposleni=").append(kriterijum.getZaposleni().getIdZaposleni());
                 whereDodat = true;
             }
-
-            if (kriterijum.getKlijent() != null) {
+            if (kriterijum != null && kriterijum.getKlijent() != null) {
                 uslov.append(whereDodat ? " AND " : " WHERE ");
                 uslov.append("racun.idKlijent=").append(kriterijum.getKlijent().getIdKlijent());
                 whereDodat = true;
             }
-
-            if (kriterijum.getStavke() != null && !kriterijum.getStavke().isEmpty()
-                    && kriterijum.getStavke().get(0).getDrustvenaIgra() != null) {
+            if (kriterijum != null && kriterijum.getStavke() != null && !kriterijum.getStavke().isEmpty()
+                    && kriterijum.getStavke().get(0) != null && kriterijum.getStavke().get(0).getDrustvenaIgra() != null) {
                 uslov.append(whereDodat ? " AND " : " WHERE ");
                 uslov.append("EXISTS (SELECT 1 FROM stavka_racuna sr WHERE sr.idRacun=racun.idRacun ");
                 uslov.append("AND sr.idDrustvenaIgra=")
                         .append(kriterijum.getStavke().get(0).getDrustvenaIgra().getIdDrustvenaIgra())
                         .append(")");
             }
-        }
-
         racuni = broker.getAll(new Racun(), uslov.toString());
     
-         if (racuni == null) {
+        if (racuni == null) {
             racuni = new ArrayList<>();
             return;
         }
@@ -74,9 +94,6 @@ public class PretraziRacuneSO extends ApstraktnaGenerickaOperacija {
         return stavke != null ? stavke : new ArrayList<>();
     }
     
-    
-    
-
     public List<Racun> getRacuni() {
         return racuni;
     }

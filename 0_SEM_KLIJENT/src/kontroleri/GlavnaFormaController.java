@@ -15,6 +15,8 @@ import forme.GlavnaForma;
 import forme.modeli.ModelTabeleStavkeRacuna;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,6 +43,7 @@ public class GlavnaFormaController {
     public GlavnaFormaController(GlavnaForma gf) {
         this.gf = gf;
         addActionListeners();
+        poveziOsvezavanjeComboBoxevaPoPovratkuFokusa();
     }
     
    
@@ -407,7 +410,7 @@ public class GlavnaFormaController {
         stavka.setKolicina(kolicina);
         mts.fireTableRowsUpdated(red, red);
         osveziUkupanIznos();
-        JOptionPane.showMessageDialog(gf, "Stavka je azurirana. Racun ce biti sacuvan klikom na dugme za izmenu racuna.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(gf, "Sistem je zapamtio racun.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
     
     }
 
@@ -449,6 +452,16 @@ public class GlavnaFormaController {
         if (prethodnoIzabran != null) {
             gf.getCmbKlijent().setSelectedItem(prethodnoIzabran);
         }
+    }
+
+    private void poveziOsvezavanjeComboBoxevaPoPovratkuFokusa() {
+        gf.addWindowFocusListener(new WindowAdapter() {
+            @Override
+            public void windowGainedFocus(WindowEvent e) {
+                osveziKlijenteCombo();
+                osveziDrustveneIgreCombo();
+            }
+        });
     }
     
 }
