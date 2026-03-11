@@ -57,7 +57,7 @@ public class AzurirajRacunSO extends ApstraktnaGenerickaOperacija {
                 broker.add(novaStavka);
             }
         }
-         Set<Integer> noviRbBrojevi = new HashSet<>();
+        Set<Integer> noviRbBrojevi = new HashSet<>();
         for (StavkaRacuna novaStavka : noveStavke) {
             noviRbBrojevi.add(novaStavka.getRb());
         }
