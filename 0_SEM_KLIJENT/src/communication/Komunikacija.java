@@ -64,7 +64,7 @@ public class Komunikacija {
         return z;
     }
 
-    public List<Klijent> ucitajKlijente() {
+    public List<Klijent> vratiListuSviKlijent() {
         Zahtev zahtev = new Zahtev(Operacija.UCITAJ_KLIJENTE, null);
         List<Klijent> klijenti = new ArrayList<>();
         
@@ -150,7 +150,7 @@ public class Komunikacija {
         }
     }
 
-    public List<Zaposleni> ucitajZaposlene() {
+    public List<Zaposleni> vratiListuSviZaposleni() {
         Zahtev zahtev = new Zahtev(Operacija.UCITAJ_ZAPOSLENE, null);
         List<Zaposleni> zaposleni = new ArrayList<>();
         
@@ -161,7 +161,7 @@ public class Komunikacija {
         return zaposleni;
     }
 
-    public List<DrustvenaIgra> ucitajDrustveneIgre() {
+    public List<DrustvenaIgra> vratiListuSveDrustveneIgre() {
         Zahtev zahtev = new Zahtev(Operacija.UCITAJ_IGRE, null);
         List<DrustvenaIgra> igre = new ArrayList<>();
         
@@ -172,7 +172,7 @@ public class Komunikacija {
         return igre;
     }
 
-    public void dodajRacun(Racun r) {
+    public void kreirajRacun(Racun r) {
         Zahtev zahtev = new Zahtev(Operacija.DODAJ_RACUN, r);
         posiljalac.posalji(zahtev);
         Odgovor odg = (Odgovor) primalac.primi();
@@ -207,7 +207,7 @@ public class Komunikacija {
     }
     
 
-    public void izmeniRacun(Racun r) {
+    public void promeniRacun(Racun r) {
         Zahtev zahtev = new Zahtev(Operacija.AZURIRAJ_RACUN, r);
         posiljalac.posalji(zahtev);
         Odgovor odg = (Odgovor) primalac.primi();
@@ -223,7 +223,7 @@ public class Komunikacija {
         }
     }
 
-    public List<Racun> ucitajRacune() {
+    public List<Racun> vratiListuSviRacuni() {
         Zahtev zahtev = new Zahtev(Operacija.UCITAJ_RACUNE, null);
         List<Racun> racuni = new ArrayList<>();
         
@@ -244,7 +244,7 @@ public class Komunikacija {
 
    
    
-    public List<Racun> pretraziRacune(Racun kriterijum) {
+    public List<Racun> pretraziRacun(Racun kriterijum) {
         Zahtev zahtev = new Zahtev(Operacija.PRETRAZI_RACUNE, kriterijum);
         List<Racun> racuni = new ArrayList<>();
 

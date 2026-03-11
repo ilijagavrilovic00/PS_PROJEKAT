@@ -8,7 +8,6 @@ import domen.DrustvenaIgra;
 import domen.Racun;
 import domen.Klijent;
 import domen.Mesto;
-import domen.StavkaRacuna;
 import domen.Zaposleni;
 import java.util.List;
 import operacije.igre.DodajDrustvenuIgruSO;
@@ -48,7 +47,7 @@ public class Controller {
         return login.getZaposleni();
     }
 
-    public List<Klijent> ucitajKlijente() throws Exception{
+    public List<Klijent> vratuListuSviKlijent() throws Exception{
         UcitajKlijenteSO ucitaj = new UcitajKlijenteSO();
         ucitaj.izvrsi(new Klijent(), "");
         return ucitaj.getKlijenti();
@@ -75,7 +74,7 @@ public class Controller {
         azuriraj.izvrsi(k, null);
     }
 
-    public List<Racun> ucitajRacune() throws Exception {
+    public List<Racun> vratiListuRacun() throws Exception {
         UcitajRacuneSO ucitaj = new UcitajRacuneSO();
         ucitaj.izvrsi(null, null);
         return ucitaj.getRacuni();
@@ -86,19 +85,19 @@ public class Controller {
         operacija.izvrsi(i, null);
     }
 
-    public List<Zaposleni> ucitajZaposlene() throws Exception {
+    public List<Zaposleni> vratiListuSviZaposleni() throws Exception {
         UcitajZaposleneSO operacija = new UcitajZaposleneSO();
         operacija.izvrsi(new Zaposleni(), null);
         return operacija.getZaposleni();
     }
 
-    public List<DrustvenaIgra> ucitajIgre() throws Exception {
+    public List<DrustvenaIgra> vratiListuSveDrustveneIgre() throws Exception {
         UcitajIgreSO operacija = new UcitajIgreSO();
         operacija.izvrsi(new DrustvenaIgra(), null);
         return operacija.getIgre();
     }
 
-    public void dodajRacun(Racun r2) throws Exception {
+    public void kreirajRacun(Racun r2) throws Exception {
         DodajRacunSO operacija = new DodajRacunSO();
         operacija.izvrsi(r2, null);
     }
@@ -108,7 +107,7 @@ public class Controller {
       operacija.izvrsi(r3, null);
     }
     
-      public List<Racun> pretraziRacune(Racun kriterijum) throws Exception {
+      public List<Racun> pretraziRacun(Racun kriterijum) throws Exception {
         PretraziRacuneSO pretrazi = new PretraziRacuneSO();
         pretrazi.izvrsi(kriterijum, null);
         return pretrazi.getRacuni();

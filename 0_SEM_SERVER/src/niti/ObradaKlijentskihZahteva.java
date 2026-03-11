@@ -57,7 +57,7 @@ public class ObradaKlijentskihZahteva extends Thread{
                         odgovor.setOdgovor(z);
                         break;
                     case UCITAJ_KLIJENTE:
-                        List<Klijent> klijenti = Controller.getInstance().ucitajKlijente();
+                        List<Klijent> klijenti = Controller.getInstance().vratuListuSviKlijent();
                         odgovor.setOdgovor(klijenti);
                         break;
                     case OBRISI_KLIJENTA:
@@ -84,7 +84,7 @@ public class ObradaKlijentskihZahteva extends Thread{
                         odgovor.setOdgovor(null);
                         break;
                     case UCITAJ_RACUNE:
-                        List<Racun> r = Controller.getInstance().ucitajRacune();
+                        List<Racun> r = Controller.getInstance().vratiListuRacun();
                         odgovor.setOdgovor(r);
                         break;
                     case OBRISI_RACUN:
@@ -97,16 +97,16 @@ public class ObradaKlijentskihZahteva extends Thread{
                         }
                         break;
                     case UCITAJ_ZAPOSLENE:
-                        List<Zaposleni> zaposleni = Controller.getInstance().ucitajZaposlene();
+                        List<Zaposleni> zaposleni = Controller.getInstance().vratiListuSviZaposleni();
                         odgovor.setOdgovor(zaposleni);
                         break;
                     case UCITAJ_IGRE:
-                        List<DrustvenaIgra> igre = Controller.getInstance().ucitajIgre();
+                        List<DrustvenaIgra> igre = Controller.getInstance().vratiListuSveDrustveneIgre();
                         odgovor.setOdgovor(igre);
                         break;
                     case DODAJ_RACUN:
                         Racun r2 = (Racun) zahtev.getParametar();
-                        Controller.getInstance().dodajRacun(r2);
+                        Controller.getInstance().kreirajRacun(r2);
                         odgovor.setOdgovor(null);
                         break;
                     case AZURIRAJ_RACUN:
@@ -121,7 +121,7 @@ public class ObradaKlijentskihZahteva extends Thread{
                         break;
                     case PRETRAZI_RACUNE:
                         Racun kriterijum = (Racun) zahtev.getParametar();
-                        List<Racun> racuniPoKriterijumu = Controller.getInstance().pretraziRacune(kriterijum);
+                        List<Racun> racuniPoKriterijumu = Controller.getInstance().pretraziRacun(kriterijum);
                         odgovor.setOdgovor(racuniPoKriterijumu);
                         break;
                     default:

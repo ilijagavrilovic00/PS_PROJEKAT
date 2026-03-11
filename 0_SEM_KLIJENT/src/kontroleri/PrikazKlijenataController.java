@@ -36,7 +36,7 @@ public class PrikazKlijenataController {
     }
 
     public void pripremiFormu() {
-        List<Klijent> klijenti = Komunikacija.getInstance().ucitajKlijente();
+        List<Klijent> klijenti = Komunikacija.getInstance().vratiListuSviKlijent();
         ModelTabeleKlijenti mtk = new ModelTabeleKlijenti(klijenti);
         pk.getTblKlijenti().setModel(mtk);
     }

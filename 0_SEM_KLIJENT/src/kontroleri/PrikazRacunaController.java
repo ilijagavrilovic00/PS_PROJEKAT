@@ -53,7 +53,7 @@ public class PrikazRacunaController {
     public void pripremiFormu(boolean prikaziPoruke) {
         List<Racun> racuni = new ArrayList<>();
         try {
-            racuni = Komunikacija.getInstance().ucitajRacune();
+            racuni = Komunikacija.getInstance().vratiListuSviRacuni();
               if (prikaziPoruke) {
                  if(racuni.isEmpty()){
                     JOptionPane.showMessageDialog(pi, "Sistem ne moze da ucita racune.", "GRESKA", JOptionPane.ERROR_MESSAGE);
@@ -118,7 +118,7 @@ public class PrikazRacunaController {
                 Racun kriterijum = kreirajKriterijumPretrage();
                 List<Racun> racuni;
                 try {
-                    racuni = Komunikacija.getInstance().pretraziRacune(kriterijum);
+                    racuni = Komunikacija.getInstance().pretraziRacun(kriterijum);
                     if(racuni.isEmpty()){
                         JOptionPane.showMessageDialog(pi, "Sistem ne moze da nadje racune po zadatim kriterijumima.", "GRESKA", JOptionPane.ERROR_MESSAGE);
                     }else{
@@ -184,7 +184,7 @@ public class PrikazRacunaController {
         JComboBox<Zaposleni> cmb = pi.getCmbZaposleni();
         cmb.removeAllItems();
         cmb.addItem(null);
-        for (Zaposleni z : Komunikacija.getInstance().ucitajZaposlene()) {
+        for (Zaposleni z : Komunikacija.getInstance().vratiListuSviZaposleni()) {
             cmb.addItem(z);
         }
     }
@@ -193,7 +193,7 @@ public class PrikazRacunaController {
         JComboBox<Klijent> cmb = pi.getCmbKlijent();
         cmb.removeAllItems();
         cmb.addItem(null);
-        for (Klijent k : Komunikacija.getInstance().ucitajKlijente()) {
+        for (Klijent k : Komunikacija.getInstance().vratiListuSviKlijent()) {
             cmb.addItem(k);
         }
     }
@@ -202,7 +202,7 @@ public class PrikazRacunaController {
         JComboBox<DrustvenaIgra> cmb = pi.getCmbDrustvenaIgra();
         cmb.removeAllItems();
         cmb.addItem(null);
-        for (DrustvenaIgra di : Komunikacija.getInstance().ucitajDrustveneIgre()) {
+        for (DrustvenaIgra di : Komunikacija.getInstance().vratiListuSveDrustveneIgre()) {
             cmb.addItem(di);
         }
     }

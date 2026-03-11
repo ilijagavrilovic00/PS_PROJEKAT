@@ -105,12 +105,12 @@ public class GlavnaFormaController {
             @Override
             public void actionPerformed(ActionEvent e) { 
                 try {
-                    dodajRacun(e);
+                    kreirajRacun(e);
                 } catch (Exception ex) {
                     Logger.getLogger(GlavnaFormaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            private void dodajRacun(ActionEvent e) throws Exception {
+            private void kreirajRacun(ActionEvent e) throws Exception {
                 try{
                Racun r = new Racun();
              
@@ -128,7 +128,7 @@ public class GlavnaFormaController {
                pripremiStavkeZaRacun(stavke);
                r.setStavke(stavke);
                
-               Komunikacija.getInstance().dodajRacun(r);
+               Komunikacija.getInstance().kreirajRacun(r);
                JOptionPane.showMessageDialog(null, "Sistem je zapamtio racun.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
                 ocistiPoljaNakonDodavanja();
                 }catch(Exception ex){
@@ -143,12 +143,12 @@ public class GlavnaFormaController {
             @Override
             public void actionPerformed(ActionEvent e) { 
                 try {
-                   azurirajRacun(e);
+                   promeniRacun(e);
                 } catch (Exception ex) {
                     Logger.getLogger(GlavnaFormaController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            private void azurirajRacun(ActionEvent e) throws Exception {
+            private void promeniRacun(ActionEvent e) throws Exception {
                 try{
                Racun r = new Racun();
                int id = Integer.parseInt(gf.getTxtID().getText());
@@ -167,7 +167,7 @@ public class GlavnaFormaController {
                pripremiStavkeZaRacun(stavke);
                r.setStavke(stavke);
                
-               Komunikacija.getInstance().izmeniRacun(r);
+               Komunikacija.getInstance().promeniRacun(r);
                JOptionPane.showMessageDialog(null, "Sistem je zapamtio racun", "USPEH", JOptionPane.INFORMATION_MESSAGE);
                Koordinator.getInstance().osveziPrikazRacuna();
                gf.dispose();
@@ -205,7 +205,7 @@ public class GlavnaFormaController {
     }
     
     public void osveziDrustveneIgreCombo() {
-        List<DrustvenaIgra> sveDrustveneIgre = Komunikacija.getInstance().ucitajDrustveneIgre();
+        List<DrustvenaIgra> sveDrustveneIgre = Komunikacija.getInstance().vratiListuSveDrustveneIgre();
         Object prethodnoIzabrana = gf.getCmbDrustveneIgre().getSelectedItem();
         gf.getCmbDrustveneIgre().removeAllItems();
         for (DrustvenaIgra i : sveDrustveneIgre) {
@@ -227,9 +227,9 @@ public class GlavnaFormaController {
     }
 
     private void popuniComboBoxeve() {
-        List<Zaposleni> sviZaposleni = Komunikacija.getInstance().ucitajZaposlene();
-        List<Klijent> sviKlijenti = Komunikacija.getInstance().ucitajKlijente();
-        List<DrustvenaIgra> sveDrustveneIgre = Komunikacija.getInstance().ucitajDrustveneIgre();
+        List<Zaposleni> sviZaposleni = Komunikacija.getInstance().vratiListuSviZaposleni();
+        List<Klijent> sviKlijenti = Komunikacija.getInstance().vratiListuSviKlijent();
+        List<DrustvenaIgra> sveDrustveneIgre = Komunikacija.getInstance().vratiListuSveDrustveneIgre();
         
         gf.getCmbZaposleni().removeAllItems();
         for(Zaposleni z: sviZaposleni){
@@ -440,7 +440,7 @@ public class GlavnaFormaController {
     }
 
     public void osveziKlijenteCombo() {
-        List<Klijent> sviKlijenti = Komunikacija.getInstance().ucitajKlijente();
+        List<Klijent> sviKlijenti = Komunikacija.getInstance().vratiListuSviKlijent();
         Object prethodnoIzabran = gf.getCmbKlijent().getSelectedItem();
         gf.getCmbKlijent().removeAllItems();
         for (Klijent k : sviKlijenti) {
