@@ -49,6 +49,7 @@ public class PrikazRacunaForma extends javax.swing.JFrame {
         cmbKlijent = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         cmbDrustvenaIgra = new javax.swing.JComboBox<>();
+        btnUcitajRacun = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -148,6 +149,9 @@ public class PrikazRacunaForma extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        btnUcitajRacun.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnUcitajRacun.setText("Ucitaj racun");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -163,7 +167,9 @@ public class PrikazRacunaForma extends javax.swing.JFrame {
                         .addGap(26, 26, 26)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnUcitajRacun, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(146, 146, 146)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -175,9 +181,12 @@ public class PrikazRacunaForma extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnUcitajRacun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAzuriraj, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -197,9 +206,15 @@ public class PrikazRacunaForma extends javax.swing.JFrame {
         return tblRacuni;
     }
 
-    /**
-     * @param args the command line arguments
-     */
+    
+    public JButton getBtnUcitajRacun() {
+        return btnUcitajRacun;
+    }
+
+    public void setBtnUcitajRacun(JButton btnUcitajRacun) {
+        this.btnUcitajRacun = btnUcitajRacun;
+    }
+
     public void setTblRacuni(JTable tblRacuni) {
         this.tblRacuni = tblRacuni;
     }
@@ -259,15 +274,12 @@ public class PrikazRacunaForma extends javax.swing.JFrame {
     public void setCmbZaposleni(JComboBox<Zaposleni> cmbZaposleni) {
         this.cmbZaposleni = cmbZaposleni;
     }
-   
-    
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAzuriraj;
     private javax.swing.JButton btnObrisi;
     private javax.swing.JButton btnPretrazi;
+    private javax.swing.JButton btnUcitajRacun;
     private javax.swing.JComboBox<DrustvenaIgra> cmbDrustvenaIgra;
     private javax.swing.JComboBox<Klijent> cmbKlijent;
     private javax.swing.JComboBox<Zaposleni> cmbZaposleni;
@@ -292,6 +304,5 @@ public class PrikazRacunaForma extends javax.swing.JFrame {
     public void pretragaAddActionListener(ActionListener actionListener) {
         btnPretrazi.addActionListener(actionListener);
     }
-
 
 }
