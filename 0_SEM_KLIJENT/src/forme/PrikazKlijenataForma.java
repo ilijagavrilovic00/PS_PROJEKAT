@@ -98,11 +98,18 @@ public class PrikazKlijenataForma extends javax.swing.JFrame {
 
         jLabel7.setText("Mesto:");
 
+        txtImePodaci.setEditable(false);
         txtImePodaci.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtImePodaciActionPerformed(evt);
             }
         });
+
+        txtPodaciPrezime.setEditable(false);
+
+        txtBrojTelefona.setEditable(false);
+
+        txtMesto.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

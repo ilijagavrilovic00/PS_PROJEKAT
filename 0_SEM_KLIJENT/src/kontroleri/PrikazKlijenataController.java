@@ -92,6 +92,27 @@ public class PrikazKlijenataController {
                }
             }
         });
+          pk.addBtnUcitajActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int red = pk.getTblKlijenti().getSelectedRow();
+                if (red == -1) {
+                    JOptionPane.showMessageDialog(pk, "Sistem ne moze da nadje klijenta.", "Greska", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                else{
+                   JOptionPane.showMessageDialog(pk, "Sistem je nasao klijenta.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+               }
+
+                ModelTabeleKlijenti mtk = (ModelTabeleKlijenti) pk.getTblKlijenti().getModel();
+                Klijent k = mtk.getLista().get(red);
+
+                pk.getTxtImePodaci().setText(k.getIme());
+                pk.getTxtPodaciPrezime().setText(k.getPrezime());
+                pk.getTxtBrojTelefona().setText(k.getBrojTelefona());
+                pk.getTxtMesto().setText(k.getMesto().getNaziv());
+            }
+        });
     }
 
     public void osveziFormu() {
