@@ -4,6 +4,7 @@
  */
 package operacije.igre;
 
+import domen.ApstraktniDomenskiObjekat;
 import domen.DrustvenaIgra;
 import java.util.List;
 import operacije.ApstraktnaGenerickaOperacija;
@@ -15,11 +16,11 @@ import operacije.ApstraktnaGenerickaOperacija;
 public class UcitajIgreSO extends ApstraktnaGenerickaOperacija{
     List<DrustvenaIgra> igre;
     @Override
-    protected void preduslovi(Object objekat) throws Exception {
+    protected void preduslovi(ApstraktniDomenskiObjekat objekat) throws Exception {
     }
 
     @Override
-    protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
+    protected void izvrsiOperaciju(ApstraktniDomenskiObjekat objekat, String kljuc) throws Exception {
         igre = broker.getAll(objekat, kljuc);
     }
 

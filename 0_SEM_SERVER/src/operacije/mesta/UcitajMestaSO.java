@@ -4,6 +4,7 @@
  */
 package operacije.mesta;
 
+import domen.ApstraktniDomenskiObjekat;
 import domen.Mesto;
 import java.util.List;
 import operacije.ApstraktnaGenerickaOperacija;
@@ -16,11 +17,11 @@ public class UcitajMestaSO extends ApstraktnaGenerickaOperacija {
 
     List<Mesto> mesta;
     @Override
-    protected void preduslovi(Object objekat) throws Exception {
+    protected void preduslovi(ApstraktniDomenskiObjekat objekat) throws Exception {
     }
 
     @Override
-    protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
+    protected void izvrsiOperaciju(ApstraktniDomenskiObjekat objekat, String kljuc) throws Exception {
         mesta = broker.getAll(objekat, kljuc);
     }
 

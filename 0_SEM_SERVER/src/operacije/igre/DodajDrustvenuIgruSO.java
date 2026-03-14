@@ -4,6 +4,7 @@
  */
 package operacije.igre;
 
+import domen.ApstraktniDomenskiObjekat;
 import domen.DrustvenaIgra;
 import operacije.ApstraktnaGenerickaOperacija;
 
@@ -14,7 +15,7 @@ import operacije.ApstraktnaGenerickaOperacija;
 public class DodajDrustvenuIgruSO extends ApstraktnaGenerickaOperacija {
 
     @Override
-    protected void preduslovi(Object objekat) throws Exception {
+    protected void preduslovi(ApstraktniDomenskiObjekat objekat) throws Exception {
         if (objekat == null || !(objekat instanceof DrustvenaIgra)) {
             throw new Exception("Sistem ne moze da doda drustvenu igru: neispravan unos");
         }
@@ -31,7 +32,7 @@ public class DodajDrustvenuIgruSO extends ApstraktnaGenerickaOperacija {
     }
 
     @Override
-    protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
+    protected void izvrsiOperaciju(ApstraktniDomenskiObjekat objekat, String kljuc) throws Exception {
         broker.add((DrustvenaIgra) objekat);
     }
     

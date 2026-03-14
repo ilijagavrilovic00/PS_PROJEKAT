@@ -4,6 +4,7 @@
  */
 package operacije.racun;
 
+import domen.ApstraktniDomenskiObjekat;
 import domen.Racun;
 import domen.StavkaRacuna;
 import java.util.List;
@@ -16,7 +17,7 @@ import operacije.ApstraktnaGenerickaOperacija;
 public class ObrisiRacunSO extends ApstraktnaGenerickaOperacija {
 
     @Override
-    protected void preduslovi(Object objekat) throws Exception {
+    protected void preduslovi(ApstraktniDomenskiObjekat objekat) throws Exception {
         if(objekat==null || !(objekat instanceof Racun)){
             throw new Exception("Sistem ne moze da obrise racun");
         }
@@ -27,7 +28,7 @@ public class ObrisiRacunSO extends ApstraktnaGenerickaOperacija {
     }
 
     @Override
-    protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
+    protected void izvrsiOperaciju(ApstraktniDomenskiObjekat objekat, String kljuc) throws Exception {
         Racun r = (Racun) objekat;
         
         List<StavkaRacuna> stavke = r.getStavke();

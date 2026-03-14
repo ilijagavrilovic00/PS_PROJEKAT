@@ -22,7 +22,7 @@ public class Konfiguracija {
     private Konfiguracija(){
         try {
             properties = new Properties();
-            properties.load(new FileInputStream("C:\\Users\\ilija\\Documents\\NetBeansProjects\\0_SEM_SERVER\\config\\dbconfig.properties"));
+            properties.load(new FileInputStream("config\\dbconfig.properties"));
         } catch (IOException ex) {
             ex.printStackTrace();
             Logger.getLogger(Konfiguracija.class.getName()).log(Level.SEVERE, null, ex);
@@ -46,7 +46,7 @@ public class Konfiguracija {
     
     public void sacuvajIzmene(){
         try {
-            properties.store(new FileOutputStream("C:\\Users\\ilija\\Documents\\NetBeansProjects\\0_SEM_SERVER\\config\\dbconfig.properties"), null);
+            properties.store(new FileOutputStream("config\\dbconfig.properties"), null);
         } catch (IOException ex) {
             ex.printStackTrace();
             Logger.getLogger(Konfiguracija.class.getName()).log(Level.SEVERE, null, ex);

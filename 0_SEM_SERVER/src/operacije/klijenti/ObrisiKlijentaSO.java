@@ -4,6 +4,7 @@
  */
 package operacije.klijenti;
 
+import domen.ApstraktniDomenskiObjekat;
 import domen.Klijent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,7 +18,7 @@ import repository.db.DBConnectionFactory;
 public class ObrisiKlijentaSO extends ApstraktnaGenerickaOperacija {
 
     @Override
-    protected void preduslovi(Object objekat) throws Exception {
+    protected void preduslovi(ApstraktniDomenskiObjekat objekat) throws Exception {
         if(objekat==null || !(objekat instanceof Klijent)){
             throw new Exception("Sistem nije mogao da obrise klijenta");
         }
@@ -36,7 +37,7 @@ public class ObrisiKlijentaSO extends ApstraktnaGenerickaOperacija {
     }
 
     @Override
-    protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
+    protected void izvrsiOperaciju(ApstraktniDomenskiObjekat objekat, String kljuc) throws Exception {
         broker.delete((Klijent)objekat);
     }
     

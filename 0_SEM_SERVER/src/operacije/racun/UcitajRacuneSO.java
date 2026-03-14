@@ -4,6 +4,7 @@
  */
 package operacije.racun;
 
+import domen.ApstraktniDomenskiObjekat;
 import domen.Racun;
 import domen.StavkaRacuna;
 import java.util.ArrayList;
@@ -18,11 +19,11 @@ public class UcitajRacuneSO extends ApstraktnaGenerickaOperacija{
 
     List<Racun> racuni;
     @Override
-    protected void preduslovi(Object objekat) throws Exception {
+    protected void preduslovi(ApstraktniDomenskiObjekat objekat) throws Exception {
     }
 
     @Override
-    protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
+    protected void izvrsiOperaciju(ApstraktniDomenskiObjekat objekat, String kljuc) throws Exception {
         StringBuilder uslov = new StringBuilder();
         uslov.append(" JOIN zaposleni ON racun.idZaposleni = zaposleni.idZaposleni ");
         uslov.append(" JOIN klijent ON racun.idKlijent = klijent.idKlijent ");

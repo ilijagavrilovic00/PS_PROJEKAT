@@ -4,6 +4,7 @@
  */
 package operacije.zaposleni;
 
+import domen.ApstraktniDomenskiObjekat;
 import domen.Zaposleni;
 import java.util.List;
 import operacije.ApstraktnaGenerickaOperacija;
@@ -16,11 +17,11 @@ public class UcitajZaposleneSO extends ApstraktnaGenerickaOperacija {
 
     List<Zaposleni> zaposleni;
     @Override
-    protected void preduslovi(Object objekat) throws Exception {
+    protected void preduslovi(ApstraktniDomenskiObjekat objekat) throws Exception {
     }
 
     @Override
-    protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
+    protected void izvrsiOperaciju(ApstraktniDomenskiObjekat objekat, String kljuc) throws Exception {
         zaposleni = broker.getAll(objekat, kljuc);
     }
 

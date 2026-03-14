@@ -4,6 +4,7 @@
  */
 package operacije.login;
 
+import domen.ApstraktniDomenskiObjekat;
 import domen.Zaposleni;
 import java.util.List;
 import operacije.ApstraktnaGenerickaOperacija;
@@ -20,14 +21,14 @@ public class LoginOperacija extends ApstraktnaGenerickaOperacija {
     }
 
   
-    protected void preduslovi(Object objekat) throws Exception {
+    protected void preduslovi(ApstraktniDomenskiObjekat objekat) throws Exception {
         if(objekat==null || !(objekat instanceof Zaposleni)){
             throw new Exception("Sistem nije mogao da pronadje zaposlenog");
         }
     }
 
     @Override
-    protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
+    protected void izvrsiOperaciju(ApstraktniDomenskiObjekat objekat, String kljuc) throws Exception {
         List<Zaposleni> sviZaposleni = broker.getAll((Zaposleni) objekat, null);
         
         for(Zaposleni z: sviZaposleni){

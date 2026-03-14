@@ -4,6 +4,7 @@
  */
 package operacije;
 
+import domen.ApstraktniDomenskiObjekat;
 import repository.Repository;
 import repository.db.DBRepository;
 import repository.db.impl.DBRepositoryGeneric;
@@ -19,7 +20,7 @@ public abstract class ApstraktnaGenerickaOperacija {
         this.broker = new DBRepositoryGeneric();
     }
     
-    public final void izvrsi(Object objekat, String kljuc) throws Exception{
+    public final void izvrsi(ApstraktniDomenskiObjekat objekat, String kljuc) throws Exception{
         try{
             preduslovi(objekat);
             zapocniTransakciju();
@@ -33,13 +34,13 @@ public abstract class ApstraktnaGenerickaOperacija {
         }
     }
 
-    protected abstract void preduslovi(Object objekat) throws Exception;
+    protected abstract void preduslovi(ApstraktniDomenskiObjekat objekat) throws Exception;
 
     private void zapocniTransakciju() throws Exception{
         ((DBRepository) broker).connect();
     }
 
-    protected abstract void izvrsiOperaciju(Object objekat, String kljuc) throws Exception;
+    protected abstract void izvrsiOperaciju(ApstraktniDomenskiObjekat objekat, String kljuc) throws Exception;
 
     private void potvrdiTransakciju() throws Exception{
         ((DBRepository) broker).commit();

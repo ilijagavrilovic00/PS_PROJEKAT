@@ -4,6 +4,7 @@
  */
 package operacije.racun;
 
+import domen.ApstraktniDomenskiObjekat;
 import domen.Racun;
 import domen.StavkaRacuna;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class PretraziRacuneSO extends ApstraktnaGenerickaOperacija {
     private Racun kriterijum;
     
     @Override
-    protected void preduslovi(Object objekat) throws Exception {
+    protected void preduslovi(ApstraktniDomenskiObjekat objekat) throws Exception {
     if (objekat != null && !(objekat instanceof Racun)) {
             throw new Exception("Sistem ne moze da pretrazi racune: neispravan kriterijum.");
         }
@@ -48,7 +49,7 @@ public class PretraziRacuneSO extends ApstraktnaGenerickaOperacija {
     }
 
     @Override
-    protected void izvrsiOperaciju(Object objekat, String kljuc) throws Exception {
+    protected void izvrsiOperaciju(ApstraktniDomenskiObjekat objekat, String kljuc) throws Exception {
         StringBuilder uslov = new StringBuilder();
         uslov.append(" JOIN zaposleni ON racun.idZaposleni = zaposleni.idZaposleni ");
         uslov.append(" JOIN klijent ON racun.idKlijent = klijent.idKlijent ");
