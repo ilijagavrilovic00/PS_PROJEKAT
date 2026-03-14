@@ -304,5 +304,8 @@ public class PrikazRacunaForma extends javax.swing.JFrame {
     public void pretragaAddActionListener(ActionListener actionListener) {
         btnPretrazi.addActionListener(actionListener);
     }
+    public void ucitajRacunAddActionListener(ActionListener actionListener) {
+        btnUcitajRacun.addActionListener(actionListener);
+    }
 
 }

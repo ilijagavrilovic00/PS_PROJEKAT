@@ -19,7 +19,7 @@ public class ModelTabeleKlijenti extends AbstractTableModel {
 
     List<Klijent> lista;
     List<Klijent> originalnaLista;
-    String[] kolone ={"id", "ime", "prezime","telefon", "mesto"};
+    String[] kolone ={"id", "ime", "prezime"};
 
     public ModelTabeleKlijenti(List<Klijent> lista) {
         this.lista = lista;
@@ -48,8 +48,6 @@ public class ModelTabeleKlijenti extends AbstractTableModel {
             case 0: return k.getIdKlijent();
             case 1: return k.getIme();
             case 2: return k.getPrezime();
-            case 3: return k.getBrojTelefona();
-            case 4: return k.getMesto();
             default: return "NA";
         }
     }

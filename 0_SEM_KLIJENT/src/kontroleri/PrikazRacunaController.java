@@ -160,6 +160,24 @@ public class PrikazRacunaController {
                 return kriterijum;
             }
         });
+        pi.ucitajRacunAddActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int red = pi.getTblRacuni().getSelectedRow();
+                if (red == -1) {
+                    JOptionPane.showMessageDialog(pi, "Sistem ne moze da nadje racun", "GRESKA", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                ModelTabeleRacuna mtr = (ModelTabeleRacuna) pi.getTblRacuni().getModel();
+                Racun r = mtr.getLista().get(red);
+                JOptionPane.showMessageDialog(pi, "Sistem je nasao racun.", "USPEH", JOptionPane.INFORMATION_MESSAGE);
+
+                List<StavkaRacuna> stavke = r.getStavke() != null ? r.getStavke() : new ArrayList<>();
+                ModelTabeleStavkeRacuna mtsi = new ModelTabeleStavkeRacuna(stavke);
+                pi.getTblStavke().setModel(mtsi);
+            }
+        });
     }
 
     private void addMouseListener() {
@@ -169,12 +187,7 @@ public class PrikazRacunaController {
                 int red = pi.getTblRacuni().getSelectedRow();
                 if(red!=-1){
                     ModelTabeleRacuna mtr = (ModelTabeleRacuna) pi.getTblRacuni().getModel();
-                    Racun r = mtr.getLista().get(red);
-                    List<StavkaRacuna> stavke = r.getStavke() != null ? r.getStavke() : new ArrayList<>();
                     mtr.fireTableRowsUpdated(red, red);
-                    //
-                    ModelTabeleStavkeRacuna mtsi = new ModelTabeleStavkeRacuna(stavke);
-                    pi.getTblStavke().setModel(mtsi);
                 }
             }
         });
