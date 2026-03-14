@@ -11,7 +11,7 @@ import operacije.ApstraktnaGenerickaOperacija;
  *
  * @author ilija
  */
-public class KreirajKlijentaSO extends ApstraktnaGenerickaOperacija {
+public class UbaciKlijentaSO extends ApstraktnaGenerickaOperacija {
 
     @Override
     protected void preduslovi(ApstraktniDomenskiObjekat objekat) throws Exception {

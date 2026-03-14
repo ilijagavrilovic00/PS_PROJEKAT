@@ -35,7 +35,7 @@ public class DodajRacunSO extends ApstraktnaGenerickaOperacija{
         }
 
         r.setStavke(stavke);
-        int idRacun = broker.addReturnKey(r);
+        long idRacun = broker.addReturnKey(r);
         r.setIdRacun(idRacun);
 
         for (StavkaRacuna s : stavke) {

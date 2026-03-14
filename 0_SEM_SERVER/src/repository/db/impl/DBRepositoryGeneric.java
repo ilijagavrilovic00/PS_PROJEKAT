@@ -71,7 +71,7 @@ public class DBRepositoryGeneric implements DBRepository<ApstraktniDomenskiObjek
     }
 
     @Override
-    public int addReturnKey(ApstraktniDomenskiObjekat param) throws Exception {
+    public long addReturnKey(ApstraktniDomenskiObjekat param) throws Exception {
         String upit = "INSERT INTO "+ param.vratiNazivTabele() + " (" +
                 param.vratiKoloneZaUbacivanje()+ ") VALUES ("+param.vratiVrednostiZaUbacivanje()+")";
         

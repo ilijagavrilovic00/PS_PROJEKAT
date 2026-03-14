@@ -15,7 +15,7 @@ import operacije.igre.UcitajIgreSO;
 import operacije.racun.ObrisiRacunSO;
 import operacije.racun.UcitajRacuneSO;
 import operacije.klijenti.AzurirajKlijentaSO;
-import operacije.klijenti.KreirajKlijentaSO;
+import operacije.klijenti.UbaciKlijentaSO;
 import operacije.klijenti.ObrisiKlijentaSO;
 import operacije.klijenti.UcitajKlijenteSO;
 import operacije.login.LoginOperacija;
@@ -59,7 +59,7 @@ public class Controller {
     }
 
     public void dodajKlijenta(Klijent k) throws Exception {
-        KreirajKlijentaSO operacija = new KreirajKlijentaSO();
+        UbaciKlijentaSO operacija = new UbaciKlijentaSO();
         operacija.izvrsi(k, null);
     }
     
@@ -77,7 +77,6 @@ public class Controller {
     public List<Racun> vratiListuRacun() throws Exception {
         UcitajRacuneSO ucitaj = new UcitajRacuneSO();
         ucitaj.izvrsi(new Racun(), null);
-// ucitaj.izvrsi(null, null);
         return ucitaj.getRacuni();
     }
 
